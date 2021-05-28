@@ -4,7 +4,7 @@ import com.senla.model.Maintenance;
 
 import java.util.List;
 
-public interface IMaintenanceService { // Интерфейс методов работы с Maintenance
+public interface IMaintenanceService {
 
     Maintenance addMaintenance(String name, Double price);
 

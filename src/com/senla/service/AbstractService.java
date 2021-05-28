@@ -14,7 +14,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 public class AbstractService implements IAbstractService {
 
     private final IGuestDao guestDao;
@@ -28,7 +27,7 @@ public class AbstractService implements IAbstractService {
     }
 
     @Override
-    public List<AEntity> PricesForMaintenancesAndRooms(){
+    public List<AEntity> PricesForMaintenancesAndRooms() {
         List<AEntity> maintenancesAndRooms = new ArrayList<>();
         maintenancesAndRooms.addAll(roomDao.getAll()
                 .stream()
@@ -42,7 +41,7 @@ public class AbstractService implements IAbstractService {
     }
 
     @Override
-    public List<IAbstractInt> PricesForMaintenancesAndRooms(Comparator<IAbstractInt> comp){
+    public List<IAbstractInt> PricesForMaintenancesAndRooms(Comparator<IAbstractInt> comp) {
         List<IAbstractInt> maintenancesAndRooms = new ArrayList<>();
         maintenancesAndRooms.addAll(roomDao.getAll());
         maintenancesAndRooms.addAll(maintenanceDao.getAll());

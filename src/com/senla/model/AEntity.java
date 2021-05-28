@@ -11,5 +11,4 @@ public class AEntity {
     public void setId(Long id) {
         this.id = id;
     }
-
 }

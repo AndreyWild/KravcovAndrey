@@ -7,7 +7,6 @@ import com.senla.api.service.IRoomService;
 import com.senla.model.*;
 import com.senla.util.DatePeriodGenerator;
 
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
@@ -50,13 +49,12 @@ public class RoomService implements IRoomService {
             guest.setOut(outDate);
             room.getBusyDates().addAll(DatePeriodGenerator.toDateList(inDate, outDate));
         //}
-
     }
 
     @Override
     public void evictGuest(Long guestId) { // выселение гостя из номера
         Guest guest = guestDao.getById(guestId);
-        //Room room = guest.getRoom();
+//        Room room = guest.getRoom();
         Room room = roomDao.getById(guest.getRoom().getId());
         room.getGuests().remove(guest);
         guest.setGuestStatus(GuestStatus.NOT_CHECKED);
@@ -80,6 +78,7 @@ public class RoomService implements IRoomService {
     public List<Room> getAllRooms(Comparator<Room> comp) {
         List<Room> rooms = roomDao.getAll();
         rooms.sort(comp);
+
         return rooms;
     }
 
@@ -89,6 +88,7 @@ public class RoomService implements IRoomService {
                 .filter(room -> room.getStatus().equals(RoomStatus.OPEN))
                 .collect(Collectors.toList());
         rooms.sort(comp);
+
         return rooms;
     }
 
@@ -131,6 +131,5 @@ public class RoomService implements IRoomService {
     public void showRoomDetails(Long roomId) {
         System.out.println(roomDao.getById(roomId));
     }
-
 }
 

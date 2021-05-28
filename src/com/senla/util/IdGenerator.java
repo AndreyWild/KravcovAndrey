@@ -6,13 +6,15 @@ public class IdGenerator {
     private static Long roomId = 1L;
     private static Long maintenanceId = 1L;
 
-    public static Long generateGuestId(){
+    public static Long generateGuestId() {
         return guestId++;
     }
 
-    public static Long generateRoomId(){
+    public static Long generateRoomId() {
         return roomId++;
     }
 
-    public static Long generateMaintenanceId(){return maintenanceId++; }
+    public static Long generateMaintenanceId() {
+        return maintenanceId++;
+    }
 }

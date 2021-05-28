@@ -36,6 +36,7 @@ public class GuestService implements IGuestService {
     public List<Guest> getAllGuests(Comparator<Guest> comp) {
         List<Guest> guests = guestDao.getAll();
         guests.sort(comp);
+
         return guests;
     }
 
@@ -57,8 +58,8 @@ public class GuestService implements IGuestService {
     }
 
     @Override
-    public List<Maintenance> getAllMaintenancesGuest(Long guestId, Comparator<Maintenance> comp){
-        List<Maintenance> maintenances= guestDao.getById(guestId).getMaintenances();
+    public List<Maintenance> getAllMaintenancesGuest(Long guestId, Comparator<Maintenance> comp) {
+        List<Maintenance> maintenances = guestDao.getById(guestId).getMaintenances();
         maintenances.sort(comp);
 
         return maintenances;

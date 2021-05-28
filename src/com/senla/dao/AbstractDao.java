@@ -10,25 +10,26 @@ import com.senla.util.IdGenerator;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractDao<T extends AEntity> implements GenericDao<T> { // Реализация методов GenericDao
+public abstract class AbstractDao<T extends AEntity> implements GenericDao<T> { // Implementing GenericDao Methods
 
-    List <T> repository = new ArrayList<>(); // Хранилище для абстрактной сущности (замена DB)
+    List<T> repository = new ArrayList<>(); // Storage for abstract entity (DB replacement)
 
     @Override
     public void save(T entity) {
-        if(entity instanceof Guest){
+        if (entity instanceof Guest) {
             entity.setId(IdGenerator.generateGuestId());
-        } else if (entity instanceof Maintenance){
+        } else if (entity instanceof Maintenance) {
             entity.setId(IdGenerator.generateMaintenanceId());
-        } else if (entity instanceof Room){
+        } else if (entity instanceof Room) {
             entity.setId(IdGenerator.generateRoomId());
         }
-        repository.add(entity); }
+        repository.add(entity);
+    }
 
     @Override
     public T getById(Long id) {
-        for(T entity : repository){
-            if(id.equals(entity.getId())){
+        for (T entity : repository) {
+            if (id.equals(entity.getId())) {
                 return entity;
             }
         }

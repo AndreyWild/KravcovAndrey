@@ -4,8 +4,9 @@ import com.senla.model.AEntity;
 
 import java.util.List;
 
-public interface GenericDao <T extends AEntity>{ // Родительский интерфейс работы с базой данных
-    // <T extends AEntity> - дженерик работы с любым потомком класса AEntity
+public interface GenericDao <T extends AEntity>{
+
+    /* Parent database interface <T extends AEntity> - generic to work with any descendant of the AEntity class */
 
     void save(T entity);
 

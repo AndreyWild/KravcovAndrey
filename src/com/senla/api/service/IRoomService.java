@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
 
-public interface IRoomService { // Интерфейс методов работы с Room
+public interface IRoomService {
 
     Room addRoom(Integer number, Integer capacity, Double price, Integer numberOfStars);
 

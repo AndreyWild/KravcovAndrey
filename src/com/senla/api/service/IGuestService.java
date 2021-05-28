@@ -6,7 +6,7 @@ import com.senla.model.Maintenance;
 import java.util.Comparator;
 import java.util.List;
 
-public interface IGuestService { // Интерфейс методов работы с Guest
+public interface IGuestService {
 
     Guest addGuest(String name, Integer age);
 

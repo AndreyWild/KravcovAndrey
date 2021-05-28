@@ -21,7 +21,6 @@ public class Room extends AEntity implements IAbstractInt {
     //private LocalDate freeRoomDate = LocalDate.of(2000, 01, 01);
     //private List<Maintenance> roomMaintenances;
 
-
     public Room(Integer number, Integer capacity, Double price, Integer numberOfStars) {
         this.number = number;
         this.capacity = capacity;

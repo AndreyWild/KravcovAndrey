@@ -46,7 +46,7 @@ public class Guest extends AEntity {
     }
 
     public List<Maintenance> getMaintenances() {
-        if(maintenances == null){
+        if (maintenances == null) {
             maintenances = new ArrayList<>();
         }
         return maintenances;
@@ -82,6 +82,9 @@ public class Guest extends AEntity {
 
     @Override
     public String toString() {
-        return "Guest id(" + getId() + ") name-'" + name + '\'' + ", "+ age + " age, room(" + (room == null ? "empty" : room.getNumber())+ ")";
+        return "Guest id(" + getId()
+                + ") name-'" + name
+                + '\'' + ", " + age + " age, room("
+                + (room == null ? "empty" : room.getNumber()) + ")";
     }
 }
