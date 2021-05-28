@@ -15,9 +15,6 @@ import com.senla.service.AbstractService;
 import com.senla.service.GuestService;
 import com.senla.service.MaintenanceService;
 import com.senla.service.RoomService;
-//import com.senla.sorter.PriceComparator;
-//import com.senla.sorter.maintenances.MaintNameComparator;
-//import com.senla.sorter.maintenances.MaintPriceComparator;
 import com.senla.sorter.abstr.AbstrPiceComparator;
 import com.senla.sorter.maintenance.MaintNameComparator;
 import com.senla.sorter.maintenance.MaintPriceComparator;
@@ -26,9 +23,8 @@ import com.senla.sorter.guests.GuestNameComparator;
 import com.senla.sorter.rooms.RoomsPriceComparator;
 import com.senla.sorter.rooms.RoomsStarsComparator;
 import com.senla.util.DatePeriodGenerator;
-import java.time.LocalDate;
-import java.util.List;
 
+import java.time.LocalDate;
 
 public class Hotel {
 
@@ -55,7 +51,6 @@ public class Hotel {
         Guest guest10 = GUEST_SERVICE.addGuest("Lyanna Stark", 52);
         GUEST_SERVICE.getAllGuests().forEach(System.out::println);
 
-
         System.out.println("--------Создаю номера--------------------------------------------------------------------");
         Room room1 = ROOM_SERVICE.addRoom(358, 1, 500.0, 5);
         Room room2 = ROOM_SERVICE.addRoom(12, 2, 400.0, 4);
@@ -63,7 +58,6 @@ public class Hotel {
         Room room4 = ROOM_SERVICE.addRoom(82, 4, 300.0, 2);
         Room room5 = ROOM_SERVICE.addRoom(108, 5, 250.0, 1);
         ROOM_SERVICE.getAllRooms().forEach(System.out::println);
-
 
         System.out.println("--------Заселяю 5-х гостей в номер и прверяю их статус-----------------------------------");
         System.out.println(GUEST_DAO.getById(1L).getGuestStatus());
@@ -134,7 +128,6 @@ public class Hotel {
 
         ROOM_SERVICE.getAllAvailableNumbersForDate(date).forEach(System.out::println);
 
-
         System.out.println("---------Создаю еще 2 услуги, добавляю их гостю и вывожу счет за номер-------------------");
         Maintenance maintenance2 = MAINTENANCE_SERVICE.addMaintenance("Cleaning clothes ", 30.00);
         Maintenance maintenance3 = MAINTENANCE_SERVICE.addMaintenance("Food ordering ", 120.00);
@@ -161,22 +154,5 @@ public class Hotel {
 
         System.out.println("---------Посмотреть детали отдельного номера---------------------------------------------");
         ROOM_SERVICE.showRoomDetails(5l);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
     }
 }
