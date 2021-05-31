@@ -1,6 +1,6 @@
 package com.senla.model;
 
-public class AEntity {
+public abstract class AEntity {
 
     protected Long id;
 

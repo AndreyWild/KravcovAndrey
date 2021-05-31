@@ -1,6 +1,6 @@
 package com.senla.api.service;
 
-public interface IAbstractInt {
+public interface IPriceService {
 
     /* The interface combines two Guest entities and a Maintenance */
 

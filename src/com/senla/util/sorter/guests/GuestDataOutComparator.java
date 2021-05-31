@@ -1,4 +1,4 @@
-package com.senla.sorter.guests;
+package com.senla.util.sorter.guests;
 
 import com.senla.model.Guest;
 

@@ -1,4 +1,4 @@
-package com.senla.sorter.maintenance;
+package com.senla.util.sorter.maintenance;
 
 import com.senla.model.Maintenance;
 

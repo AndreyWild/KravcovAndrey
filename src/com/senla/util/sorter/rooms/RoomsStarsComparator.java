@@ -1,4 +1,4 @@
-package com.senla.sorter.rooms;
+package com.senla.util.sorter.rooms;
 
 import com.senla.model.Room;
 

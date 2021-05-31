@@ -6,15 +6,15 @@ import java.util.List;
 
 public class Guest extends AEntity {
 
-    private String name; // guest name
-    private int age; // guest age
-    private Room room; // the room in which the guest is checked in
-    private List<Maintenance> maintenances; // services ordered by the guest.
+    private String name;
+    private int age;
+    private Room room;
+    private List<Maintenance> maintenances;
 
-    private LocalDate in; // check-in date
-    private LocalDate out; // check out date
+    private LocalDate in;
+    private LocalDate out;
 
-    private GuestStatus guestStatus = GuestStatus.NOT_CHECKED; // guest check-in status
+    private GuestStatus guestStatus = GuestStatus.NOT_CHECKED;
 
     public Guest(String name, int age) {
         this.name = name;

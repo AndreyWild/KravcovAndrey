@@ -9,4 +9,8 @@ public interface IMaintenanceService {
     Maintenance addMaintenance(String name, Double price);
 
     List<Maintenance> getAllMaintenances();
+
+    Maintenance getById(Long maintenanceId);
+
+    List<Maintenance> getAll();
 }

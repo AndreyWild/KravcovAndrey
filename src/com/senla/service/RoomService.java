@@ -70,12 +70,12 @@ public class RoomService implements IRoomService {
     }
 
     @Override
-    public List<Room> getAllRooms(){
+    public List<Room> getAll(){
         return roomDao.getAll();
     }
 
     @Override
-    public List<Room> getAllRooms(Comparator<Room> comp) {
+    public List<Room> getAll(Comparator<Room> comp) {
         List<Room> rooms = roomDao.getAll();
         rooms.sort(comp);
 
@@ -130,6 +130,11 @@ public class RoomService implements IRoomService {
     @Override
     public void showRoomDetails(Long roomId) {
         System.out.println(roomDao.getById(roomId));
+    }
+
+    @Override
+    public Room getById(Long roomId){
+        return roomDao.getById(roomId);
     }
 }
 

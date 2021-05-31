@@ -10,13 +10,15 @@ public interface IGuestService {
 
     Guest addGuest(String name, Integer age);
 
-    List<Guest> getAllGuests();
+    List<Guest> getAll();
 
-    List<Guest> getAllGuests(Comparator<Guest> comp);
+    List<Guest> getAll(Comparator<Guest> comp);
 
-    Double roomBill(Guest guest);
+    Double roomBill(Long guestId);
 
     void orderMaintenance(Long guestId, Long maintenanceId);
 
     List<Maintenance> getAllMaintenancesGuest(Long guestId, Comparator<Maintenance> comp);
+
+    Guest getById(Long guestId);
 }

@@ -15,9 +15,9 @@ public interface IRoomService {
 
     void evictGuest(Long guestId);
 
-    List<Room> getAllRooms();
+    List<Room> getAll();
 
-    List<Room> getAllRooms(Comparator<Room> comp);
+    List<Room> getAll(Comparator<Room> comp);
 
     List<Room> getAllOpenRooms(Comparator<Room> comp);
 
@@ -28,4 +28,6 @@ public interface IRoomService {
     void showThreeLastGuestsRooms(Long roomId);
 
     void showRoomDetails(Long roomId);
+
+    Room getById(Long roomId);
 }

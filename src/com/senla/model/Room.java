@@ -1,21 +1,21 @@
 package com.senla.model;
 
-import com.senla.api.service.IAbstractInt;
+import com.senla.api.service.IPriceService;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Room extends AEntity implements IAbstractInt {
+public class Room extends AEntity implements IPriceService {
 
-    private Integer number; // room number
-    private Integer capacity; // room capacity
-    private RoomStatus status = RoomStatus.OPEN; // room status
-    private Double price; // room price
-    private Integer numberOfStars; // number of stars
-    private List<Guest> guests; // guest list in the room
-    private List<Guest> guestHistory; // history of all guests staying
-    private List<LocalDate> busyDates; // dates on which the room is occupied
+    private Integer number;
+    private Integer capacity;
+    private RoomStatus status = RoomStatus.OPEN;
+    private Double price;
+    private Integer numberOfStars;
+    private List<Guest> guests;
+    private List<Guest> guestHistory;
+    private List<LocalDate> busyDates;
 
     //private LocalDate freeRoomDate = null;
     //private LocalDate freeRoomDate = LocalDate.of(2000, 01, 01);

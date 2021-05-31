@@ -1,8 +1,8 @@
 package com.senla.model;
 
-import com.senla.api.service.IAbstractInt;
+import com.senla.api.service.IPriceService;
 
-public class Maintenance extends AEntity implements IAbstractInt {
+public class Maintenance extends AEntity implements IPriceService {
 
     private String name;
     private Double price;

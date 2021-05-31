@@ -25,4 +25,14 @@ public class MaintenanceService implements IMaintenanceService {
     public List<Maintenance> getAllMaintenances() {
         return maintenanceDao.getAll();
     }
+
+    @Override
+    public Maintenance getById(Long maintenanceId){
+        return  maintenanceDao.getById(maintenanceId);
+    }
+
+    @Override
+    public List<Maintenance> getAll(){
+        return maintenanceDao.getAll();
+    }
 }

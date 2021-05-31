@@ -5,11 +5,11 @@ import com.senla.model.AEntity;
 import java.util.Comparator;
 import java.util.List;
 
-public interface IAbstractService {
+public interface IMultipleEntitiesService {
 
     /* Interface for working with all entities */
 
     List<AEntity> PricesForMaintenancesAndRooms();
 
-    List<IAbstractInt> PricesForMaintenancesAndRooms(Comparator<IAbstractInt> comp);
+    List<IPriceService> PricesForMaintenancesAndRooms(Comparator<IPriceService> comp);
 }
