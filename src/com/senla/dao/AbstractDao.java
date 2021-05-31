@@ -1,6 +1,6 @@
 package com.senla.dao;
 
-import com.senla.api.dao.GenericDao;
+import com.senla.api.dao.IGenericDao;
 import com.senla.model.AEntity;
 import com.senla.model.Guest;
 import com.senla.model.Maintenance;
@@ -10,7 +10,7 @@ import com.senla.util.IdGenerator;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractDao<T extends AEntity> implements GenericDao<T> { // Implementing GenericDao Methods
+public abstract class AbstractDao<T extends AEntity> implements IGenericDao<T> { // Implementing GenericDao Methods
 
     List<T> repository = new ArrayList<>(); // Storage for abstract entity (DB replacement)
 
