@@ -14,7 +14,7 @@ public interface IGuestService {
 
     List<Guest> getAll(Comparator<Guest> comp);
 
-    Double roomBill(Long guestId);
+    Double getInvoiceForRoomAndMaintenances(Long guestId);
 
     void orderMaintenance(Long guestId, Long maintenanceId);
 

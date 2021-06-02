@@ -9,7 +9,7 @@ public interface IMultipleEntitiesService {
 
     /* Interface for working with all entities */
 
-    List<AEntity> PricesForMaintenancesAndRooms();
+    List<AEntity> getPricesForMaintenancesAndRoom();
 
-    List<IPriceService> PricesForMaintenancesAndRooms(Comparator<IPriceService> comp);
+    List<IPriceService> getPricesForMaintenancesAndRoom(Comparator<IPriceService> comp);
 }

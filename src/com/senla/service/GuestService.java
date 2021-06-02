@@ -7,19 +7,20 @@ import com.senla.dao.GuestDao;
 import com.senla.dao.MaintenanceDao;
 import com.senla.model.Guest;
 import com.senla.model.Maintenance;
+import com.senla.util.InitializerDAO;
 
 import java.util.Comparator;
 import java.util.List;
 
 public class GuestService implements IGuestService {
 
-    private final IGuestDao guestDao ;
-    private final IMaintenanceDao maintenanceDao;
+    private final IGuestDao guestDao = InitializerDAO.GUEST_DAO;
+    private final IMaintenanceDao maintenanceDao = InitializerDAO.MAINTENANCE_DAO;
 
-    public GuestService(IGuestDao guestDao, IMaintenanceDao maintenanceDao) {
-        this.guestDao = guestDao;
-        this.maintenanceDao = maintenanceDao;
-    }
+//    public GuestService(IGuestDao guestDao, IMaintenanceDao maintenanceDao) {
+//        this.guestDao = guestDao;
+//        this.maintenanceDao = maintenanceDao;
+//    }
 
     @Override
     public Guest addGuest(String name, Integer age) {
@@ -43,7 +44,7 @@ public class GuestService implements IGuestService {
     }
 
     @Override
-    public Double roomBill(Long guestId) {
+    public Double getInvoiceForRoomAndMaintenances(Long guestId) {
         Guest guest = guestDao.getById(guestId);
         double bill = guest.getRoom().getPrice() +
                 guest.getMaintenances().stream()

@@ -19,13 +19,13 @@ public interface IRoomService {
 
     List<Room> getAll(Comparator<Room> comp);
 
-    List<Room> getAllOpenRooms(Comparator<Room> comp);
+    List<Room> getOpenRooms(Comparator<Room> comp);
 
     Integer getNumberOfAvailableRooms();
 
-    List<Room> getAllAvailableNumbersForDate(LocalDate localDate);
+    List<Room> getAvailableRoomsForDate(LocalDate localDate);
 
-    void showThreeLastGuestsRooms(Long roomId);
+    void showThreeLastGuests(Long roomId);
 
     void showRoomDetails(Long roomId);
 

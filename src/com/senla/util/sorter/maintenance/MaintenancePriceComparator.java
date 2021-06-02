@@ -4,7 +4,7 @@ import com.senla.model.Maintenance;
 
 import java.util.Comparator;
 
-public class MaintPriceComparator implements Comparator<Maintenance> {
+public class MaintenancePriceComparator implements Comparator<Maintenance> {
 
     @Override
     public int compare(Maintenance m1, Maintenance m2) {

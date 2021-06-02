@@ -6,6 +6,7 @@ import com.senla.api.dao.IRoomDao;
 import com.senla.api.service.IRoomService;
 import com.senla.model.*;
 import com.senla.util.DatePeriodGenerator;
+import com.senla.util.InitializerDAO;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -15,15 +16,15 @@ import java.util.stream.Collectors;
 
 public class RoomService implements IRoomService {
 
-    private final IRoomDao roomDao;
-    private final IGuestDao guestDao;
-    private final IMaintenanceDao maintenanceDao;
+    private final IGuestDao guestDao = InitializerDAO.GUEST_DAO;
+    private final IRoomDao roomDao = InitializerDAO.ROOM_DAO;
+    private final IMaintenanceDao maintenanceDao = InitializerDAO.MAINTENANCE_DAO;
 
-    public RoomService(IRoomDao roomDao, IGuestDao guestDao, IMaintenanceDao maintenanceDao) {
-        this.roomDao = roomDao;
-        this.guestDao = guestDao;
-        this.maintenanceDao = maintenanceDao;
-    }
+//    public RoomService(IRoomDao roomDao, IGuestDao guestDao, IMaintenanceDao maintenanceDao) {
+//        this.roomDao = roomDao;
+//        this.guestDao = guestDao;
+//        this.maintenanceDao = maintenanceDao;
+//    }
 
     @Override
     public Room addRoom(Integer number, Integer capacity, Double price, Integer numberOfStars) {
@@ -38,10 +39,10 @@ public class RoomService implements IRoomService {
 
         //if(room.getStatus() == RoomStatus.OPEN){
             Guest guest = guestDao.getById(guestId);
-            room.getGuests().add(guest); // add guest in room
-            guest.setRoom(room); // add room in guest
-            room.setStatus(RoomStatus.CLOSED); // change room status
-            guest.setGuestStatus(GuestStatus.CHECKED); // change guest status
+            room.getGuests().add(guest);
+            guest.setRoom(room);
+            room.setStatus(RoomStatus.CLOSED);
+            guest.setGuestStatus(GuestStatus.CHECKED);
             LocalDate inDate = LocalDate.now();
             LocalDate outDate = LocalDate.parse(dateOut, DateTimeFormatter.ofPattern("yyyy/MM/dd"));
             room.getGuestHistory().add(guest);
@@ -52,7 +53,7 @@ public class RoomService implements IRoomService {
     }
 
     @Override
-    public void evictGuest(Long guestId) { // выселение гостя из номера
+    public void evictGuest(Long guestId) {
         Guest guest = guestDao.getById(guestId);
 //        Room room = guest.getRoom();
         Room room = roomDao.getById(guest.getRoom().getId());
@@ -61,8 +62,8 @@ public class RoomService implements IRoomService {
         room.setStatus(RoomStatus.OPEN);
 //        guest.setOut(LocalDate.now());
         guest.setRoom(null);
-        guestDao.update(guest); // обновляем гостя в базе данных
-        roomDao.update(room); // обновляем номер в базе данных
+        guestDao.update(guest);
+        roomDao.update(room);
 
         // TODO: 27.05.2021 можно дописать изменение списка занятых дат, получив дату заселения и за дату
         //  выселения  взяв дату вызова метода.
@@ -83,7 +84,7 @@ public class RoomService implements IRoomService {
     }
 
     @Override
-    public List<Room> getAllOpenRooms(Comparator<Room> comp) {
+    public List<Room> getOpenRooms(Comparator<Room> comp) {
         List<Room> rooms = roomDao.getAll().stream()
                 .filter(room -> room.getStatus().equals(RoomStatus.OPEN))
                 .collect(Collectors.toList());
@@ -102,7 +103,7 @@ public class RoomService implements IRoomService {
     }
 
     @Override
-    public List<Room> getAllAvailableNumbersForDate(LocalDate localDate) {
+    public List<Room> getAvailableRoomsForDate(LocalDate localDate) {
         List<Room> rooms = roomDao.getAll()
                 .stream()
                 .filter(room -> room.getBusyDates() != null)
@@ -113,7 +114,7 @@ public class RoomService implements IRoomService {
     }
 
     @Override
-    public void showThreeLastGuestsRooms(Long roomId){
+    public void showThreeLastGuests(Long roomId){
         Room room = roomDao.getById(roomId);
         List<Guest> guests = room.getGuestHistory();
         if(room.getGuestHistory().size() <= 3){
