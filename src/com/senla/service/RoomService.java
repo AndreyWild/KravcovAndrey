@@ -26,6 +26,18 @@ public class RoomService implements IRoomService {
 //        this.maintenanceDao = maintenanceDao;
 //    }
 
+    private RoomService() {
+    }
+    private static RoomService INSTANCE;
+
+
+    public static RoomService getINSTANCE() {
+        if (INSTANCE == null) {
+            INSTANCE = new RoomService();
+        }
+        return INSTANCE;
+    }
+
     @Override
     public Room addRoom(Integer number, Integer capacity, Double price, Integer numberOfStars) {
         Room room = new Room(number, capacity, price, numberOfStars);
@@ -38,17 +50,17 @@ public class RoomService implements IRoomService {
         Room room = roomDao.getById(roomId);
 
         //if(room.getStatus() == RoomStatus.OPEN){
-            Guest guest = guestDao.getById(guestId);
-            room.getGuests().add(guest);
-            guest.setRoom(room);
-            room.setStatus(RoomStatus.CLOSED);
-            guest.setGuestStatus(GuestStatus.CHECKED);
-            LocalDate inDate = LocalDate.now();
-            LocalDate outDate = LocalDate.parse(dateOut, DateTimeFormatter.ofPattern("yyyy/MM/dd"));
-            room.getGuestHistory().add(guest);
-            guest.setIn(inDate);
-            guest.setOut(outDate);
-            room.getBusyDates().addAll(DatePeriodGenerator.toDateList(inDate, outDate));
+        Guest guest = guestDao.getById(guestId);
+        room.getGuests().add(guest);
+        guest.setRoom(room);
+        room.setStatus(RoomStatus.CLOSED);
+        guest.setGuestStatus(GuestStatus.CHECKED);
+        LocalDate inDate = LocalDate.now();
+        LocalDate outDate = LocalDate.parse(dateOut, DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+        room.getGuestHistory().add(guest);
+        guest.setIn(inDate);
+        guest.setOut(outDate);
+        room.getBusyDates().addAll(DatePeriodGenerator.toDateList(inDate, outDate));
         //}
     }
 
@@ -71,7 +83,7 @@ public class RoomService implements IRoomService {
     }
 
     @Override
-    public List<Room> getAll(){
+    public List<Room> getAll() {
         return roomDao.getAll();
     }
 
@@ -114,11 +126,11 @@ public class RoomService implements IRoomService {
     }
 
     @Override
-    public void showThreeLastGuests(Long roomId){
+    public void showThreeLastGuests(Long roomId) {
         Room room = roomDao.getById(roomId);
         List<Guest> guests = room.getGuestHistory();
-        if(room.getGuestHistory().size() <= 3){
-            for(Guest guest : guests){
+        if (room.getGuestHistory().size() <= 3) {
+            for (Guest guest : guests) {
                 System.out.println(guest.getName() + " " + guest.getIn() + "-" + guest.getOut());
             }
         } else {
@@ -134,7 +146,7 @@ public class RoomService implements IRoomService {
     }
 
     @Override
-    public Room getById(Long roomId){
+    public Room getById(Long roomId) {
         return roomDao.getById(roomId);
     }
 }

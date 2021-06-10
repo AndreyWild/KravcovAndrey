@@ -15,6 +15,19 @@ public class MaintenanceService implements IMaintenanceService {
 //        this.maintenanceDao = maintenanceDao;
 //    }
 
+
+    protected MaintenanceService() {
+    }
+
+    private static MaintenanceService INSTANCE;
+
+    public static MaintenanceService getINSTANCE() {
+        if (INSTANCE == null) {
+            INSTANCE = new MaintenanceService();
+        }
+        return INSTANCE;
+    }
+
     @Override
     public Maintenance addMaintenance(String name, Double price) {
         Maintenance maintenance = new Maintenance(name, price);
@@ -28,12 +41,12 @@ public class MaintenanceService implements IMaintenanceService {
     }
 
     @Override
-    public Maintenance getById(Long maintenanceId){
-        return  maintenanceDao.getById(maintenanceId);
+    public Maintenance getById(Long maintenanceId) {
+        return maintenanceDao.getById(maintenanceId);
     }
 
     @Override
-    public List<Maintenance> getAll(){
+    public List<Maintenance> getAll() {
         return maintenanceDao.getAll();
     }
 }

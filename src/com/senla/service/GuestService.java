@@ -22,6 +22,19 @@ public class GuestService implements IGuestService {
 //        this.maintenanceDao = maintenanceDao;
 //    }
 
+
+    private GuestService() {
+    }
+
+    private static GuestService INSTANCE;
+
+    public static GuestService getINSTANCE() {
+        if (INSTANCE == null) {
+            INSTANCE = new GuestService();
+        }
+        return INSTANCE;
+    }
+
     @Override
     public Guest addGuest(String name, Integer age) {
         Guest guest = new Guest(name, age);
