@@ -44,8 +44,8 @@ public class Builder {
         guestMenu.addItem(new MenuItem("guest maintenances sorted by price", new GuestMaintenancesSortedByPriceAction(), guestMenu));
 
 // ---------------------- ROOM MENU ---------------------------------------------
-        roomMenu.addItem(new MenuItem("creating a room", new AddRoomAction(), mainMenu));
-        roomMenu.addItem(new MenuItem("list all rooms", new ShowAllRoomAction(), mainMenu));
+        roomMenu.addItem(new MenuItem("creating a room", new AddRoomAction(), roomMenu));
+        roomMenu.addItem(new MenuItem("list all rooms", new ShowAllRoomAction(), roomMenu));
 
 // ---------------------- MAINTENANCE ---------------------------------------------
         maintenanceMenu.addItem(new MenuItem("creating a maintenance", new AddMaintenanceAction(), maintenanceMenu));
