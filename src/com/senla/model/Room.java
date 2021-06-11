@@ -103,12 +103,12 @@ public class Room extends AEntity implements IPriceService {
 
     @Override
     public String toString() {
-        return "Room number(" + number + ")"
-                + " id-" + getId()
+        return "\t" + getId()
+                + ". Room-" + number
                 + ", capacity(" + capacity
                 + "), status(" + status
-                + "), price(" + price
-                + "), stars(" + numberOfStars
-                + ") guests:\n" + (guests == null ? "empty" : guests);
+                + "), price-" + price
+                + "$, "+ numberOfStars + " star(s)"
+                + " guests:\n" + (guests == null ? "empty" : guests);
     }
 }

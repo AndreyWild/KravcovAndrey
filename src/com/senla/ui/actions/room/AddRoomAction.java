@@ -1,11 +1,13 @@
-package com.senla.ui.actions;
+package com.senla.ui.actions.room;
+
+import com.senla.util.ScannerInit;
 
 import java.util.Scanner;
 
 public class AddRoomAction extends ARoomAction {
     @Override
     public void execute() {
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = ScannerInit.getINSTANCE();
         System.out.print("Enter the room number: ");
         Integer number = scanner.nextInt();
         System.out.print("Enter number of seats in the room: ");

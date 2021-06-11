@@ -28,6 +28,20 @@ public class MaintenanceService implements IMaintenanceService {
         return INSTANCE;
     }
 
+    static {
+        MaintenanceService maintenanceService = MaintenanceService.getINSTANCE();
+        maintenanceService.addMaintenance("Room cleaning", 50.0);
+        maintenanceService.addMaintenance("Cleaning clothes", 10.0);
+        maintenanceService.addMaintenance("Shoe shine", 5.0);
+        maintenanceService.addMaintenance("Food ordering", 75.0);
+        maintenanceService.addMaintenance("Call order", 3.0);
+        maintenanceService.addMaintenance("Intercity call order", 10.0);
+        maintenanceService.addMaintenance("Cable TV order", 30.0);
+        maintenanceService.addMaintenance("Pay channel order", 3.0);
+        maintenanceService.addMaintenance("Morning Wake Order", 2.0);
+        maintenanceService.addMaintenance("Mini bar", 120.0);
+    }
+
     @Override
     public Maintenance addMaintenance(String name, Double price) {
         Maintenance maintenance = new Maintenance(name, price);

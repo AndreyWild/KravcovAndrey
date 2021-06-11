@@ -82,9 +82,9 @@ public class Guest extends AEntity {
 
     @Override
     public String toString() {
-        return "Guest id(" + getId()
-                + ") name-'" + name
-                + '\'' + ", " + age + " age, room("
+        return "\t" + getId()
+                + ". " + name
+                + ", " + age + " age, room("
                 + (room == null ? "empty" : room.getNumber()) + ")";
     }
 }

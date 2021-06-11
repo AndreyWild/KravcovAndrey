@@ -14,7 +14,7 @@ public class Navigator {
         System.out.println(currentMenu.getName()); // out name menu
         List<MenuItem> items = currentMenu.getItems();
         for (int i = 0; i < items.size(); i++) { // out all items in menu
-            System.out.println("\t" + i + ")" + items.get(i).getTitle());
+            System.out.println("\t" + i + ". " + items.get(i).getTitle());
         }
     }
 

@@ -38,6 +38,20 @@ public class RoomService implements IRoomService {
         return INSTANCE;
     }
 
+    static {
+        RoomService roomService = RoomService.getINSTANCE();
+        roomService.addRoom(101, 1, 250.0, 5);
+        roomService.addRoom(102, 2, 200.0, 4);
+        roomService.addRoom(103, 3, 150.0, 3);
+        roomService.addRoom(104, 4, 100.0, 2);
+        roomService.addRoom(105, 1, 350.0, 5);
+        roomService.addRoom(106, 2, 300.0, 4);
+        roomService.addRoom(107, 3, 250.0, 3);
+        roomService.addRoom(108, 4, 200.0, 2);
+        roomService.addRoom(109, 1, 500.0, 5);
+        roomService.addRoom(110, 2, 450.0, 4);
+    }
+
     @Override
     public Room addRoom(Integer number, Integer capacity, Double price, Integer numberOfStars) {
         Room room = new Room(number, capacity, price, numberOfStars);

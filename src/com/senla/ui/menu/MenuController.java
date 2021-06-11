@@ -18,6 +18,7 @@ public class MenuController {
         while (true){
             navigator.printMenu();
             Scanner scanner = new Scanner(System.in);
+            System.out.print("Enter the number: ");
             navigator.navigate(scanner.nextInt());
         }
     }

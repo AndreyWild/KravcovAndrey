@@ -12,6 +12,5 @@ public class Hotel {
         Navigator navigator = new Navigator();
         MenuController menuController = new MenuController(builder, navigator);
         menuController.run();
-
     }
 }
