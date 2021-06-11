@@ -1,5 +1,6 @@
 package com.senla.ui.menu;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class MenuController {
@@ -12,14 +13,18 @@ public class MenuController {
         this.navigator = navigator;
     }
 
-    public void run(){
+    public void run() {
         builder.buildMenu();
         navigator.setCurrentMenu(builder.getRootMenu());
-        while (true){
-            navigator.printMenu();
-            Scanner scanner = new Scanner(System.in);
-            System.out.print("Enter the number: ");
-            navigator.navigate(scanner.nextInt());
+        while (true) {
+            try {
+                navigator.printMenu();
+                Scanner scanner = new Scanner(System.in);
+                System.out.print("Enter the number: ");
+                navigator.navigate(scanner.nextInt());
+            } catch (NumberFormatException | InputMismatchException | IndexOutOfBoundsException ex) {
+                System.err.println("Invalid command!");
+            }
         }
     }
 }
