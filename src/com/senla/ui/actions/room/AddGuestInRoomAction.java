@@ -1,6 +1,7 @@
 package com.senla.ui.actions.room;
 
 import com.senla.ui.actions.AAction;
+import com.senla.util.CheckingListForEmptiness;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -12,6 +13,10 @@ import java.util.Scanner;
 public class AddGuestInRoomAction extends AAction {
     @Override
     public void execute() {
+        if(CheckingListForEmptiness.guestsListEmpty() | CheckingListForEmptiness.roomsListEmpty()){
+            return;
+        }
+
         try{
         Scanner scanner = new Scanner(System.in);
         Scanner scanner2 = new Scanner(System.in);

@@ -4,7 +4,7 @@ import com.senla.ui.actions.AAction;
 
 import java.util.Scanner;
 
-public class AddGuestAction extends AAction {
+public class CreateGuestAction extends AAction {
     @Override
     public void execute() {
         Scanner scanner = new Scanner(System.in);
