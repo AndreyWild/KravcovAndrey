@@ -7,8 +7,6 @@ import java.util.List;
 
 public interface IMultipleEntitiesService {
 
-    /* Interface for working with all entities */
-
     List<AEntity> getPricesForMaintenancesAndRoom();
 
     List<IPriceService> getPricesForMaintenancesAndRoom(Comparator<IPriceService> comp);

@@ -3,14 +3,13 @@ package com.senla.service;
 import com.senla.api.dao.IGuestDao;
 import com.senla.api.dao.IMaintenanceDao;
 import com.senla.api.service.IGuestService;
-import com.senla.dao.GuestDao;
-import com.senla.dao.MaintenanceDao;
 import com.senla.model.Guest;
 import com.senla.model.Maintenance;
 import com.senla.util.InitializerDAO;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class GuestService implements IGuestService {
@@ -18,25 +17,16 @@ public class GuestService implements IGuestService {
     private final IGuestDao guestDao = InitializerDAO.GUEST_DAO;
     private final IMaintenanceDao maintenanceDao = InitializerDAO.MAINTENANCE_DAO;
 
-//    public GuestService(IGuestDao guestDao, IMaintenanceDao maintenanceDao) {
-//        this.guestDao = guestDao;
-//        this.maintenanceDao = maintenanceDao;
-//    }
+    private GuestService() {}
 
-    private GuestService() {
-    }
+    private static GuestService instance;
 
-    private static GuestService INSTANCE;
-
-    public static GuestService getINSTANCE() {
-        if (INSTANCE == null) {
-            INSTANCE = new GuestService();
-        }
-        return INSTANCE;
+    public static GuestService getInstance() {
+        return Objects.requireNonNullElse(instance, new GuestService());
     }
 
     static {
-        GuestService guestService = GuestService.getINSTANCE();
+        GuestService guestService = GuestService.getInstance();
         guestService.addGuest("Eddard Stark", 50);
         guestService.addGuest("Catelyn Stark", 46);
         guestService.addGuest("Robb Stark", 26);
@@ -58,24 +48,24 @@ public class GuestService implements IGuestService {
     }
 
     @Override
-    public List<Guest> getAll() {
+    public List<Guest> getAllGuests() {
         return guestDao.getAll();
     }
 
     @Override
-    public List<Guest> getAll(Comparator<Guest> comp) {
+    public List<Guest> getAllGuests(Comparator<Guest> comp) {
         List<Guest> guests = guestDao.getAll();
         guests.sort(comp);
-
         return guests;
     }
 
     @Override
-    public List<Guest> getAllSortedByDateOut(Comparator<Guest> comp) {
+    public List<Guest> getGuestsSortedByDateOut(Comparator<Guest> comp) {
         List<Guest> guests = guestDao.getAll()
                 .stream()
                 .filter(guest -> guest.getOut() != null)
                 .collect(Collectors.toList());
+        guests.sort(comp);
         return guests;
     }
 
@@ -106,12 +96,11 @@ public class GuestService implements IGuestService {
     public List<Maintenance> getAllMaintenancesGuest(Long guestId, Comparator<Maintenance> comp) {
         List<Maintenance> maintenances = guestDao.getById(guestId).getMaintenances();
         maintenances.sort(comp);
-
         return maintenances;
     }
 
     @Override
-    public Guest getById(Long guestId) {
+    public Guest getGuestById(Long guestId) {
         return guestDao.getById(guestId);
     }
 

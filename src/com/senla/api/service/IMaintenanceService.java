@@ -2,6 +2,7 @@ package com.senla.api.service;
 
 import com.senla.model.Maintenance;
 
+import java.util.Comparator;
 import java.util.List;
 
 public interface IMaintenanceService {
@@ -10,7 +11,7 @@ public interface IMaintenanceService {
 
     List<Maintenance> getAllMaintenances();
 
-    Maintenance getById(Long maintenanceId);
+    Maintenance getMaintenanceById(Long maintenanceId);
 
-    List<Maintenance> getAll();
+    List<Maintenance> getAllMaintenances(Comparator<Maintenance> comp);
 }

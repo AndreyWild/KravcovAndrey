@@ -1,7 +1,6 @@
 package com.senla.service;
 
 import com.senla.api.dao.IGuestDao;
-import com.senla.api.dao.IMaintenanceDao;
 import com.senla.api.dao.IRoomDao;
 import com.senla.api.service.IRoomService;
 import com.senla.model.*;
@@ -9,37 +8,26 @@ import com.senla.util.DatePeriodGenerator;
 import com.senla.util.InitializerDAO;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class RoomService implements IRoomService {
 
     private final IGuestDao guestDao = InitializerDAO.GUEST_DAO;
     private final IRoomDao roomDao = InitializerDAO.ROOM_DAO;
-    private final IMaintenanceDao maintenanceDao = InitializerDAO.MAINTENANCE_DAO;
 
-//    public RoomService(IRoomDao roomDao, IGuestDao guestDao, IMaintenanceDao maintenanceDao) {
-//        this.roomDao = roomDao;
-//        this.guestDao = guestDao;
-//        this.maintenanceDao = maintenanceDao;
-//    }
+    private RoomService() {}
 
-    private RoomService() {
-    }
-    private static RoomService INSTANCE;
+    private static RoomService instance;
 
-
-    public static RoomService getINSTANCE() {
-        if (INSTANCE == null) {
-            INSTANCE = new RoomService();
-        }
-        return INSTANCE;
+    public static RoomService getInstance() {
+        return Objects.requireNonNullElse(instance, new RoomService());
     }
 
     static {
-        RoomService roomService = RoomService.getINSTANCE();
+        RoomService roomService = RoomService.getInstance();
         roomService.addRoom(101, 1, 250.0, 5);
         roomService.addRoom(102, 2, 200.0, 4);
         roomService.addRoom(103, 3, 150.0, 3);
@@ -60,9 +48,8 @@ public class RoomService implements IRoomService {
     }
 
     @Override
-    public void checkIn(Long guestId, Long roomId, String dateOut) { // добавление гостя в номер
+    public void checkIn(Long guestId, Long roomId, LocalDate dateOut) { // добавление гостя в номер
         Room room = roomDao.getById(roomId);
-
         //if(room.getStatus() == RoomStatus.OPEN){
         Guest guest = guestDao.getById(guestId);
         room.getGuests().add(guest);
@@ -70,7 +57,7 @@ public class RoomService implements IRoomService {
         room.setStatus(RoomStatus.CLOSED);
         guest.setGuestStatus(GuestStatus.CHECKED);
         LocalDate inDate = LocalDate.now();
-        LocalDate outDate = LocalDate.parse(dateOut, DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+        LocalDate outDate = dateOut;
         room.getGuestHistory().add(guest);
         guest.setIn(inDate);
         guest.setOut(outDate);
@@ -93,19 +80,17 @@ public class RoomService implements IRoomService {
 
         // TODO: 27.05.2021 можно дописать изменение списка занятых дат, получив дату заселения и за дату
         //  выселения  взяв дату вызова метода.
-
     }
 
     @Override
-    public List<Room> getAll() {
+    public List<Room> getAllRooms() {
         return roomDao.getAll();
     }
 
     @Override
-    public List<Room> getAll(Comparator<Room> comp) {
+    public List<Room> getAllRooms(Comparator<Room> comp) {
         List<Room> rooms = roomDao.getAll();
         rooms.sort(comp);
-
         return rooms;
     }
 
@@ -115,7 +100,6 @@ public class RoomService implements IRoomService {
                 .filter(room -> room.getStatus().equals(RoomStatus.OPEN))
                 .collect(Collectors.toList());
         rooms.sort(comp);
-
         return rooms;
     }
 
@@ -135,7 +119,6 @@ public class RoomService implements IRoomService {
                 .filter(room -> room.getBusyDates() != null)
                 .filter(room -> !room.getBusyDates().contains(localDate))
                 .collect(Collectors.toList());
-
         return rooms;
     }
 
@@ -155,12 +138,7 @@ public class RoomService implements IRoomService {
     }
 
     @Override
-    public void showRoomDetails(Long roomId) {
-        System.out.println(roomDao.getById(roomId));
-    }
-
-    @Override
-    public Room getById(Long roomId) {
+    public Room getRoomById(Long roomId) {
         return roomDao.getById(roomId);
     }
 }

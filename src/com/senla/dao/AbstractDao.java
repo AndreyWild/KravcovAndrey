@@ -10,7 +10,7 @@ import com.senla.util.IdGenerator;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractDao<T extends AEntity> implements IGenericDao<T> { // Implementing GenericDao Methods
+public abstract class AbstractDao<T extends AEntity> implements IGenericDao<T> {
 
     List<T> repository = new ArrayList<>(); // Storage for abstract entity (DB replacement)
 
@@ -33,7 +33,7 @@ public abstract class AbstractDao<T extends AEntity> implements IGenericDao<T> {
                 return entity;
             }
         }
-        return null;
+        throw new NullPointerException("Non-existent index!");
     }
 
     @Override

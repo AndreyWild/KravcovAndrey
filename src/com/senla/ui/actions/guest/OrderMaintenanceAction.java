@@ -1,20 +1,20 @@
 package com.senla.ui.actions.guest;
 
-import com.senla.util.ScannerInit;
+import com.senla.ui.actions.AAction;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class OrderMaintenanceAction extends AGuestAction {
+public class OrderMaintenanceAction extends AAction {
     @Override
     public void execute() {
-        Scanner scanner = ScannerInit.getINSTANCE();
+        Scanner scanner = new Scanner(System.in);
         try {
             System.out.print("Enter id guest: ");
             Long idGuest = scanner.nextLong();
             System.out.print("Enter id maintenance: ");
             Long idMaintenance = scanner.nextLong();
-            guestService.orderMaintenance(idGuest, idMaintenance);
+            hotelFacade.orderMaintenance(idGuest, idMaintenance);
             System.out.println("Maintenance added!");
         } catch (NullPointerException exception) {
             System.out.println("There is no such guest or service!");

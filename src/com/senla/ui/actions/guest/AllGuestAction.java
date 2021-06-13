@@ -1,8 +1,14 @@
 package com.senla.ui.actions.guest;
 
-public class AllGuestAction extends AGuestAction{
+import com.senla.ui.actions.AAction;
+
+public class AllGuestAction extends AAction {
     @Override
     public void execute() {
-        guestService.getAll().forEach(System.out::println);
+        if (hotelFacade.getAllGuests().isEmpty()) {
+            System.out.println("-=No guests!=-");
+        } else {
+            hotelFacade.getAllGuests().forEach(System.out::println);
+        }
     }
 }

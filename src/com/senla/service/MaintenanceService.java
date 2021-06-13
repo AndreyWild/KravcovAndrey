@@ -5,31 +5,24 @@ import com.senla.api.service.IMaintenanceService;
 import com.senla.model.Maintenance;
 import com.senla.util.InitializerDAO;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 public class MaintenanceService implements IMaintenanceService {
 
     private final IMaintenanceDao maintenanceDao = InitializerDAO.MAINTENANCE_DAO;
 
-//    public MaintenanceService(IMaintenanceDao maintenanceDao) {
-//        this.maintenanceDao = maintenanceDao;
-//    }
+    protected MaintenanceService() {}
 
+    private static MaintenanceService instance;
 
-    protected MaintenanceService() {
-    }
-
-    private static MaintenanceService INSTANCE;
-
-    public static MaintenanceService getINSTANCE() {
-        if (INSTANCE == null) {
-            INSTANCE = new MaintenanceService();
-        }
-        return INSTANCE;
+    public static MaintenanceService getInstance() {
+        return Objects.requireNonNullElse(instance, new MaintenanceService());
     }
 
     static {
-        MaintenanceService maintenanceService = MaintenanceService.getINSTANCE();
+        MaintenanceService maintenanceService = MaintenanceService.getInstance();
         maintenanceService.addMaintenance("Room cleaning", 50.0);
         maintenanceService.addMaintenance("Cleaning clothes", 10.0);
         maintenanceService.addMaintenance("Shoe shine", 5.0);
@@ -55,12 +48,14 @@ public class MaintenanceService implements IMaintenanceService {
     }
 
     @Override
-    public Maintenance getById(Long maintenanceId) {
+    public Maintenance getMaintenanceById(Long maintenanceId) {
         return maintenanceDao.getById(maintenanceId);
     }
 
     @Override
-    public List<Maintenance> getAll() {
-        return maintenanceDao.getAll();
+    public List<Maintenance> getAllMaintenances(Comparator<Maintenance> comp) {
+        List<Maintenance> maintenances = maintenanceDao.getAll();
+        maintenances.sort(comp);
+        return maintenances;
     }
 }
