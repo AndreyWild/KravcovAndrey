@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class AvailableRoomsForDateAction extends AAction {
     @Override
     public void execute() {
-        if(CheckingListForEmptiness.roomsListEmpty()){
+        if (CheckingListForEmptiness.roomsListEmpty()) {
             return;
         }
         Scanner scanner = new Scanner(System.in);

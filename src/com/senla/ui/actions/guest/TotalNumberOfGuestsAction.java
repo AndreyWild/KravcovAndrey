@@ -6,7 +6,7 @@ import com.senla.util.CheckingListForEmptiness;
 public class TotalNumberOfGuestsAction extends AAction {
     @Override
     public void execute() {
-        if(CheckingListForEmptiness.guestsListEmpty()){
+        if (CheckingListForEmptiness.guestsListEmpty()) {
             return;
         }
         if (hotelFacade.getTotalNumberOfGuests() == null) {

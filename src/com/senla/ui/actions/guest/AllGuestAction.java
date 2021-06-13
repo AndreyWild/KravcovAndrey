@@ -10,6 +10,5 @@ public class AllGuestAction extends AAction {
             return;
         }
         hotelFacade.getAllGuests().forEach(System.out::println);
-
     }
 }

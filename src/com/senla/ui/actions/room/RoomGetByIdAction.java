@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class RoomGetByIdAction extends AAction {
     @Override
     public void execute() {
-        if(CheckingListForEmptiness.roomsListEmpty()){
+        if (CheckingListForEmptiness.roomsListEmpty()) {
             return;
         }
         try {

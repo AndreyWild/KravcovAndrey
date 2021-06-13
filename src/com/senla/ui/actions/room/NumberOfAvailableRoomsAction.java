@@ -6,7 +6,7 @@ import com.senla.util.CheckingListForEmptiness;
 public class NumberOfAvailableRoomsAction extends AAction {
     @Override
     public void execute() {
-        if(CheckingListForEmptiness.roomsListEmpty()){
+        if (CheckingListForEmptiness.roomsListEmpty()) {
             return;
         }
         System.out.println(hotelFacade.getNumberOfAvailableRooms() + " free rooms");

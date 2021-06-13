@@ -7,7 +7,7 @@ import com.senla.util.sorter.guests.GuestDataOutComparator;
 public class GuestsSortedByCheckOutDateAction extends AAction {
     @Override
     public void execute() {
-        if(CheckingListForEmptiness.guestsListEmpty()){
+        if (CheckingListForEmptiness.guestsListEmpty()) {
             return;
         }
         if (hotelFacade.getGuestsSortedByDateOut(new GuestDataOutComparator()).isEmpty()) {
@@ -15,6 +15,5 @@ public class GuestsSortedByCheckOutDateAction extends AAction {
             return;
         }
         hotelFacade.getGuestsSortedByDateOut(new GuestDataOutComparator()).forEach(System.out::println);
-
     }
 }

@@ -7,7 +7,7 @@ import com.senla.util.sorter.maintenance.MaintenancePriceComparator;
 public class MaintenancesSortedByPriceAction extends AAction {
     @Override
     public void execute() {
-        if(CheckingListForEmptiness.maintenanceListEmpty()){
+        if (CheckingListForEmptiness.maintenanceListEmpty()) {
             return;
         }
         hotelFacade.getAllMaintenances(new MaintenancePriceComparator()).forEach(System.out::println);

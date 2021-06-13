@@ -7,7 +7,7 @@ import com.senla.util.sorter.rooms.RoomsCapacityComparator;
 public class RoomsSortedByCapacityAction extends AAction {
     @Override
     public void execute() {
-        if(CheckingListForEmptiness.roomsListEmpty()){
+        if (CheckingListForEmptiness.roomsListEmpty()) {
             return;
         }
         hotelFacade.getAllRooms(new RoomsCapacityComparator())

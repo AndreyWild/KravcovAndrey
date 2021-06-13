@@ -17,10 +17,8 @@ public class BillForRoomAndMaintenancesByIdAction extends AAction {
                 System.out.println(hotelFacade.getGuestById(guestId).getName() + " have to pay " +
                         hotelFacade.getInvoiceForRoomAndMaintenances(guestId) + "$");
             }
-        }catch (NullPointerException ex){
+        } catch (NullPointerException ex) {
             System.err.println("No guest with this index!");
         }
-
-
     }
 }

@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class MaintenanceGetByIdAction extends AAction {
     @Override
     public void execute() {
-        if(CheckingListForEmptiness.maintenanceListEmpty()){
+        if (CheckingListForEmptiness.maintenanceListEmpty()) {
             return;
         }
         try {

@@ -7,7 +7,7 @@ import com.senla.util.sorter.guests.GuestNameComparator;
 public class GuestsSortedByNameAction extends AAction {
     @Override
     public void execute() {
-        if(CheckingListForEmptiness.guestsListEmpty()){
+        if (CheckingListForEmptiness.guestsListEmpty()) {
             return;
         }
         if (hotelFacade.getAllGuests(new GuestNameComparator()).isEmpty()) {

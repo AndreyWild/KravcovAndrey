@@ -13,7 +13,7 @@ public class GuestMaintenancesSortedByNameAction extends AAction {
             Scanner scanner = new Scanner(System.in);
             System.out.print("Enter guest id: ");
             Long guestId = scanner.nextLong();
-            if(CheckingListForEmptiness.guestMaintenancesListEmpty(guestId)){
+            if (CheckingListForEmptiness.guestMaintenancesListEmpty(guestId)) {
                 return;
             }
             hotelFacade.getAllMaintenancesGuest(guestId, new MaintenanceNameComparator()).forEach(System.out::println);

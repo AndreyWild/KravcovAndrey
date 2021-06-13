@@ -7,7 +7,7 @@ import com.senla.util.sorter.rooms.RoomsPriceComparator;
 public class OpenRoomsSortedByPriceAction extends AAction {
     @Override
     public void execute() {
-        if(CheckingListForEmptiness.roomsListEmpty()){
+        if (CheckingListForEmptiness.roomsListEmpty()) {
             return;
         }
         hotelFacade.getOpenRooms(new RoomsPriceComparator())
