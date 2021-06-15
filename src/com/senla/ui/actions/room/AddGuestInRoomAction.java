@@ -34,9 +34,6 @@ public class AddGuestInRoomAction extends AAction {
             hotelFacade.checkIn(guestId, roomId, dateOut);
 
             System.out.println("The guest is checked into the room!");
-
-        } catch (NullPointerException ex) {
-            System.err.println("There is no such ID!");
         } catch (DateTimeParseException ex) {
             System.err.println("Date entered incorrectly!");
         }

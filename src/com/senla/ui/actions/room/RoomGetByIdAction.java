@@ -11,13 +11,9 @@ public class RoomGetByIdAction extends AAction {
         if (CheckingListForEmptiness.roomsListEmpty()) {
             return;
         }
-        try {
             Scanner scanner = new Scanner(System.in);
             System.out.print("Enter id room: ");
             Long roomId = scanner.nextLong();
             System.out.println(hotelFacade.getRoomById(roomId));
-        } catch (NullPointerException ex) {
-            System.err.println("No room with this index!");
-        }
     }
 }

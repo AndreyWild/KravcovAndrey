@@ -11,13 +11,10 @@ public class GuestGetById extends AAction {
         if (CheckingListForEmptiness.guestsListEmpty()) {
             return;
         }
-        try {
-            Scanner scanner = new Scanner(System.in);
-            System.out.print("Enter Id guest: ");
-            Long guestId = scanner.nextLong();
-            System.out.println(hotelFacade.getGuestById(guestId));
-        } catch (NullPointerException ex) {
-            System.err.println("No guest with this index!");
-        }
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter Id guest: ");
+        Long guestId = scanner.nextLong();
+        System.out.println(hotelFacade.getGuestById(guestId));
+
     }
 }

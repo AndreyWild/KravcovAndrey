@@ -16,8 +16,6 @@ public class OrderMaintenanceAction extends AAction {
             Long idMaintenance = scanner.nextLong();
             hotelFacade.orderMaintenance(idGuest, idMaintenance);
             System.out.println("Maintenance added!");
-        } catch (NullPointerException exception) {
-            System.out.println("There is no such guest or service!");
         } catch (InputMismatchException exception) {
             System.out.println("You are doing something wrong!");
         }
