@@ -43,7 +43,7 @@ public class MaintenanceService implements IMaintenanceService {
     }
 
     @Override
-    public List<Maintenance> getAllMaintenances() {
+    public List<Maintenance> getAll() {
         return maintenanceDao.getAll();
     }
 
@@ -53,7 +53,7 @@ public class MaintenanceService implements IMaintenanceService {
     }
 
     @Override
-    public List<Maintenance> getAllMaintenances(Comparator<Maintenance> comp) {
+    public List<Maintenance> getAll(Comparator<Maintenance> comp) {
         List<Maintenance> maintenances = maintenanceDao.getAll();
         maintenances.sort(comp);
         return maintenances;

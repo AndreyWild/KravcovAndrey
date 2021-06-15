@@ -47,11 +47,11 @@ public class HotelFacade {
     }
 
     public List<Guest> getAllGuests() {
-        return guestService.getAllGuests();
+        return guestService.getAll();
     }
 
     public List<Guest> getAllGuests(Comparator<Guest> comp) {
-        return guestService.getAllGuests(comp);
+        return guestService.getAll(comp);
     }
 
     public List<Guest> getGuestsSortedByDateOut(Comparator<Guest> comp) {
@@ -97,11 +97,11 @@ public class HotelFacade {
     }
 
     public List<Room> getAllRooms() {
-        return roomService.getAllRooms();
+        return roomService.getAll();
     }
 
     public List<Room> getAllRooms(Comparator<Room> comp) {
-        return roomService.getAllRooms(comp);
+        return roomService.getAll(comp);
     }
 
     public List<Room> getOpenRooms(Comparator<Room> comp) {
@@ -130,7 +130,7 @@ public class HotelFacade {
     }
 
     public List<Maintenance> getAllMaintenances() {
-        return maintenanceService.getAllMaintenances();
+        return maintenanceService.getAll();
     }
 
     public Maintenance getMaintenanceById(Long maintenanceId) {
@@ -138,7 +138,7 @@ public class HotelFacade {
     }
 
     public List<Maintenance> getAllMaintenances(Comparator<Maintenance> comp) {
-        return maintenanceService.getAllMaintenances(comp);
+        return maintenanceService.getAll(comp);
     }
 
     //-------------------- MultipleEntitiesService methods --------------------

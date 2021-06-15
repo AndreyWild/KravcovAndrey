@@ -4,7 +4,7 @@ import com.senla.ui.actions.AAction;
 
 import java.util.Scanner;
 
-public class BillForRoomAndMaintenancesByIdAction extends AAction {
+public class GetBillAction extends AAction {
     @Override
     public void execute() {
         try {

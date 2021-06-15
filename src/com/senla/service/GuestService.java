@@ -48,12 +48,12 @@ public class GuestService implements IGuestService {
     }
 
     @Override
-    public List<Guest> getAllGuests() {
+    public List<Guest> getAll() {
         return guestDao.getAll();
     }
 
     @Override
-    public List<Guest> getAllGuests(Comparator<Guest> comp) {
+    public List<Guest> getAll(Comparator<Guest> comp) {
         List<Guest> guests = guestDao.getAll();
         guests.sort(comp);
         return guests;

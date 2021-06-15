@@ -14,9 +14,9 @@ public interface IRoomService {
 
     void evictGuest(Long guestId);
 
-    List<Room> getAllRooms();
+    List<Room> getAll();
 
-    List<Room> getAllRooms(Comparator<Room> comp);
+    List<Room> getAll(Comparator<Room> comp);
 
     List<Room> getOpenRooms(Comparator<Room> comp);
 

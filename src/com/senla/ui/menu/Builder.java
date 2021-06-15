@@ -38,7 +38,7 @@ public class Builder {
         guestMenu.addItem(new MenuItem("* list all guests", new AllGuestAction(), guestMenu));
         guestMenu.addItem(new MenuItem("* list all guests sorted by name", new GuestsSortedByNameAction(), guestMenu));
         guestMenu.addItem(new MenuItem("* list all guests sorted by check out date", new GuestsSortedByCheckOutDateAction(), guestMenu));
-        guestMenu.addItem(new MenuItem("* show guest check", new BillForRoomAndMaintenancesByIdAction(), guestMenu));
+        guestMenu.addItem(new MenuItem("* show guest check", new GetBillAction(), guestMenu));
         guestMenu.addItem(new MenuItem("* order maintenance", new OrderMaintenanceAction(), guestMenu));
         guestMenu.addItem(new MenuItem("* total number of guests", new TotalNumberOfGuestsAction(), guestMenu));
         guestMenu.addItem(new MenuItem("* guest maintenances", new GuestMaintenancesAction(), guestMenu));

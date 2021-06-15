@@ -33,7 +33,8 @@ public abstract class AbstractDao<T extends AEntity> implements IGenericDao<T> {
                 return entity;
             }
         }
-        throw new NullPointerException("Non-existent index!");
+        return null;
+//        throw new NullPointerException("Non-existent index!");
     }
 
     @Override

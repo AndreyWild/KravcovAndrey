@@ -9,9 +9,9 @@ public interface IMaintenanceService {
 
     Maintenance addMaintenance(String name, Double price);
 
-    List<Maintenance> getAllMaintenances();
+    List<Maintenance> getAll();
 
     Maintenance getMaintenanceById(Long maintenanceId);
 
-    List<Maintenance> getAllMaintenances(Comparator<Maintenance> comp);
+    List<Maintenance> getAll(Comparator<Maintenance> comp);
 }

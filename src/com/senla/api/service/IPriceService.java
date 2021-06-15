@@ -2,7 +2,7 @@ package com.senla.api.service;
 
 public interface IPriceService {
 
-    public Double getPrice();
+    Double getPrice();
 
-    public void setPrice(Double price);
+    void setPrice(Double price);
 }
