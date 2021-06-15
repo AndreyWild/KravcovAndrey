@@ -2,6 +2,7 @@ package com.senla.ui.actions.room;
 
 import com.senla.ui.actions.AAction;
 import com.senla.util.CheckingListForEmptiness;
+import com.senla.util.exceptions.EntityNotFoundException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -36,6 +37,10 @@ public class AddGuestInRoomAction extends AAction {
             System.out.println("The guest is checked into the room!");
         } catch (DateTimeParseException ex) {
             System.err.println("Date entered incorrectly!");
+
+        } catch (
+                EntityNotFoundException ex) {
+            System.err.println(ex.getMessage());
         }
     }
 }
