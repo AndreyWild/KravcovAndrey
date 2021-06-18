@@ -17,8 +17,7 @@ public class GuestMaintenancesAction extends AAction {
                 return;
             }
             hotelFacade.getAllMaintenancesGuest(guestId).forEach(System.out::println);
-        } catch (
-                EntityNotFoundException ex) {
+        } catch (EntityNotFoundException ex) {
             System.err.println(ex.getMessage());
         }
     }
