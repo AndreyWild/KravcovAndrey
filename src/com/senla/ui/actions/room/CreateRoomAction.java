@@ -1,13 +1,14 @@
 package com.senla.ui.actions.room;
 
 import com.senla.ui.actions.AAction;
+import com.senla.util.GlobalScanner;
 
 import java.util.Scanner;
 
 public class CreateRoomAction extends AAction {
     @Override
     public void execute() {
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = GlobalScanner.getInstance();
         System.out.print("Enter the room number: ");
         Integer number = scanner.nextInt();
         if (number < 0 | number > 9999) {

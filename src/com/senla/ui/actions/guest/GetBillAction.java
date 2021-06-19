@@ -1,6 +1,7 @@
 package com.senla.ui.actions.guest;
 
 import com.senla.ui.actions.AAction;
+import com.senla.util.GlobalScanner;
 import com.senla.util.exceptions.EntityNotFoundException;
 
 import java.util.Scanner;
@@ -9,7 +10,7 @@ public class GetBillAction extends AAction {
     @Override
     public void execute() {
         try {
-            Scanner scanner = new Scanner(System.in);
+            Scanner scanner = GlobalScanner.getInstance();
             System.out.print("Enter the guest ID to receive an invoice for the room and services: ");
             Long guestId = scanner.nextLong();
             if (hotelFacade.getGuestById(guestId) == null) {

@@ -1,6 +1,7 @@
 package com.senla.ui.actions.guest;
 
 import com.senla.ui.actions.AAction;
+import com.senla.util.GlobalScanner;
 import com.senla.util.exceptions.EntityNotFoundException;
 
 import java.util.InputMismatchException;
@@ -9,8 +10,8 @@ import java.util.Scanner;
 public class OrderMaintenanceAction extends AAction {
     @Override
     public void execute() {
-        Scanner scanner = new Scanner(System.in);
         try {
+            Scanner scanner = GlobalScanner.getInstance();
             System.out.print("Enter id guest: ");
             Long idGuest = scanner.nextLong();
             System.out.print("Enter id maintenance: ");

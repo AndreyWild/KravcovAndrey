@@ -2,6 +2,7 @@ package com.senla.ui.actions.room;
 
 import com.senla.ui.actions.AAction;
 import com.senla.util.CheckingListForEmptiness;
+import com.senla.util.GlobalScanner;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -13,7 +14,7 @@ public class AvailableRoomsForDateAction extends AAction {
         if (CheckingListForEmptiness.roomsListEmpty()) {
             return;
         }
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = GlobalScanner.getInstance();
         System.out.print("Enter the check-out date in the format (ddMMyyyy): ");
         String date = scanner.nextLine();
 
