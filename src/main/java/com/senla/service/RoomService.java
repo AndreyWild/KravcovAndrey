@@ -6,6 +6,9 @@ import com.senla.api.service.IRoomService;
 import com.senla.model.*;
 import com.senla.util.DatePeriodGenerator;
 import com.senla.util.InitializerDAO;
+import com.senla.util.exceptions.DaoException;
+import com.senla.util.exceptions.ServiceException;
+import org.apache.log4j.Logger;
 
 import java.time.LocalDate;
 import java.util.Comparator;
@@ -15,10 +18,13 @@ import java.util.stream.Collectors;
 
 public class RoomService implements IRoomService {
 
+    private static final Logger LOGGER = Logger.getLogger(RoomService.class.getName());
+
     private final IGuestDao guestDao = InitializerDAO.GUEST_DAO;
     private final IRoomDao roomDao = InitializerDAO.ROOM_DAO;
 
-    private RoomService() {}
+    private RoomService() {
+    }
 
     private static RoomService instance;
 
@@ -48,35 +54,45 @@ public class RoomService implements IRoomService {
     }
 
     @Override
-    public void checkIn(Long guestId, Long roomId, LocalDate dateOut) { // добавление гостя в номер
-        Room room = roomDao.getById(roomId);
-        //if(room.getStatus() == RoomStatus.OPEN){
-        Guest guest = guestDao.getById(guestId);
-        room.getGuests().add(guest);
-        guest.setRoom(room);
-        room.setStatus(RoomStatus.CLOSED);
-        guest.setGuestStatus(GuestStatus.CHECKED);
-        LocalDate inDate = LocalDate.now();
-        LocalDate outDate = dateOut;
-        room.getGuestHistory().add(guest);
-        guest.setIn(inDate);
-        guest.setOut(outDate);
-        room.getBusyDates().addAll(DatePeriodGenerator.toDateList(inDate, outDate));
-        //}
+    public void checkIn(Long guestId, Long roomId, LocalDate dateOut) {
+        try {
+            LOGGER.info(String.format("Launch checkIn(%s, %s)", guestId, roomId));
+            Room room = roomDao.getById(roomId);
+            Guest guest = guestDao.getById(guestId);
+            room.getGuests().add(guest);
+            guest.setRoom(room);
+            room.setStatus(RoomStatus.CLOSED);
+            guest.setGuestStatus(GuestStatus.CHECKED);
+            LocalDate inDate = LocalDate.now();
+            LocalDate outDate = dateOut;
+            room.getGuestHistory().add(guest);
+            guest.setIn(inDate);
+            guest.setOut(outDate);
+            room.getBusyDates().addAll(DatePeriodGenerator.toDateList(inDate, outDate));
+        } catch (DaoException e) {
+            LOGGER.warn("checkIn - failed!", e);
+            throw new ServiceException(e.getMessage());
+        }
     }
 
     @Override
     public void evictGuest(Long guestId) {
-        Guest guest = guestDao.getById(guestId);
+        try {
+            LOGGER.info(String.format("Launch evictGuest(%s)", guestId));
+            Guest guest = guestDao.getById(guestId);
 //        Room room = guest.getRoom();
-        Room room = roomDao.getById(guest.getRoom().getId());
-        room.getGuests().remove(guest);
-        guest.setGuestStatus(GuestStatus.NOT_CHECKED);
-        room.setStatus(RoomStatus.OPEN);
+            Room room = roomDao.getById(guest.getRoom().getId());
+            room.getGuests().remove(guest);
+            guest.setGuestStatus(GuestStatus.NOT_CHECKED);
+            room.setStatus(RoomStatus.OPEN);
 //        guest.setOut(LocalDate.now());
-        guest.setRoom(null);
-        guestDao.update(guest);
-        roomDao.update(room);
+            guest.setRoom(null);
+            guestDao.update(guest);
+            roomDao.update(room);
+        } catch (DaoException e) {
+            LOGGER.warn("evictGuest - failed!", e);
+            throw new ServiceException(e.getMessage());
+        }
 
         // TODO: 27.05.2021 можно дописать изменение списка занятых дат, получив дату заселения и за дату
         //  выселения  взяв дату вызова метода.
@@ -124,22 +140,34 @@ public class RoomService implements IRoomService {
 
     @Override
     public void showThreeLastGuests(Long roomId) {
-        Room room = roomDao.getById(roomId);
-        List<Guest> guests = room.getGuestHistory();
-        if (room.getGuestHistory().size() <= 3) {
-            for (Guest guest : guests) {
-                System.out.println(guest.getName() + " " + guest.getIn() + "-" + guest.getOut());
+        try {
+            LOGGER.info(String.format("Launch showThreeLastGuests(%s)", roomId));
+            Room room = roomDao.getById(roomId);
+            List<Guest> guests = room.getGuestHistory();
+            if (room.getGuestHistory().size() <= 3) {
+                for (Guest guest : guests) {
+                    System.out.println(guest.getName() + " " + guest.getIn() + "-" + guest.getOut());
+                }
+            } else {
+                for (int i = guests.size() - 3; i < guests.size(); i++) {
+                    System.out.println(guests.get(i).getName() + " " + guests.get(i).getIn() + "-" + guests.get(i).getOut());
+                }
             }
-        } else {
-            for (int i = guests.size() - 3; i < guests.size(); i++) {
-                System.out.println(guests.get(i).getName() + " " + guests.get(i).getIn() + "-" + guests.get(i).getOut());
-            }
+        } catch (DaoException e) {
+            LOGGER.warn("showThreeLastGuests - failed!", e);
+            throw new ServiceException(e.getMessage());
         }
     }
 
     @Override
     public Room getRoomById(Long roomId) {
-        return roomDao.getById(roomId);
+        try {
+            LOGGER.info(String.format("Launch getRoomById(%s)", roomId));
+            return roomDao.getById(roomId);
+        } catch (DaoException e) {
+            LOGGER.warn("getRoomById - failed!", e);
+            throw new ServiceException(e.getMessage());
+        }
     }
 }
 

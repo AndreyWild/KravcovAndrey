@@ -4,6 +4,9 @@ import com.senla.api.dao.IMaintenanceDao;
 import com.senla.api.service.IMaintenanceService;
 import com.senla.model.Maintenance;
 import com.senla.util.InitializerDAO;
+import com.senla.util.exceptions.DaoException;
+import com.senla.util.exceptions.ServiceException;
+import org.apache.log4j.Logger;
 
 import java.util.Comparator;
 import java.util.List;
@@ -11,9 +14,12 @@ import java.util.Objects;
 
 public class MaintenanceService implements IMaintenanceService {
 
+    private static final Logger LOGGER = Logger.getLogger(MaintenanceService.class.getName());
+
     private final IMaintenanceDao maintenanceDao = InitializerDAO.MAINTENANCE_DAO;
 
-    protected MaintenanceService() {}
+    protected MaintenanceService() {
+    }
 
     private static MaintenanceService instance;
 
@@ -49,7 +55,13 @@ public class MaintenanceService implements IMaintenanceService {
 
     @Override
     public Maintenance getMaintenanceById(Long maintenanceId) {
-        return maintenanceDao.getById(maintenanceId);
+        try {
+            LOGGER.info(String.format("Launch getMaintenanceById(%s)", maintenanceId));
+            return maintenanceDao.getById(maintenanceId);
+        } catch (DaoException e) {
+            LOGGER.warn("getMaintenanceById - failed!", e);
+            throw new ServiceException(e.getMessage());
+        }
     }
 
     @Override

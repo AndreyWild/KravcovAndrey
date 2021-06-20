@@ -6,6 +6,9 @@ import com.senla.api.service.IGuestService;
 import com.senla.model.Guest;
 import com.senla.model.Maintenance;
 import com.senla.util.InitializerDAO;
+import com.senla.util.exceptions.DaoException;
+import com.senla.util.exceptions.ServiceException;
+import org.apache.log4j.Logger;
 
 import java.util.Comparator;
 import java.util.List;
@@ -14,10 +17,13 @@ import java.util.stream.Collectors;
 
 public class GuestService implements IGuestService {
 
+    private static final Logger LOGGER = Logger.getLogger(GuestService.class.getName());
+
     private final IGuestDao guestDao = InitializerDAO.GUEST_DAO;
     private final IMaintenanceDao maintenanceDao = InitializerDAO.MAINTENANCE_DAO;
 
-    private GuestService() {}
+    private GuestService() {
+    }
 
     private static GuestService instance;
 
@@ -71,37 +77,68 @@ public class GuestService implements IGuestService {
 
     @Override
     public Double getInvoiceForRoomAndMaintenances(Long guestId) {
-        Guest guest = guestDao.getById(guestId);
-        double bill = guest.getRoom().getPrice() +
-                guest.getMaintenances().stream()
-                        //.filter(Objects::nonNull)
-                        .mapToDouble(Maintenance::getPrice)
-                        .sum();
-        return bill;
+        try {
+            LOGGER.info(String.format("Launch getInvoiceForRoomAndMaintenances(%s)", guestId));
+            Guest guest = guestDao.getById(guestId);
+            double bill = guest.getRoom().getPrice() +
+                    guest.getMaintenances().stream()
+                            //.filter(Objects::nonNull)
+                            .mapToDouble(Maintenance::getPrice)
+                            .sum();
+            return bill;
+        } catch (DaoException e) {
+            LOGGER.warn("getInvoiceForRoomAndMaintenances - failed!", e);
+            throw new ServiceException(e.getMessage());
+        }
+
     }
 
     @Override
     public void orderMaintenance(Long guestId, Long maintenanceId) {
-        Guest guest = guestDao.getById(guestId);
-        Maintenance maintenance = maintenanceDao.getById(maintenanceId);
-        guest.getMaintenances().add(maintenance);
+        try {
+            LOGGER.info(String.format("Launch orderMaintenance", guestId, maintenanceId));
+            Guest guest = guestDao.getById(guestId);
+            Maintenance maintenance = maintenanceDao.getById(maintenanceId);
+            guest.getMaintenances().add(maintenance);
+        } catch (DaoException e) {
+            LOGGER.warn("getInvoiceForRoomAndMaintenances - failed!", e);
+            throw new ServiceException(e.getMessage());
+        }
     }
 
     @Override
     public List<Maintenance> getAllMaintenancesGuest(Long guestId) {
-        return guestDao.getById(guestId).getMaintenances();
+        try {
+            LOGGER.info(String.format("Launch getAllMaintenancesGuest(%s)", guestId));
+            return guestDao.getById(guestId).getMaintenances();
+        } catch (DaoException e) {
+            LOGGER.warn("getAllMaintenancesGuest - failed!", e);
+            throw new ServiceException(e.getMessage());
+        }
     }
 
     @Override
     public List<Maintenance> getAllMaintenancesGuest(Long guestId, Comparator<Maintenance> comp) {
-        List<Maintenance> maintenances = guestDao.getById(guestId).getMaintenances();
-        maintenances.sort(comp);
-        return maintenances;
+        try {
+            LOGGER.info(String.format("Launch getAllMaintenancesGuest(%s)", guestId));
+            List<Maintenance> maintenances = guestDao.getById(guestId).getMaintenances();
+            maintenances.sort(comp);
+            return maintenances;
+        } catch (DaoException e) {
+            LOGGER.warn("getAllMaintenancesGuest - failed!", e);
+            throw new ServiceException(e.getMessage());
+        }
     }
 
     @Override
     public Guest getGuestById(Long guestId) {
-        return guestDao.getById(guestId);
+        try {
+            LOGGER.info(String.format("Launch getGuestById(%s)", guestId));
+            return guestDao.getById(guestId);
+        } catch (DaoException e) {
+            LOGGER.warn("getGuestById - failed!", e);
+            throw new ServiceException(e.getMessage());
+        }
     }
 
     @Override

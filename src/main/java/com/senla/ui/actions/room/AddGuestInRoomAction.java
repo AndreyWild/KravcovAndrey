@@ -1,18 +1,23 @@
 package com.senla.ui.actions.room;
 
 import com.senla.ui.actions.AAction;
+import com.senla.ui.actions.maintenance.MaintenanceGetByIdAction;
 import com.senla.util.CheckingListForEmptiness;
 import com.senla.util.GlobalScanner;
 import com.senla.util.exceptions.EntityNotFoundException;
+import com.senla.util.exceptions.ServiceException;
+import org.apache.log4j.Logger;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import java.util.Formatter;
 import java.util.Scanner;
 
 public class AddGuestInRoomAction extends AAction {
+
+    private static final Logger LOGGER = Logger.getLogger(AddGuestInRoomAction.class.getName());
+
     @Override
     public void execute() {
         try {
@@ -30,10 +35,10 @@ public class AddGuestInRoomAction extends AAction {
             hotelFacade.checkIn(guestId, roomId, dateOut);
             System.out.println("The guest is checked into the room!");
         } catch (DateTimeParseException ex) {
+            LOGGER.warn(ex.getMessage(), ex);
             System.err.println("Date entered incorrectly!");
-
-        } catch (
-                EntityNotFoundException ex) {
+        } catch (ServiceException ex) {
+            LOGGER.warn(ex.getMessage(), ex);
             System.err.println(ex.getMessage());
         }
     }
