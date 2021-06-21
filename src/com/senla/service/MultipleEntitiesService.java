@@ -13,6 +13,7 @@ import com.senla.util.sorter.rooms.RoomsPriceComparator;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class MultipleEntitiesService implements IMultipleEntitiesService {
@@ -21,11 +22,14 @@ public class MultipleEntitiesService implements IMultipleEntitiesService {
     private final IRoomDao roomDao = InitializerDAO.ROOM_DAO;
     private final IMaintenanceDao maintenanceDao = InitializerDAO.MAINTENANCE_DAO;
 
-//    public MultipleEntitiesService(IGuestDao guestDao, IRoomDao roomDao, IMaintenanceDao maintenanceDao) {
-//        this.guestDao = guestDao;
-//        this.roomDao = roomDao;
-//        this.maintenanceDao = maintenanceDao;
-//    }
+    private MultipleEntitiesService() {
+    }
+
+    private static MultipleEntitiesService instance;
+
+    public static MultipleEntitiesService getInstance(){
+        return Objects.requireNonNullElse(instance, new MultipleEntitiesService());
+    }
 
     @Override
     public List<AEntity> getPricesForMaintenancesAndRoom() {
@@ -37,7 +41,6 @@ public class MultipleEntitiesService implements IMultipleEntitiesService {
         maintenancesAndRooms.addAll(maintenanceDao.getAll()
                 .stream().sorted(new MaintenancePriceComparator())
                 .collect(Collectors.toList()));
-
         return maintenancesAndRooms;
     }
 
@@ -47,7 +50,6 @@ public class MultipleEntitiesService implements IMultipleEntitiesService {
         maintenancesAndRooms.addAll(roomDao.getAll());
         maintenancesAndRooms.addAll(maintenanceDao.getAll());
         maintenancesAndRooms.sort(comp);
-
         return maintenancesAndRooms;
     }
 }

@@ -30,6 +30,6 @@ public class Maintenance extends AEntity implements IPriceService {
 
     @Override
     public String toString() {
-        return "Service(" + getId() + ") - '" + name + "' (" + price + "$)";
+        return "\t" + getId() + ".  " + name + " - " + price + "$";
     }
 }

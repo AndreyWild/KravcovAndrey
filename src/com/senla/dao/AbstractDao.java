@@ -5,12 +5,13 @@ import com.senla.model.AEntity;
 import com.senla.model.Guest;
 import com.senla.model.Maintenance;
 import com.senla.model.Room;
+import com.senla.util.exceptions.EntityNotFoundException;
 import com.senla.util.IdGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractDao<T extends AEntity> implements IGenericDao<T> { // Implementing GenericDao Methods
+public abstract class AbstractDao<T extends AEntity> implements IGenericDao<T> {
 
     List<T> repository = new ArrayList<>(); // Storage for abstract entity (DB replacement)
 
@@ -33,7 +34,9 @@ public abstract class AbstractDao<T extends AEntity> implements IGenericDao<T> {
                 return entity;
             }
         }
-        return null;
+//        return null;
+//        throw new NullPointerException("Non-existent index!");
+        throw new EntityNotFoundException("There is no object with this index!");
     }
 
     @Override

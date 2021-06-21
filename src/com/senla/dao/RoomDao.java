@@ -3,9 +3,7 @@ package com.senla.dao;
 import com.senla.api.dao.IRoomDao;
 import com.senla.model.Room;
 
-public class RoomDao extends AbstractDao<Room> implements IRoomDao { // Implementing the IRoomDao interface
-
-    /* Most of the methods are implemented in AbstractDao */
+public class RoomDao extends AbstractDao<Room> implements IRoomDao {
 
     @Override
     public Room update(Room entity) {
@@ -16,7 +14,6 @@ public class RoomDao extends AbstractDao<Room> implements IRoomDao { // Implemen
         room.setPrice(entity.getPrice());
         room.setNumberOfStars(entity.getNumberOfStars());
         room.setGuests(entity.getGuests());
-
         return room;
     }
 }

@@ -17,10 +17,6 @@ public class Room extends AEntity implements IPriceService {
     private List<Guest> guestHistory;
     private List<LocalDate> busyDates;
 
-    //private LocalDate freeRoomDate = null;
-    //private LocalDate freeRoomDate = LocalDate.of(2000, 01, 01);
-    //private List<Maintenance> roomMaintenances;
-
     public Room(Integer number, Integer capacity, Double price, Integer numberOfStars) {
         this.number = number;
         this.capacity = capacity;
@@ -103,12 +99,12 @@ public class Room extends AEntity implements IPriceService {
 
     @Override
     public String toString() {
-        return "Room number(" + number + ")"
-                + " id-" + getId()
+        return "\t" + getId()
+                + ". Room-" + number
                 + ", capacity(" + capacity
                 + "), status(" + status
-                + "), price(" + price
-                + "), stars(" + numberOfStars
-                + ") guests:\n" + (guests == null ? "empty" : guests);
+                + "), price-" + price
+                + "$, "+ numberOfStars + " star(s)"
+                + " guests:\n" + (guests == null ? "empty" : guests);
     }
 }

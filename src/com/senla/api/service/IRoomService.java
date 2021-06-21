@@ -1,6 +1,5 @@
 package com.senla.api.service;
 
-import com.senla.model.AEntity;
 import com.senla.model.Room;
 
 import java.time.LocalDate;
@@ -11,7 +10,7 @@ public interface IRoomService {
 
     Room addRoom(Integer number, Integer capacity, Double price, Integer numberOfStars);
 
-    void checkIn(Long guestId, Long roomId, String dateOut);
+    void checkIn(Long guestId, Long roomId, LocalDate dateOut);
 
     void evictGuest(Long guestId);
 
@@ -27,7 +26,5 @@ public interface IRoomService {
 
     void showThreeLastGuests(Long roomId);
 
-    void showRoomDetails(Long roomId);
-
-    Room getById(Long roomId);
+    Room getRoomById(Long roomId);
 }
