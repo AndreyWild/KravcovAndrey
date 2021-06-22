@@ -1,13 +1,12 @@
 package com.senla.service;
 
 import com.senla.api.dao.IGuestDao;
-import com.senla.api.dao.IMaintenanceDao;
 import com.senla.api.service.IGuestService;
 import com.senla.model.Guest;
 import com.senla.model.Maintenance;
 import com.senla.util.InitializerDAO;
-import com.senla.util.exceptions.DaoException;
-import com.senla.util.exceptions.ServiceException;
+import com.senla.util.exceptions.DaoEntityNotFoundException;
+import com.senla.util.exceptions.ServiceEntityNotFoundException;
 import org.apache.log4j.Logger;
 
 import java.util.Comparator;
@@ -20,7 +19,7 @@ public class GuestService implements IGuestService {
     private static final Logger LOGGER = Logger.getLogger(GuestService.class.getName());
 
     private final IGuestDao guestDao = InitializerDAO.GUEST_DAO;
-    private final IMaintenanceDao maintenanceDao = InitializerDAO.MAINTENANCE_DAO;
+    private final MaintenanceService maintenanceService = MaintenanceService.getInstance();
 
     private GuestService() {
     }
@@ -48,7 +47,6 @@ public class GuestService implements IGuestService {
     @Override
     public Guest addGuest(String name, Integer age) {
         Guest guest = new Guest(name, age);
-        //guest.setId(IdGenerator.generateGuestId());
         guestDao.save(guest);
         return guest;
     }
@@ -60,19 +58,20 @@ public class GuestService implements IGuestService {
 
     @Override
     public List<Guest> getAll(Comparator<Guest> comp) {
-        List<Guest> guests = guestDao.getAll();
-        guests.sort(comp);
-        return guests;
+        return guestDao.getAll()
+                .stream()
+                .sorted(comp)
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<Guest> getGuestsSortedByDateOut(Comparator<Guest> comp) {
-        List<Guest> guests = guestDao.getAll()
+        return guestDao.getAll()
                 .stream()
                 .filter(guest -> guest.getOut() != null)
+                .sorted(comp)
                 .collect(Collectors.toList());
-        guests.sort(comp);
-        return guests;
+
     }
 
     @Override
@@ -86,23 +85,21 @@ public class GuestService implements IGuestService {
                             .mapToDouble(Maintenance::getPrice)
                             .sum();
             return bill;
-        } catch (DaoException e) {
+        } catch (DaoEntityNotFoundException e) {
             LOGGER.warn("getInvoiceForRoomAndMaintenances - failed!", e);
-            throw new ServiceException(e.getMessage());
+            throw new ServiceEntityNotFoundException(e.getMessage());
         }
-
     }
 
     @Override
     public void orderMaintenance(Long guestId, Long maintenanceId) {
         try {
             LOGGER.info(String.format("Launch orderMaintenance", guestId, maintenanceId));
-            Guest guest = guestDao.getById(guestId);
-            Maintenance maintenance = maintenanceDao.getById(maintenanceId);
-            guest.getMaintenances().add(maintenance);
-        } catch (DaoException e) {
+            Maintenance maintenance = maintenanceService.getMaintenanceById(maintenanceId);
+            guestDao.getById(guestId).getMaintenances().add(maintenance);
+        } catch (DaoEntityNotFoundException e) {
             LOGGER.warn("getInvoiceForRoomAndMaintenances - failed!", e);
-            throw new ServiceException(e.getMessage());
+            throw new ServiceEntityNotFoundException(e.getMessage());
         }
     }
 
@@ -111,9 +108,9 @@ public class GuestService implements IGuestService {
         try {
             LOGGER.info(String.format("Launch getAllMaintenancesGuest(%s)", guestId));
             return guestDao.getById(guestId).getMaintenances();
-        } catch (DaoException e) {
+        } catch (DaoEntityNotFoundException e) {
             LOGGER.warn("getAllMaintenancesGuest - failed!", e);
-            throw new ServiceException(e.getMessage());
+            throw new ServiceEntityNotFoundException(e.getMessage());
         }
     }
 
@@ -121,12 +118,13 @@ public class GuestService implements IGuestService {
     public List<Maintenance> getAllMaintenancesGuest(Long guestId, Comparator<Maintenance> comp) {
         try {
             LOGGER.info(String.format("Launch getAllMaintenancesGuest(%s)", guestId));
-            List<Maintenance> maintenances = guestDao.getById(guestId).getMaintenances();
-            maintenances.sort(comp);
-            return maintenances;
-        } catch (DaoException e) {
+            return guestDao.getById(guestId).getMaintenances()
+                    .stream()
+                    .sorted(comp)
+                    .collect(Collectors.toList());
+        } catch (DaoEntityNotFoundException e) {
             LOGGER.warn("getAllMaintenancesGuest - failed!", e);
-            throw new ServiceException(e.getMessage());
+            throw new ServiceEntityNotFoundException(e.getMessage());
         }
     }
 
@@ -135,9 +133,9 @@ public class GuestService implements IGuestService {
         try {
             LOGGER.info(String.format("Launch getGuestById(%s)", guestId));
             return guestDao.getById(guestId);
-        } catch (DaoException e) {
+        } catch (DaoEntityNotFoundException e) {
             LOGGER.warn("getGuestById - failed!", e);
-            throw new ServiceException(e.getMessage());
+            throw new ServiceEntityNotFoundException(e.getMessage());
         }
     }
 
@@ -147,5 +145,10 @@ public class GuestService implements IGuestService {
                 .stream()
                 .filter(guest -> guest.getRoom() != null)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Guest update(Guest entity) {
+        return guestDao.update(entity);
     }
 }

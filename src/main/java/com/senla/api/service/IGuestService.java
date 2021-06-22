@@ -27,4 +27,6 @@ public interface IGuestService {
     Guest getGuestById(Long guestId);
 
     List<Guest> getTotalNumberOfGuests();
+
+    Guest update(Guest entity);
 }

@@ -3,7 +3,7 @@ package com.senla.ui.actions.guest;
 import com.senla.ui.actions.AAction;
 import com.senla.util.CheckingListForEmptiness;
 import com.senla.util.GlobalScanner;
-import com.senla.util.exceptions.ServiceException;
+import com.senla.util.exceptions.ServiceEntityNotFoundException;
 import com.senla.util.sorter.maintenance.MaintenancePriceComparator;
 import org.apache.log4j.Logger;
 
@@ -23,7 +23,7 @@ public class GuestMaintenancesSortedByPriceAction extends AAction {
                 return;
             }
             hotelFacade.getAllMaintenancesGuest(guestId, new MaintenancePriceComparator()).forEach(System.out::println);
-        } catch (ServiceException ex) {
+        } catch (ServiceEntityNotFoundException ex) {
             LOGGER.warn(ex.getMessage(), ex);
             System.err.println(ex.getMessage());
         }

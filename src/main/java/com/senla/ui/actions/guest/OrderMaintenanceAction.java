@@ -2,7 +2,7 @@ package com.senla.ui.actions.guest;
 
 import com.senla.ui.actions.AAction;
 import com.senla.util.GlobalScanner;
-import com.senla.util.exceptions.ServiceException;
+import com.senla.util.exceptions.ServiceEntityNotFoundException;
 import org.apache.log4j.Logger;
 
 import java.util.InputMismatchException;
@@ -22,7 +22,7 @@ public class OrderMaintenanceAction extends AAction {
             Long idMaintenance = scanner.nextLong();
             hotelFacade.orderMaintenance(idGuest, idMaintenance);
             System.out.println("Maintenance added!");
-        } catch (ServiceException ex) {
+        } catch (ServiceEntityNotFoundException ex) {
             LOGGER.warn(ex.getMessage(), ex);
             System.err.println(ex.getMessage());
         } catch (InputMismatchException ex) {

@@ -2,7 +2,7 @@ package com.senla.ui.actions.guest;
 
 import com.senla.ui.actions.AAction;
 import com.senla.util.GlobalScanner;
-import com.senla.util.exceptions.ServiceException;
+import com.senla.util.exceptions.ServiceEntityNotFoundException;
 import org.apache.log4j.Logger;
 
 import java.util.Scanner;
@@ -27,7 +27,7 @@ public class GetBillAction extends AAction {
                 System.out.println(hotelFacade.getGuestById(guestId).getName() + " have to pay " +
                         hotelFacade.getInvoiceForRoomAndMaintenances(guestId) + "$");
             }
-        } catch (ServiceException ex) {
+        } catch (ServiceEntityNotFoundException ex) {
             LOGGER.warn(ex.getMessage(), ex);
             System.err.println(ex.getMessage());
         }

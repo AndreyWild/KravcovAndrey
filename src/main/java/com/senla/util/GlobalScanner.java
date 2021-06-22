@@ -15,7 +15,8 @@ public class GlobalScanner {
     }
 
     public static void close() {
-        instance.close();
+        if (instance != null)
+            instance.close();
     }
 
 }

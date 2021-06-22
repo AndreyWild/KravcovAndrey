@@ -4,13 +4,14 @@ import com.senla.api.dao.IMaintenanceDao;
 import com.senla.api.service.IMaintenanceService;
 import com.senla.model.Maintenance;
 import com.senla.util.InitializerDAO;
-import com.senla.util.exceptions.DaoException;
-import com.senla.util.exceptions.ServiceException;
+import com.senla.util.exceptions.DaoEntityNotFoundException;
+import com.senla.util.exceptions.ServiceEntityNotFoundException;
 import org.apache.log4j.Logger;
 
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class MaintenanceService implements IMaintenanceService {
 
@@ -44,7 +45,7 @@ public class MaintenanceService implements IMaintenanceService {
     @Override
     public Maintenance addMaintenance(String name, Double price) {
         Maintenance maintenance = new Maintenance(name, price);
-        maintenanceDao.save(maintenance);
+        maintenanceDao.save(new Maintenance(name, price));
         return maintenance;
     }
 
@@ -58,16 +59,14 @@ public class MaintenanceService implements IMaintenanceService {
         try {
             LOGGER.info(String.format("Launch getMaintenanceById(%s)", maintenanceId));
             return maintenanceDao.getById(maintenanceId);
-        } catch (DaoException e) {
+        } catch (DaoEntityNotFoundException e) {
             LOGGER.warn("getMaintenanceById - failed!", e);
-            throw new ServiceException(e.getMessage());
+            throw new ServiceEntityNotFoundException(e.getMessage());
         }
     }
 
     @Override
     public List<Maintenance> getAll(Comparator<Maintenance> comp) {
-        List<Maintenance> maintenances = maintenanceDao.getAll();
-        maintenances.sort(comp);
-        return maintenances;
+        return maintenanceDao.getAll().stream().sorted(comp).collect(Collectors.toList());
     }
 }
