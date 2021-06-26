@@ -5,6 +5,7 @@ import com.senla.util.CheckingListForEmptiness;
 import com.senla.util.sorter.maintenance.MaintenanceNameComparator;
 
 public class MaintenancesSortedByNameAction extends AAction {
+
     @Override
     public void execute() {
         if (CheckingListForEmptiness.maintenanceListEmpty()) {

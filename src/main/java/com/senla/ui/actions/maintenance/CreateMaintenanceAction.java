@@ -6,6 +6,7 @@ import com.senla.util.GlobalScanner;
 import java.util.Scanner;
 
 public class CreateMaintenanceAction extends AAction {
+
     @Override
     public void execute() {
         Scanner scanner = GlobalScanner.getInstance();

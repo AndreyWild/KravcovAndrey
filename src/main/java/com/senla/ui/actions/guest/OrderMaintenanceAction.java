@@ -2,7 +2,7 @@ package com.senla.ui.actions.guest;
 
 import com.senla.ui.actions.AAction;
 import com.senla.util.GlobalScanner;
-import com.senla.util.exceptions.ServiceEntityNotFoundException;
+import com.senla.util.exceptions.EntityNotFoundException;
 import org.apache.log4j.Logger;
 
 import java.util.InputMismatchException;
@@ -14,15 +14,15 @@ public class OrderMaintenanceAction extends AAction {
 
     @Override
     public void execute() {
+        Scanner scanner = GlobalScanner.getInstance();
         try {
-            Scanner scanner = GlobalScanner.getInstance();
             System.out.print("Enter id guest: ");
             Long idGuest = scanner.nextLong();
             System.out.print("Enter id maintenance: ");
             Long idMaintenance = scanner.nextLong();
             hotelFacade.orderMaintenance(idGuest, idMaintenance);
             System.out.println("Maintenance added!");
-        } catch (ServiceEntityNotFoundException ex) {
+        } catch (EntityNotFoundException ex) {
             LOGGER.warn(ex.getMessage(), ex);
             System.err.println(ex.getMessage());
         } catch (InputMismatchException ex) {

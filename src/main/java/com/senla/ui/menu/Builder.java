@@ -1,10 +1,7 @@
 package com.senla.ui.menu;
 
 import com.senla.ui.actions.guest.*;
-import com.senla.ui.actions.maintenance.CreateMaintenanceAction;
-import com.senla.ui.actions.maintenance.MaintenancesAction;
-import com.senla.ui.actions.maintenance.MaintenancesSortedByNameAction;
-import com.senla.ui.actions.maintenance.MaintenancesSortedByPriceAction;
+import com.senla.ui.actions.maintenance.*;
 import com.senla.ui.actions.room.*;
 import com.senla.ui.actions.ExitAction;
 
@@ -47,6 +44,7 @@ public class Builder {
 
 // ---------------------- ROOM MENU ---------------------------------------------
         roomMenu.addItem(new MenuItem("* creating a room", new CreateRoomAction(), roomMenu));
+        roomMenu.addItem(new MenuItem("* show room", new RoomGetByIdAction(), roomMenu));
         roomMenu.addItem(new MenuItem("* list all rooms", new RoomsAction(), roomMenu));
         roomMenu.addItem(new MenuItem("* check in the guest in the room", new AddGuestInRoomAction(), roomMenu));
         roomMenu.addItem(new MenuItem("* evict a guest", new EvictGuestFromRoomAction(), roomMenu));
@@ -58,11 +56,11 @@ public class Builder {
         roomMenu.addItem(new MenuItem("* show open rooms sorted by stars", new OpenRoomsSortedByStarsAction(), roomMenu));
         roomMenu.addItem(new MenuItem("* number of free rooms", new NumberOfAvailableRoomsAction(), roomMenu));
         roomMenu.addItem(new MenuItem("* last three guests in room", new ThreeLastGuestsAction(), roomMenu));
-        roomMenu.addItem(new MenuItem("* show room details", new RoomGetByIdAction(), roomMenu));
         roomMenu.addItem(new MenuItem("* available numbers for the date", new AvailableRoomsForDateAction(), roomMenu));
 
 // ---------------------- MAINTENANCE MENU---------------------------------------------
-        maintenanceMenu.addItem(new MenuItem("* creating a maintenance", new CreateMaintenanceAction(), maintenanceMenu));
+        maintenanceMenu.addItem(new MenuItem("* creating maintenance", new CreateMaintenanceAction(), maintenanceMenu));
+        maintenanceMenu.addItem(new MenuItem("* show maintenance", new MaintenanceGetByIdAction(), maintenanceMenu));
         maintenanceMenu.addItem(new MenuItem("* list all maintenances", new MaintenancesAction(), maintenanceMenu));
         maintenanceMenu.addItem(new MenuItem("* maintenances sorted by name", new MaintenancesSortedByNameAction(), maintenanceMenu));
         maintenanceMenu.addItem(new MenuItem("* maintenances sorted by price", new MaintenancesSortedByPriceAction(), maintenanceMenu));

@@ -5,6 +5,7 @@ import com.senla.util.CheckingListForEmptiness;
 import com.senla.util.sorter.rooms.RoomsPriceComparator;
 
 public class OpenRoomsSortedByPriceAction extends AAction {
+
     @Override
     public void execute() {
         if (CheckingListForEmptiness.roomsListEmpty()) {

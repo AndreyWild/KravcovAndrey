@@ -5,8 +5,6 @@ import com.senla.api.service.IGuestService;
 import com.senla.model.Guest;
 import com.senla.model.Maintenance;
 import com.senla.util.InitializerDAO;
-import com.senla.util.exceptions.DaoEntityNotFoundException;
-import com.senla.util.exceptions.ServiceEntityNotFoundException;
 import org.apache.log4j.Logger;
 
 import java.util.Comparator;
@@ -76,67 +74,42 @@ public class GuestService implements IGuestService {
 
     @Override
     public Double getInvoiceForRoomAndMaintenances(Long guestId) {
-        try {
-            LOGGER.info(String.format("Launch getInvoiceForRoomAndMaintenances(%s)", guestId));
-            Guest guest = guestDao.getById(guestId);
-            double bill = guest.getRoom().getPrice() +
-                    guest.getMaintenances().stream()
-                            //.filter(Objects::nonNull)
-                            .mapToDouble(Maintenance::getPrice)
-                            .sum();
-            return bill;
-        } catch (DaoEntityNotFoundException e) {
-            LOGGER.warn("getInvoiceForRoomAndMaintenances - failed!", e);
-            throw new ServiceEntityNotFoundException(e.getMessage());
-        }
+        LOGGER.info(String.format("Launch getInvoiceForRoomAndMaintenances(%s)", guestId));
+        Guest guest = guestDao.getById(guestId);
+        double bill = guest.getRoom().getPrice() +
+                guest.getMaintenances().stream()
+                        //.filter(Objects::nonNull)
+                        .mapToDouble(Maintenance::getPrice)
+                        .sum();
+        return bill;
     }
 
     @Override
     public void orderMaintenance(Long guestId, Long maintenanceId) {
-        try {
-            LOGGER.info(String.format("Launch orderMaintenance", guestId, maintenanceId));
-            Maintenance maintenance = maintenanceService.getMaintenanceById(maintenanceId);
-            guestDao.getById(guestId).getMaintenances().add(maintenance);
-        } catch (DaoEntityNotFoundException e) {
-            LOGGER.warn("getInvoiceForRoomAndMaintenances - failed!", e);
-            throw new ServiceEntityNotFoundException(e.getMessage());
-        }
+        LOGGER.info(String.format("Launch orderMaintenance", guestId, maintenanceId));
+        Maintenance maintenance = maintenanceService.getMaintenanceById(maintenanceId);
+        guestDao.getById(guestId).getMaintenances().add(maintenance);
     }
 
     @Override
     public List<Maintenance> getAllMaintenancesGuest(Long guestId) {
-        try {
-            LOGGER.info(String.format("Launch getAllMaintenancesGuest(%s)", guestId));
-            return guestDao.getById(guestId).getMaintenances();
-        } catch (DaoEntityNotFoundException e) {
-            LOGGER.warn("getAllMaintenancesGuest - failed!", e);
-            throw new ServiceEntityNotFoundException(e.getMessage());
-        }
+        LOGGER.info(String.format("Launch getAllMaintenancesGuest(%s)", guestId));
+        return guestDao.getById(guestId).getMaintenances();
     }
 
     @Override
     public List<Maintenance> getAllMaintenancesGuest(Long guestId, Comparator<Maintenance> comp) {
-        try {
-            LOGGER.info(String.format("Launch getAllMaintenancesGuest(%s)", guestId));
-            return guestDao.getById(guestId).getMaintenances()
-                    .stream()
-                    .sorted(comp)
-                    .collect(Collectors.toList());
-        } catch (DaoEntityNotFoundException e) {
-            LOGGER.warn("getAllMaintenancesGuest - failed!", e);
-            throw new ServiceEntityNotFoundException(e.getMessage());
-        }
+        LOGGER.info(String.format("Launch getAllMaintenancesGuest(%s)", guestId));
+        return guestDao.getById(guestId).getMaintenances()
+                .stream()
+                .sorted(comp)
+                .collect(Collectors.toList());
     }
 
     @Override
     public Guest getGuestById(Long guestId) {
-        try {
-            LOGGER.info(String.format("Launch getGuestById(%s)", guestId));
-            return guestDao.getById(guestId);
-        } catch (DaoEntityNotFoundException e) {
-            LOGGER.warn("getGuestById - failed!", e);
-            throw new ServiceEntityNotFoundException(e.getMessage());
-        }
+        LOGGER.info(String.format("Launch getGuestById(%s)", guestId));
+        return guestDao.getById(guestId);
     }
 
     @Override

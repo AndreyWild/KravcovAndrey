@@ -4,8 +4,6 @@ import com.senla.api.dao.IMaintenanceDao;
 import com.senla.api.service.IMaintenanceService;
 import com.senla.model.Maintenance;
 import com.senla.util.InitializerDAO;
-import com.senla.util.exceptions.DaoEntityNotFoundException;
-import com.senla.util.exceptions.ServiceEntityNotFoundException;
 import org.apache.log4j.Logger;
 
 import java.util.Comparator;
@@ -56,13 +54,8 @@ public class MaintenanceService implements IMaintenanceService {
 
     @Override
     public Maintenance getMaintenanceById(Long maintenanceId) {
-        try {
-            LOGGER.info(String.format("Launch getMaintenanceById(%s)", maintenanceId));
-            return maintenanceDao.getById(maintenanceId);
-        } catch (DaoEntityNotFoundException e) {
-            LOGGER.warn("getMaintenanceById - failed!", e);
-            throw new ServiceEntityNotFoundException(e.getMessage());
-        }
+        LOGGER.info(String.format("Launch getMaintenanceById(%s)", maintenanceId));
+        return maintenanceDao.getById(maintenanceId);
     }
 
     @Override

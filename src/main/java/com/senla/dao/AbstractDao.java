@@ -5,8 +5,8 @@ import com.senla.model.AEntity;
 import com.senla.model.Guest;
 import com.senla.model.Maintenance;
 import com.senla.model.Room;
-import com.senla.util.exceptions.DaoEntityNotFoundException;
 import com.senla.util.IdGenerator;
+import com.senla.util.exceptions.EntityNotFoundException;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -39,7 +39,7 @@ public abstract class AbstractDao<T extends AEntity> implements IGenericDao<T> {
             }
         }
         LOGGER.warn(String.format("getById(%s) - failed! There is no object with this index!", id));
-        throw new DaoEntityNotFoundException("There is no object with this index!");
+        throw new EntityNotFoundException("There is no object with this index!");
     }
 
     @Override
