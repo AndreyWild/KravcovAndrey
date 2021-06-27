@@ -8,7 +8,7 @@ public class Guest extends AEntity {
 
     private String name;
     private int age;
-    private Room room;
+    private transient Room room;
     private List<Maintenance> maintenances;
 
     private LocalDate in;

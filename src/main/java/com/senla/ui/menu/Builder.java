@@ -56,7 +56,9 @@ public class Builder {
         roomMenu.addItem(new MenuItem("* show open rooms sorted by stars", new OpenRoomsSortedByStarsAction(), roomMenu));
         roomMenu.addItem(new MenuItem("* number of free rooms", new NumberOfAvailableRoomsAction(), roomMenu));
         roomMenu.addItem(new MenuItem("* last three guests in room", new ThreeLastGuestsAction(), roomMenu));
+        roomMenu.addItem(new MenuItem("* last guests in room", new LastGuestsAction(), roomMenu));
         roomMenu.addItem(new MenuItem("* available numbers for the date", new AvailableRoomsForDateAction(), roomMenu));
+        roomMenu.addItem(new MenuItem("* change room status", new ChangeRoomStatusAction(), roomMenu));
 
 // ---------------------- MAINTENANCE MENU---------------------------------------------
         maintenanceMenu.addItem(new MenuItem("* creating maintenance", new CreateMaintenanceAction(), maintenanceMenu));

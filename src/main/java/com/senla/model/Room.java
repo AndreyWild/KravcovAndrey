@@ -13,7 +13,7 @@ public class Room extends AEntity implements IPriceService {
     private RoomStatus status = RoomStatus.OPEN;
     private Double price;
     private Integer numberOfStars;
-    private List<Guest> guests;
+    private List<Guest> guests ;
     private List<Guest> guestHistory;
     private List<LocalDate> busyDates;
 

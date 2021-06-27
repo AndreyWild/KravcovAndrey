@@ -14,4 +14,8 @@ public interface IMaintenanceService {
     Maintenance getMaintenanceById(Long maintenanceId);
 
     List<Maintenance> getAll(Comparator<Maintenance> comp);
+
+    void setList(List<Maintenance> maintenances);
+
+    void saveToFile();
 }

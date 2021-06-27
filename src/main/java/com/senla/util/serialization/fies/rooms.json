@@ -1,0 +1,82 @@
+[
+  {
+    "number": 101,
+    "capacity": 1,
+    "status": "OPEN",
+    "price": 250.0,
+    "numberOfStars": 5,
+    "id": 1
+  },
+  {
+    "number": 102,
+    "capacity": 2,
+    "status": "OPEN",
+    "price": 200.0,
+    "numberOfStars": 4,
+    "id": 2
+  },
+  {
+    "number": 103,
+    "capacity": 3,
+    "status": "OPEN",
+    "price": 150.0,
+    "numberOfStars": 3,
+    "id": 3
+  },
+  {
+    "number": 104,
+    "capacity": 4,
+    "status": "OPEN",
+    "price": 100.0,
+    "numberOfStars": 2,
+    "id": 4
+  },
+  {
+    "number": 105,
+    "capacity": 1,
+    "status": "OPEN",
+    "price": 350.0,
+    "numberOfStars": 5,
+    "id": 5
+  },
+  {
+    "number": 106,
+    "capacity": 2,
+    "status": "OPEN",
+    "price": 300.0,
+    "numberOfStars": 4,
+    "id": 6
+  },
+  {
+    "number": 107,
+    "capacity": 3,
+    "status": "OPEN",
+    "price": 250.0,
+    "numberOfStars": 3,
+    "id": 7
+  },
+  {
+    "number": 108,
+    "capacity": 4,
+    "status": "OPEN",
+    "price": 200.0,
+    "numberOfStars": 2,
+    "id": 8
+  },
+  {
+    "number": 109,
+    "capacity": 1,
+    "status": "OPEN",
+    "price": 500.0,
+    "numberOfStars": 5,
+    "id": 9
+  },
+  {
+    "number": 110,
+    "capacity": 2,
+    "status": "OPEN",
+    "price": 450.0,
+    "numberOfStars": 4,
+    "id": 10
+  }
+]

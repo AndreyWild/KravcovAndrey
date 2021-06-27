@@ -1,6 +1,5 @@
 package com.senla;
 
-
 import com.senla.ui.menu.Builder;
 import com.senla.ui.menu.MenuController;
 import com.senla.ui.menu.Navigator;
