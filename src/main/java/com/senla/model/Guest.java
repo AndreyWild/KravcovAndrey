@@ -8,13 +8,27 @@ public class Guest extends AEntity {
 
     private String name;
     private int age;
-    private transient Room room;
+    private Long room;
     private List<Maintenance> maintenances;
 
     private LocalDate in;
     private LocalDate out;
 
     private GuestStatus guestStatus = GuestStatus.NOT_CHECKED;
+
+    public Guest() {
+    }
+
+    public Guest(Guest guest) {
+        setId(guest.getId());
+        this.name = guest.getName();
+        this.age = guest.getAge();
+        this.room = guest.getRoom();
+        this.maintenances = guest.getMaintenances();
+        this.in = guest.getIn();
+        this.out = guest.getOut();
+        this.guestStatus = guest.getGuestStatus();
+    }
 
     public Guest(String name, int age) {
         this.name = name;
@@ -37,11 +51,11 @@ public class Guest extends AEntity {
         this.age = age;
     }
 
-    public Room getRoom() {
+    public Long getRoom() {
         return room;
     }
 
-    public void setRoom(Room room) {
+    public void setRoom(Long room) {
         this.room = room;
     }
 
@@ -84,7 +98,7 @@ public class Guest extends AEntity {
     public String toString() {
         return "\t" + getId()
                 + ". " + name
-                + ", " + age + " age, room("
-                + (room == null ? "empty" : room.getNumber()) + ")";
+                + ", " + age + " age, room id ("
+                + room + ")";
     }
 }

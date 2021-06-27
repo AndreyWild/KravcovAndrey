@@ -60,18 +60,18 @@ public class RoomService implements IRoomService {
     @Override
     public void checkIn(Long guestId, Long roomId, LocalDate dateOut) {
         LOGGER.info(format("Launch checkIn(%s, %s)", guestId, roomId));
-        Room room = roomDao.getById(roomId);
-        Guest guest = guestService.getGuestById(guestId);
+        Room room = new Room(roomDao.getById(roomId));
+        Guest guest = new Guest(guestService.getGuestById(guestId));
         room.getGuests().add(guest);
-        guest.setRoom(room);
+        guest.setRoom(room.getId());
         room.setStatus(RoomStatus.CLOSED);
         guest.setGuestStatus(GuestStatus.CHECKED);
-        LocalDate inDate = LocalDate.now();
-        LocalDate outDate = dateOut;
         room.getGuestHistory().add(guest);
-        guest.setIn(inDate);
-        guest.setOut(outDate);
-        room.getBusyDates().addAll(DatePeriodGenerator.toDateList(inDate, outDate));
+        guest.setIn(LocalDate.now());
+        guest.setOut(dateOut);
+        room.setBusyDates(DatePeriodGenerator.toDateList(LocalDate.now(), dateOut));
+        update(room);
+        guestService.update(guest);
     }
 
     @Override
@@ -79,14 +79,14 @@ public class RoomService implements IRoomService {
         LOGGER.info(format("Launch evictGuest(%s)", guestId));
         Guest guest = guestService.getGuestById(guestId);
 //        Room room = guest.getRoom();
-        Room room = roomDao.getById(guest.getRoom().getId());
+        Room room = roomDao.getById(guest.getRoom());
         room.getGuests().remove(guest);
         guest.setGuestStatus(GuestStatus.NOT_CHECKED);
         room.setStatus(RoomStatus.OPEN);
 //        guest.setOut(LocalDate.now());
         guest.setRoom(null);
-        guestService.update(guest);
-        roomDao.update(room);
+        guestService.update(new Guest(guest));
+        roomDao.update(new Room(room));
 
         // TODO: 27.05.2021 можно дописать изменение списка занятых дат, получив дату заселения и за дату
         //  выселения  взяв дату вызова метода.
@@ -180,6 +180,11 @@ public class RoomService implements IRoomService {
     @Override
     public void saveToFile(){
         serializer.saveToJsonFile(file, roomDao.getAll());
+    }
+
+    @Override
+    public Room update(Room entity){
+        return roomDao.update(entity);
     }
 }
 

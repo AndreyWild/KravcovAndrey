@@ -1,6 +1,7 @@
 package com.senla.service;
 
 import com.senla.api.dao.IGuestDao;
+import com.senla.api.dao.IRoomDao;
 import com.senla.api.service.IGuestService;
 import com.senla.model.Guest;
 import com.senla.model.Maintenance;
@@ -20,6 +21,7 @@ public class GuestService implements IGuestService {
 
     private final IGuestDao guestDao = InitializerDAO.GUEST_DAO;
     private final MaintenanceService maintenanceService = MaintenanceService.getInstance();
+    private final IRoomDao roomDao = InitializerDAO.ROOM_DAO;
     private final File file = new File("src/main/java/com/senla/util/serialization/fies/guests.json");
     private final Serializer serializer = new Serializer();
 
@@ -81,7 +83,7 @@ public class GuestService implements IGuestService {
     public Double getInvoiceForRoomAndMaintenances(Long guestId) {
         LOGGER.info(String.format("Launch getInvoiceForRoomAndMaintenances(%s)", guestId));
         Guest guest = guestDao.getById(guestId);
-        double bill = guest.getRoom().getPrice() +
+        double bill = roomDao.getById(guest.getRoom()).getPrice() +
                 guest.getMaintenances().stream()
                         //.filter(Objects::nonNull)
                         .mapToDouble(Maintenance::getPrice)
@@ -92,8 +94,10 @@ public class GuestService implements IGuestService {
     @Override
     public void orderMaintenance(Long guestId, Long maintenanceId) {
         LOGGER.info(String.format("Launch orderMaintenance", guestId, maintenanceId));
-        Maintenance maintenance = maintenanceService.getMaintenanceById(maintenanceId);
-        guestDao.getById(guestId).getMaintenances().add(maintenance);
+        Guest guest = guestDao.getById(guestId);
+        guest.getMaintenances().add(maintenanceService.getMaintenanceById(maintenanceId));
+        update(guest);
+//        guestDao.getById(guestId).getMaintenances().add(maintenance);
     }
 
     @Override

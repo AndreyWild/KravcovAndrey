@@ -36,4 +36,6 @@ public interface IRoomService {
     void setList(List<Room> rooms);
 
     void saveToFile();
+
+    Room update(Room entity);
 }

@@ -17,6 +17,21 @@ public class Room extends AEntity implements IPriceService {
     private List<Guest> guestHistory;
     private List<LocalDate> busyDates;
 
+    public Room() {
+    }
+
+    public Room(Room room) {
+        setId(room.getId());
+        this.number = room.getNumber();
+        this.capacity = room.getCapacity();
+        this.status = room.getStatus();
+        this.price = room.getPrice();
+        this.numberOfStars = room.getNumberOfStars();
+        this.guests = room.getGuests();
+        this.guestHistory = room.getGuestHistory();
+        this.busyDates = room.getBusyDates();
+    }
+
     public Room(Integer number, Integer capacity, Double price, Integer numberOfStars) {
         this.number = number;
         this.capacity = capacity;
@@ -105,6 +120,7 @@ public class Room extends AEntity implements IPriceService {
                 + "), status(" + status
                 + "), price-" + price
                 + "$, "+ numberOfStars + " star(s)"
-                + " guests:\n" + (guests == null ? "empty" : guests);
+                + " guests:\n" + (guests == null ? "empty" : guests)
+                + "busyDates: " + (busyDates == null ? "OPEN" : busyDates);
     }
 }

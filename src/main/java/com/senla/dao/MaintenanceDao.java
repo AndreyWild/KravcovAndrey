@@ -6,8 +6,13 @@ import com.senla.model.Maintenance;
 public class MaintenanceDao extends AbstractDao<Maintenance> implements IMaintenanceDao {
 
     @Override
+    public Maintenance getById(Long id){
+        return new Maintenance(super.getById(id));
+    }
+
+    @Override
     public Maintenance update(Maintenance entity) {
-        Maintenance maintenance = getById(entity.getId());
+        Maintenance maintenance = super.getById(entity.getId());
         maintenance.setName(entity.getName());
         maintenance.setPrice(entity.getPrice());
         return maintenance;
