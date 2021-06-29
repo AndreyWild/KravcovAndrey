@@ -61,15 +61,21 @@ public class RoomService implements IRoomService {
     public void checkIn(Long guestId, Long roomId, LocalDate dateOut) {
         LOGGER.info(format("Launch checkIn(%s, %s)", guestId, roomId));
         Room room = new Room(roomDao.getById(roomId));
-        Guest guest = new Guest(guestService.getGuestById(guestId));
-        room.getGuests().add(guest);
-        guest.setRoom(room.getId());
         room.setStatus(RoomStatus.CLOSED);
+        room.setBusyDates(DatePeriodGenerator.toDateList(LocalDate.now(), dateOut));
+
+        Guest guest = new Guest(guestService.getGuestById(guestId));
         guest.setGuestStatus(GuestStatus.CHECKED);
-        room.getGuestHistory().add(guest);
         guest.setIn(LocalDate.now());
         guest.setOut(dateOut);
-        room.setBusyDates(DatePeriodGenerator.toDateList(LocalDate.now(), dateOut));
+
+        Guest guestWithoutRoom = new Guest(guest);
+        Room roomWithoutGuest = new Room(room);
+
+        room.getGuests().add(guestWithoutRoom);
+        guest.setRoom(roomWithoutGuest);
+        room.getGuestHistory().add(guestWithoutRoom);
+
         update(room);
         guestService.update(guest);
     }
@@ -77,16 +83,23 @@ public class RoomService implements IRoomService {
     @Override
     public void evictGuest(Long guestId) {
         LOGGER.info(format("Launch evictGuest(%s)", guestId));
-        Guest guest = guestService.getGuestById(guestId);
-//        Room room = guest.getRoom();
-        Room room = roomDao.getById(guest.getRoom());
-        room.getGuests().remove(guest);
+        Guest guest = new Guest(guestService.getGuestById(guestId));
+        if (guest.getRoom() == null) {
+            System.err.println("-=The guest is not checked into the room!=-");
+            return;
+        }
+        Room room = new Room(roomDao.getById(guest.getRoom().getId()));
+        room.setGuests(room.getGuests()
+                .stream()
+                .filter(guestS -> guestS.getId() != guest.getId())
+                .collect(Collectors.toList()));
+
         guest.setGuestStatus(GuestStatus.NOT_CHECKED);
         room.setStatus(RoomStatus.OPEN);
 //        guest.setOut(LocalDate.now());
         guest.setRoom(null);
-        guestService.update(new Guest(guest));
-        roomDao.update(new Room(room));
+        guestService.update(guest);
+        roomDao.update(room);
 
         // TODO: 27.05.2021 можно дописать изменение списка занятых дат, получив дату заселения и за дату
         //  выселения  взяв дату вызова метода.
@@ -150,7 +163,7 @@ public class RoomService implements IRoomService {
     }
 
     @Override
-    public void changeNumberStatus(Long roomId, RoomStatus status){
+    public void changeNumberStatus(Long roomId, RoomStatus status) {
         LOGGER.info(format("Launch changeNumberStatus(%s, %s)", roomId, status));
         Room room = roomDao.getById(roomId);
         room.setStatus(status);
@@ -173,17 +186,17 @@ public class RoomService implements IRoomService {
     }
 
     @Override
-    public void setList(List<Room> rooms){
+    public void setList(List<Room> rooms) {
         roomDao.setList(rooms);
     }
 
     @Override
-    public void saveToFile(){
+    public void saveToFile() {
         serializer.saveToJsonFile(file, roomDao.getAll());
     }
 
     @Override
-    public Room update(Room entity){
+    public Room update(Room entity) {
         return roomDao.update(entity);
     }
 }

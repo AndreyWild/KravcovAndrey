@@ -13,7 +13,7 @@ public class Room extends AEntity implements IPriceService {
     private RoomStatus status = RoomStatus.OPEN;
     private Double price;
     private Integer numberOfStars;
-    private List<Guest> guests ;
+    private List<Guest> guests;
     private List<Guest> guestHistory;
     private List<LocalDate> busyDates;
 
@@ -119,8 +119,7 @@ public class Room extends AEntity implements IPriceService {
                 + ", capacity(" + capacity
                 + "), status(" + status
                 + "), price-" + price
-                + "$, "+ numberOfStars + " star(s)"
-                + " guests:\n" + (guests == null ? "empty" : guests)
-                + "busyDates: " + (busyDates == null ? "OPEN" : busyDates);
+                + "$, " + numberOfStars + " star(s)"
+                + " guests:\n" + (guests == null ? "empty" : guests.isEmpty() ? "empty" : ("\t" + guests));
     }
 }

@@ -8,7 +8,7 @@ public class Guest extends AEntity {
 
     private String name;
     private int age;
-    private Long room;
+    private Room room;
     private List<Maintenance> maintenances;
 
     private LocalDate in;
@@ -51,11 +51,11 @@ public class Guest extends AEntity {
         this.age = age;
     }
 
-    public Long getRoom() {
+    public Room getRoom() {
         return room;
     }
 
-    public void setRoom(Long room) {
+    public void setRoom(Room room) {
         this.room = room;
     }
 
@@ -98,7 +98,7 @@ public class Guest extends AEntity {
     public String toString() {
         return "\t" + getId()
                 + ". " + name
-                + ", " + age + " age, room id ("
-                + room + ")";
+                + ", " + age + " age"
+                + (room == null ? "" : (", room(" + room.getNumber()) + ")");
     }
 }

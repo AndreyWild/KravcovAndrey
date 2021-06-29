@@ -2,19 +2,18 @@
   {
     "name": "Eddard Stark",
     "age": 50,
-    "room": 1,
     "maintenances": [],
     "in": {
       "year": 2021,
       "month": 6,
-      "day": 27
+      "day": 29
     },
     "out": {
       "year": 2022,
       "month": 1,
       "day": 1
     },
-    "guestStatus": "CHECKED",
+    "guestStatus": "NOT_CHECKED",
     "id": 1
   },
   {

@@ -83,7 +83,7 @@ public class GuestService implements IGuestService {
     public Double getInvoiceForRoomAndMaintenances(Long guestId) {
         LOGGER.info(String.format("Launch getInvoiceForRoomAndMaintenances(%s)", guestId));
         Guest guest = guestDao.getById(guestId);
-        double bill = roomDao.getById(guest.getRoom()).getPrice() +
+        double bill = roomDao.getById(guest.getRoom().getId()).getPrice() +
                 guest.getMaintenances().stream()
                         //.filter(Objects::nonNull)
                         .mapToDouble(Maintenance::getPrice)

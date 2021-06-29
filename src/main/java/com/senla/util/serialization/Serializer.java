@@ -2,6 +2,7 @@ package com.senla.util.serialization;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 import com.senla.model.AEntity;
 
 import java.io.*;
@@ -29,6 +30,9 @@ public class Serializer<T extends AEntity> {
             // Type type = com.google.gson.internal.$Gson$Types.newParameterizedTypeWithOwner(null, ArrayList.class, clazz); // - рабочий
             Type type = new ListParameterizedType(clazz);
             list = new Gson().fromJson(reader, type);
+
+        } catch (JsonSyntaxException e) {
+            System.err.println("Invalid file.json");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
