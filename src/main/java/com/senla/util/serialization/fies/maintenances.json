@@ -1,0 +1,52 @@
+[
+  {
+    "name": "Room cleaning",
+    "price": 50.0,
+    "id": 1
+  },
+  {
+    "name": "Cleaning clothes",
+    "price": 10.0,
+    "id": 2
+  },
+  {
+    "name": "Shoe shine",
+    "price": 5.0,
+    "id": 3
+  },
+  {
+    "name": "Food ordering",
+    "price": 75.0,
+    "id": 4
+  },
+  {
+    "name": "Call order",
+    "price": 3.0,
+    "id": 5
+  },
+  {
+    "name": "Intercity call order",
+    "price": 10.0,
+    "id": 6
+  },
+  {
+    "name": "Cable TV order",
+    "price": 30.0,
+    "id": 7
+  },
+  {
+    "name": "Pay channel order",
+    "price": 3.0,
+    "id": 8
+  },
+  {
+    "name": "Morning Wake Order",
+    "price": 2.0,
+    "id": 9
+  },
+  {
+    "name": "Mini bar",
+    "price": 120.0,
+    "id": 10
+  }
+]

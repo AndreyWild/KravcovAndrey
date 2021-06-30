@@ -1,6 +1,7 @@
 package com.senla.api.service;
 
 import com.senla.model.Room;
+import com.senla.model.RoomStatus;
 
 import java.time.LocalDate;
 import java.util.Comparator;
@@ -27,4 +28,14 @@ public interface IRoomService {
     void showThreeLastGuests(Long roomId);
 
     Room getRoomById(Long roomId);
+
+    void changeNumberStatus(Long roomId, RoomStatus status);
+
+    void showLastGuests(Long roomId, Integer quantity);
+
+    void setList(List<Room> rooms);
+
+    void saveToFile();
+
+    Room update(Room entity);
 }

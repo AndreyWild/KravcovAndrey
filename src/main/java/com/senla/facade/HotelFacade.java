@@ -1,10 +1,9 @@
 package com.senla.facade;
 
 import com.senla.api.service.IPriceService;
-import com.senla.model.AEntity;
-import com.senla.model.Guest;
-import com.senla.model.Maintenance;
-import com.senla.model.Room;
+import com.senla.model.*;
+import com.senla.properties.HotelProperties;
+import com.senla.properties.IHotelProperties;
 import com.senla.service.GuestService;
 import com.senla.service.MaintenanceService;
 import com.senla.service.MultipleEntitiesService;
@@ -20,12 +19,14 @@ public class HotelFacade {
     private RoomService roomService;
     private MaintenanceService maintenanceService;
     private MultipleEntitiesService multipleEntitiesService;
+    private IHotelProperties properties;
 
     private void init() {
         guestService = GuestService.getInstance();
         roomService = RoomService.getInstance();
         maintenanceService = MaintenanceService.getInstance();
         multipleEntitiesService = MultipleEntitiesService.getInstance();
+        properties = new HotelProperties();
     }
 
     private HotelFacade() {
@@ -82,6 +83,10 @@ public class HotelFacade {
         return guestService.getTotalNumberOfGuests();
     }
 
+    public void saveGuestsToFile(){
+        guestService.saveToFile();
+    }
+
     //-------------------- RoomService methods --------------------
 
     public Room addRoom(Integer number, Integer capacity, Double price, Integer numberOfStars) {
@@ -124,6 +129,23 @@ public class HotelFacade {
         return roomService.getRoomById(roomId);
     }
 
+    public void changeNumberStatus(Long roomId, RoomStatus status) {
+        if (!properties.getRoomStatus()) {
+            System.err.println("Access denied!");
+            return;
+        }
+        roomService.changeNumberStatus(roomId, status);
+    }
+
+    public void showLastGuests(Long roomId){
+        Integer quantity = properties.getCountRoomHistory();
+        roomService.showLastGuests(roomId, quantity);
+    }
+
+    public void saveRoomsToFile(){
+        roomService.saveToFile();
+    }
+
     //-------------------- MaintenanceService methods --------------------
     public Maintenance addMaintenance(String name, Double price) {
         return maintenanceService.addMaintenance(name, price);
@@ -139,6 +161,10 @@ public class HotelFacade {
 
     public List<Maintenance> getAllMaintenances(Comparator<Maintenance> comp) {
         return maintenanceService.getAll(comp);
+    }
+
+    public void saveMaintenancesToFile(){
+        maintenanceService.saveToFile();
     }
 
     //-------------------- MultipleEntitiesService methods --------------------

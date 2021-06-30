@@ -7,6 +7,15 @@ public class Maintenance extends AEntity implements IPriceService {
     private String name;
     private Double price;
 
+    public Maintenance() {
+    }
+
+    public Maintenance(Maintenance maintenance) {
+        setId(maintenance.getId());
+        this.name = maintenance.getName();
+        this.price = maintenance.getPrice();
+    }
+
     public Maintenance(String name, Double price) {
         this.name = name;
         this.price = price;

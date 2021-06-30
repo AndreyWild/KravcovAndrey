@@ -29,4 +29,8 @@ public interface IGuestService {
     List<Guest> getTotalNumberOfGuests();
 
     Guest update(Guest entity);
+
+    void setList(List<Guest> guests);
+
+    void saveToFile();
 }
