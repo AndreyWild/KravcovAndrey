@@ -10,9 +10,9 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Serializer<T extends AEntity> {
+public class Serializer<T extends AEntity> implements ISerializer{
 
-    public void saveToJsonFile(File file, List<T> list) {
+    public void saveToJsonFile(File file, List list) {
         try (FileWriter writer = new FileWriter(file)) {
             writer.write(new GsonBuilder()
                     .setPrettyPrinting()
@@ -23,7 +23,7 @@ public class Serializer<T extends AEntity> {
         }
     }
 
-    public List<T> getFromJsonFile(File file, Class<T> clazz) {
+    public List<T> getFromJsonFile(File file, Class clazz) {
         List<T> list = new ArrayList<>();
         try (FileReader reader = new FileReader(file)) {
 //            Type type = new TypeToken<ArrayList<Class>>() {}.getType();
