@@ -1,10 +1,11 @@
 package com.senla.my_spring.configurations;
 
-
+;
 import com.senla.my_spring.configurations.interfaces.Config;
 import lombok.Getter;
 import org.reflections.Reflections;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -16,6 +17,11 @@ public class JavaConfig implements Config {
 
     public JavaConfig(String packageToScan, Map<Class, Class> ifcToImplClass) {
         this.ifcToImplClass = ifcToImplClass;
+        this.scanner = new Reflections(packageToScan);
+    }
+
+    public JavaConfig(String packageToScan) {
+        this.ifcToImplClass = new HashMap<>();
         this.scanner = new Reflections(packageToScan);
     }
 
@@ -34,6 +40,5 @@ public class JavaConfig implements Config {
             // берем первое значение из set
             return classes.iterator().next();
         });
-
     }
 }

@@ -21,8 +21,6 @@ public class DeprecatedHandlerProxyConfigurator implements ProxyConfigurator {
                 return Enhancer.create(implClass, (net.sf.cglib.proxy.InvocationHandler) (proxy, method, args) -> getInvocationHandlerLogic(t, method, args));
             }
 
-
-
             return Proxy.newProxyInstance(implClass.getClassLoader(), implClass.getInterfaces(), (proxy, method, args) -> getInvocationHandlerLogic(t, method, args));
         } else {
             // иначе просто возвращаем объект ничего не спроксировав

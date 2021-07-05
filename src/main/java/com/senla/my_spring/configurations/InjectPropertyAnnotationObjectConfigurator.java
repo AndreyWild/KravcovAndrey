@@ -14,7 +14,7 @@ import static java.util.stream.Collectors.toMap;
 
 public class InjectPropertyAnnotationObjectConfigurator implements ObjectConfigurator {
 
-    private Map<String, String> propertiesMap;
+    private Map<String, String> propertiesMap; // Map созданный из файла application.properties
 
     @SneakyThrows
     public InjectPropertyAnnotationObjectConfigurator() {
@@ -56,6 +56,5 @@ public class InjectPropertyAnnotationObjectConfigurator implements ObjectConfigu
                 field.set(t, value);
             }
         }
-
     }
 }

@@ -1,0 +1,238 @@
+[
+  {
+    "number": 101,
+    "capacity": 1,
+    "status": "OPEN",
+    "price": 250.0,
+    "numberOfStars": 5,
+    "guests": [
+      {
+        "name": "Andrey",
+        "age": 30,
+        "guestStatus": "NOT_CHECKED"
+      },
+      {
+        "name": "Andrey",
+        "age": 30,
+        "guestStatus": "NOT_CHECKED"
+      },
+      {
+        "name": "Andrey",
+        "age": 30,
+        "guestStatus": "NOT_CHECKED"
+      }
+    ],
+    "guestHistory": [
+      {
+        "name": "Andrey",
+        "age": 30,
+        "guestStatus": "NOT_CHECKED"
+      },
+      {
+        "name": "Andrey",
+        "age": 30,
+        "guestStatus": "NOT_CHECKED"
+      },
+      {
+        "name": "Andrey",
+        "age": 30,
+        "guestStatus": "NOT_CHECKED"
+      }
+    ],
+    "busyDates": [
+      {
+        "year": 2021,
+        "month": 12,
+        "day": 12
+      },
+      {
+        "year": 2021,
+        "month": 12,
+        "day": 12
+      },
+      {
+        "year": 2021,
+        "month": 12,
+        "day": 12
+      }
+    ],
+    "id": 1
+  },
+  {
+    "number": 101,
+    "capacity": 1,
+    "status": "OPEN",
+    "price": 250.0,
+    "numberOfStars": 5,
+    "guests": [
+      {
+        "name": "Andrey",
+        "age": 30,
+        "guestStatus": "NOT_CHECKED"
+      },
+      {
+        "name": "Andrey",
+        "age": 30,
+        "guestStatus": "NOT_CHECKED"
+      },
+      {
+        "name": "Andrey",
+        "age": 30,
+        "guestStatus": "NOT_CHECKED"
+      }
+    ],
+    "guestHistory": [
+      {
+        "name": "Andrey",
+        "age": 30,
+        "guestStatus": "NOT_CHECKED"
+      },
+      {
+        "name": "Andrey",
+        "age": 30,
+        "guestStatus": "NOT_CHECKED"
+      },
+      {
+        "name": "Andrey",
+        "age": 30,
+        "guestStatus": "NOT_CHECKED"
+      }
+    ],
+    "busyDates": [
+      {
+        "year": 2021,
+        "month": 12,
+        "day": 12
+      },
+      {
+        "year": 2021,
+        "month": 12,
+        "day": 12
+      },
+      {
+        "year": 2021,
+        "month": 12,
+        "day": 12
+      }
+    ],
+    "id": 1
+  },
+  {
+    "number": 101,
+    "capacity": 1,
+    "status": "OPEN",
+    "price": 250.0,
+    "numberOfStars": 5,
+    "guests": [
+      {
+        "name": "Andrey",
+        "age": 30,
+        "guestStatus": "NOT_CHECKED"
+      },
+      {
+        "name": "Andrey",
+        "age": 30,
+        "guestStatus": "NOT_CHECKED"
+      },
+      {
+        "name": "Andrey",
+        "age": 30,
+        "guestStatus": "NOT_CHECKED"
+      }
+    ],
+    "guestHistory": [
+      {
+        "name": "Andrey",
+        "age": 30,
+        "guestStatus": "NOT_CHECKED"
+      },
+      {
+        "name": "Andrey",
+        "age": 30,
+        "guestStatus": "NOT_CHECKED"
+      },
+      {
+        "name": "Andrey",
+        "age": 30,
+        "guestStatus": "NOT_CHECKED"
+      }
+    ],
+    "busyDates": [
+      {
+        "year": 2021,
+        "month": 12,
+        "day": 12
+      },
+      {
+        "year": 2021,
+        "month": 12,
+        "day": 12
+      },
+      {
+        "year": 2021,
+        "month": 12,
+        "day": 12
+      }
+    ],
+    "id": 1
+  },
+  {
+    "number": 101,
+    "capacity": 1,
+    "status": "OPEN",
+    "price": 250.0,
+    "numberOfStars": 5,
+    "guests": [
+      {
+        "name": "Andrey",
+        "age": 30,
+        "guestStatus": "NOT_CHECKED"
+      },
+      {
+        "name": "Andrey",
+        "age": 30,
+        "guestStatus": "NOT_CHECKED"
+      },
+      {
+        "name": "Andrey",
+        "age": 30,
+        "guestStatus": "NOT_CHECKED"
+      }
+    ],
+    "guestHistory": [
+      {
+        "name": "Andrey",
+        "age": 30,
+        "guestStatus": "NOT_CHECKED"
+      },
+      {
+        "name": "Andrey",
+        "age": 30,
+        "guestStatus": "NOT_CHECKED"
+      },
+      {
+        "name": "Andrey",
+        "age": 30,
+        "guestStatus": "NOT_CHECKED"
+      }
+    ],
+    "busyDates": [
+      {
+        "year": 2021,
+        "month": 12,
+        "day": 12
+      },
+      {
+        "year": 2021,
+        "month": 12,
+        "day": 12
+      },
+      {
+        "year": 2021,
+        "month": 12,
+        "day": 12
+      }
+    ],
+    "id": 1
+  }
+]

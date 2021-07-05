@@ -25,7 +25,7 @@ public class ApplicationContext {
         Class<? extends T> implClass = type;
         // если cache содержит такой тип
         if(cache.containsKey(type)){
-            // то овзращаем для него объект из этого cache по типу
+            // то овзращаем для него объект из этого cache по типу и выходим из метода
             return (T) cache.get(type);
         }
         // если класс является интерфейсом

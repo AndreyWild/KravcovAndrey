@@ -1,5 +1,6 @@
 package com.senla.my_spring;
 
+
 import com.senla.my_spring.configurations.ApplicationContext;
 import com.senla.my_spring.configurations.interfaces.ObjectConfigurator;
 import com.senla.my_spring.configurations.interfaces.ProxyConfigurator;
@@ -60,7 +61,7 @@ public class ObjectFactory {
         return t;
     }
 
-    // метод запускает в объекте метод с аннотацией @PostConstruct
+    // метод запускает в объекте метод с аннотацией @PostConstruct если у класса есть метод
     private <T> void invokeInit(Class<T> implClass, T t) throws
             IllegalAccessException, InvocationTargetException {
         for (Method method : implClass.getMethods()) {
@@ -70,7 +71,7 @@ public class ObjectFactory {
         }
     }
 
-    // метод настраивает объект если надо
+    // метод настраивает объект, если надо
     private <T> void configureIfNeeded(T t) {
         configurators.forEach(objectConfigurator -> objectConfigurator.configure(t, context));
     }
