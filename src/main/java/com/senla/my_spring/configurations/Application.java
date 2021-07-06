@@ -9,7 +9,7 @@ public class Application {
     // конструктор если есть интерфейсы с более чем одной имплиментацией
     public static ApplicationContext run(String packageToScan, Map<Class, Class> ifcToImplClass){
         // создаем объект config из String (путь к папке которую надо сканировать и Map с разными имплиментациями)
-        JavaConfig config = new JavaConfig(packageToScan, ifcToImplClass);
+        InterfaceClassesConfigurator config = new InterfaceClassesConfigurator(packageToScan, ifcToImplClass);
         // создаем новый объект context добавляя в него config
         ApplicationContext context = new ApplicationContext(config);
         // создаем новый объект factory добавляя в него context
@@ -22,7 +22,7 @@ public class Application {
     // конструктор если интерфейс только с одной имплиментацией
     public static ApplicationContext run(String packageToScan){
         // создаем объект config из String (путь к папке которую надо сканировать)
-        JavaConfig config = new JavaConfig(packageToScan);
+        InterfaceClassesConfigurator config = new InterfaceClassesConfigurator(packageToScan);
         // создаем новый объект context добавляя в него config
         ApplicationContext context = new ApplicationContext(config);
         // создаем новый объект factory добавляя в него context

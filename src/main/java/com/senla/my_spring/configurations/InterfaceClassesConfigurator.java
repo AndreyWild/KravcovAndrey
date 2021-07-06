@@ -9,18 +9,18 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class JavaConfig implements Config {
+public class InterfaceClassesConfigurator implements Config {
 
     @Getter
     private Reflections scanner;
     private Map<Class, Class> ifcToImplClass;
 
-    public JavaConfig(String packageToScan, Map<Class, Class> ifcToImplClass) {
+    public InterfaceClassesConfigurator(String packageToScan, Map<Class, Class> ifcToImplClass) {
         this.ifcToImplClass = ifcToImplClass;
         this.scanner = new Reflections(packageToScan);
     }
 
-    public JavaConfig(String packageToScan) {
+    public InterfaceClassesConfigurator(String packageToScan) {
         this.ifcToImplClass = new HashMap<>();
         this.scanner = new Reflections(packageToScan);
     }

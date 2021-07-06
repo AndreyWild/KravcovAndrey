@@ -8,7 +8,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
-public class DeprecatedHandlerProxyConfigurator implements ProxyConfigurator {
+public class HandlerProxyConfigurator implements ProxyConfigurator {
     @Override
     // конфигуратор принимает объект который возможно надо запроксировать
     public Object replaceWithProxyIfNeeded(Object t, Class implClass) {
