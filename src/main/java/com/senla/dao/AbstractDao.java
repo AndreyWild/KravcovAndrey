@@ -29,9 +29,9 @@ public abstract class AbstractDao<T extends AEntity> implements IGenericDao<T> {
     public void save(T entity) {
         if (entity instanceof Guest) {
             entity.setId(guestIdGenerator.generateGuestId());
-        } else if (entity instanceof Maintenance) {
-            entity.setId(roomIdGenerator.generateRoomId());
         } else if (entity instanceof Room) {
+            entity.setId(roomIdGenerator.generateRoomId());
+        } else if (entity instanceof Maintenance) {
             entity.setId(maintenanceIdGenerator.generateMaintenanceId());
         }
         repository.add(entity);
