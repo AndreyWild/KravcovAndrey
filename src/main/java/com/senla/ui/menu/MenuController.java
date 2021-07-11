@@ -1,6 +1,6 @@
 package com.senla.ui.menu;
 
-import com.senla.my_spring.annotations.InjectByType;
+import com.senla.my_spring.annotations.Autowired;
 import org.apache.log4j.Logger;
 
 import java.util.InputMismatchException;
@@ -10,9 +10,9 @@ public class MenuController {
 
     private static final Logger LOGGER = Logger.getLogger(MenuController.class.getName());
 
-    @InjectByType
+    @Autowired
     private Builder builder;
-    @InjectByType
+    @Autowired
     private Navigator navigator;
 
 //    public MenuController(Builder builder, Navigator navigator) {

@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ApplicationContext {
+
     @Setter
     private ObjectFactory factory;
     private Map<Class, Object> cache = new ConcurrentHashMap<>();
@@ -20,25 +21,17 @@ public class ApplicationContext {
         this.config = config;
     }
 
-    // дай мне объект типа из параметра
     public <T> T getObject(Class<T> type) {
-        Class<? extends T> implClass = type;
-        // если cache содержит такой тип
-        if(cache.containsKey(type)){
-            // то овзращаем для него объект из этого cache по типу и выходим из метода
+        if (cache.containsKey(type)) {
             return (T) cache.get(type);
         }
-        // если класс является интерфейсом
-        if (type.isInterface()) {
-            // то implClass = классу который имплиментирует этот объект
-            implClass = config.getImplClass(type);
-        }
-        // t = фабрика создай объект типа type
-        T t = factory.crateObject(implClass);
 
-        // если у объекта есть аннотация Singleton
-        if(implClass.isAnnotationPresent(Singleton.class)){
-            // тогда добавляем этот объект в cache
+        Class<? extends T> implClass = type;
+        if (type.isInterface()) {
+            implClass = config.getImpClass(type);
+        }
+        T t = factory.createObject(implClass);
+        if (implClass.isAnnotationPresent(Singleton.class)) {
             cache.put(type, t);
         }
         return t;
