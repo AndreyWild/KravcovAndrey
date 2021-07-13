@@ -1,7 +1,9 @@
 package com.senla.my_spring;
 
 import com.senla.my_spring.configurations.ApplicationContext;
-import com.senla.my_spring.configurations.interfaces.ObjectConfigurator;
+import com.senla.my_spring.configurations.interfaces.IObjectConfigurator;
+import com.senla.ui.actions.guest.GuestGetById;
+import org.apache.log4j.Logger;
 
 import javax.annotation.PostConstruct;
 import java.lang.reflect.InvocationTargetException;
@@ -11,16 +13,19 @@ import java.util.List;
 
 public class ObjectFactory {
 
-    private List<ObjectConfigurator> configurators = new ArrayList<>();
+    private static final Logger LOGGER = Logger.getLogger(ObjectFactory.class.getName());
+
+    private List<IObjectConfigurator> configurators = new ArrayList<>();
     private final ApplicationContext context;
 
     public ObjectFactory(ApplicationContext context) {
         this.context = context;
 
-        for (Class<? extends ObjectConfigurator> aClass : context.getConfig().getScanner().getSubTypesOf(ObjectConfigurator.class)) {
+        for (Class<? extends IObjectConfigurator> aClass : context.getConfig().getScanner().getSubTypesOf(IObjectConfigurator.class)) {
             try {
                 configurators.add(aClass.getDeclaredConstructor().newInstance());
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+                LOGGER.warn(e.getMessage(), e);
                 System.out.println("Something with constructor access!");
                 e.printStackTrace();
             }
@@ -55,6 +60,7 @@ public class ObjectFactory {
         try {
             t = implClass.getDeclaredConstructor().newInstance();
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            LOGGER.warn(e.getMessage(), e);
             System.err.println("Something went wrong with creating an object from a class!");
             e.printStackTrace();
         }

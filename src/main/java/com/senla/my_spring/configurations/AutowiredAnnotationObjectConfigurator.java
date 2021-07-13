@@ -1,11 +1,11 @@
 package com.senla.my_spring.configurations;
 
 import com.senla.my_spring.annotations.Autowired;
-import com.senla.my_spring.configurations.interfaces.ObjectConfigurator;
+import com.senla.my_spring.configurations.interfaces.IObjectConfigurator;
 
 import java.lang.reflect.Field;
 
-public class AutowiredAnnotationObjectConfigurator implements ObjectConfigurator {
+public class AutowiredAnnotationObjectConfigurator implements IObjectConfigurator {
     @Override
     public void configure(Object t, ApplicationContext context) {
         for (Field field : t.getClass().getDeclaredFields()) {

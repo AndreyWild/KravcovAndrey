@@ -1,7 +1,7 @@
 package com.senla.my_spring.configurations;
 
 import com.senla.my_spring.annotations.InjectProperty;
-import com.senla.my_spring.configurations.interfaces.ObjectConfigurator;
+import com.senla.my_spring.configurations.interfaces.IObjectConfigurator;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toMap;
 
-public class InjectPropertyAnnotationObjectConfigurator implements ObjectConfigurator {
+public class InjectPropertyAnnotationObjectConfigurator implements IObjectConfigurator {
 
     Map<String, String> propertiesMap; // Map содержит значения из файла application.properties
 

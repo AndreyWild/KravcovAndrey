@@ -2,22 +2,19 @@ package com.senla.my_spring.configurations;
 
 import com.senla.my_spring.ObjectFactory;
 import com.senla.my_spring.annotations.Singleton;
-import com.senla.my_spring.configurations.interfaces.Config;
-import lombok.Getter;
-import lombok.Setter;
+import com.senla.my_spring.configurations.interfaces.IConfig;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ApplicationContext {
 
-    @Setter
+
     private ObjectFactory factory;
     private Map<Class, Object> cache = new ConcurrentHashMap<>();
-    @Getter
-    private Config config;
+    private IConfig config;
 
-    public ApplicationContext(Config config) {
+    public ApplicationContext(IConfig config) {
         this.config = config;
     }
 
@@ -35,5 +32,13 @@ public class ApplicationContext {
             cache.put(type, t);
         }
         return t;
+    }
+
+    public void setFactory(ObjectFactory factory) {
+        this.factory = factory;
+    }
+
+    public IConfig getConfig() {
+        return config;
     }
 }

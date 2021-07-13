@@ -1,19 +1,18 @@
 package com.senla.my_spring.configurations;
 
-import com.senla.my_spring.configurations.interfaces.Config;
-import lombok.Getter;
+import com.senla.my_spring.configurations.interfaces.IConfig;
 import org.reflections.Reflections;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class JavaObjectsConfigurator implements Config {
-    @Getter
+public class ReturnClassImplConfigurator implements IConfig {
+
     private Reflections scanner;
     private Map<Class, Class> ifc2ImplClass = new HashMap<>();
 
-    public JavaObjectsConfigurator(String packageToScan) {
+    public ReturnClassImplConfigurator(String packageToScan) {
         this.scanner = new Reflections(packageToScan);
     }
 
@@ -26,5 +25,10 @@ public class JavaObjectsConfigurator implements Config {
             }
             return classes.iterator().next();
         });
+    }
+
+    @Override
+    public Reflections getScanner() {
+        return scanner;
     }
 }
