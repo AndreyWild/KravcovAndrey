@@ -2,6 +2,8 @@ package com.senlainc.task2;
 
 import lombok.SneakyThrows;
 
+/** Создать 2 потока, которые будут по очереди выводить свое имя в консоль.*/
+
 public class Main {
 
     @SneakyThrows
