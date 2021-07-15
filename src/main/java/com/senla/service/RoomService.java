@@ -3,6 +3,8 @@ package com.senla.service;
 import com.senla.api.dao.IRoomDao;
 import com.senla.api.service.IRoomService;
 import com.senla.model.*;
+import com.senla.my_spring.annotations.Autowired;
+import com.senla.my_spring.annotations.Singleton;
 import com.senla.util.DatePeriodGenerator;
 import com.senla.util.InitializerDAO;
 import com.senla.util.serialization.ISerializer;
@@ -13,28 +15,23 @@ import java.io.File;
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static java.lang.String.format;
 
+@Singleton
 public class RoomService implements IRoomService {
 
     private static final Logger LOGGER = Logger.getLogger(RoomService.class.getName());
 
     private final IRoomDao roomDao = InitializerDAO.ROOM_DAO;
-    private final GuestService guestService = GuestService.getInstance();
+    @Autowired
+    private GuestService guestService;
     private final ISerializer serializer = new Serializer();
     private final File file = new File("src/main/java/com/senla/util/serialization/fies/rooms.json");
 
     private RoomService() {
         roomDao.setList(serializer.getFromJsonFile(file, Room.class));
-    }
-
-    private static RoomService instance;
-
-    public static RoomService getInstance() {
-        return Objects.requireNonNullElse(instance, new RoomService());
     }
 
 //    static {
@@ -97,6 +94,7 @@ public class RoomService implements IRoomService {
 
         guest.setGuestStatus(GuestStatus.NOT_CHECKED);
         room.setStatus(RoomStatus.OPEN);
+        room.setBusyDates(null); // create 15.07.2021
 //        guest.setOut(LocalDate.now());
         guest.setRoom(null);
         guestService.update(guest);

@@ -1,10 +1,12 @@
 package com.senla.util;
 
+
 import com.senla.facade.HotelFacade;
+import com.senla.facade.HotelFacadeDispenser;
 
 public class CheckingListForEmptiness {
 
-    private static HotelFacade hotelFacade = HotelFacade.getInstance();
+    private static HotelFacade hotelFacade = HotelFacadeDispenser.getHotelFacade();
 
     public static boolean guestsListEmpty() {
         if (hotelFacade.getAllGuests().isEmpty()) {

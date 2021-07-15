@@ -3,6 +3,7 @@ package com.senla.service;
 import com.senla.api.dao.IMaintenanceDao;
 import com.senla.api.service.IMaintenanceService;
 import com.senla.model.Maintenance;
+import com.senla.my_spring.annotations.Singleton;
 import com.senla.util.InitializerDAO;
 import com.senla.util.serialization.Serializer;
 import org.apache.log4j.Logger;
@@ -10,9 +11,9 @@ import org.apache.log4j.Logger;
 import java.io.File;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
+@Singleton
 public class MaintenanceService implements IMaintenanceService {
 
     private static final Logger LOGGER = Logger.getLogger(MaintenanceService.class.getName());
@@ -21,14 +22,8 @@ public class MaintenanceService implements IMaintenanceService {
     private final Serializer serializer = new Serializer();
     private final File file = new File("src/main/java/com/senla/util/serialization/fies/maintenances.json");
 
-    protected MaintenanceService() {
+    private MaintenanceService() {
         maintenanceDao.setList(serializer.getFromJsonFile(file, Maintenance.class));
-    }
-
-    private static MaintenanceService instance;
-
-    public static MaintenanceService getInstance() {
-        return Objects.requireNonNullElse(instance, new MaintenanceService());
     }
 
 //    static {
@@ -74,7 +69,7 @@ public class MaintenanceService implements IMaintenanceService {
     }
 
     @Override
-    public void saveToFile(){
+    public void saveToFile() {
         serializer.saveToJsonFile(file, maintenanceDao.getAll());
     }
 }

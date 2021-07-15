@@ -2,12 +2,10 @@ package com.senla.my_spring;
 
 import com.senla.my_spring.configurations.ApplicationContext;
 import com.senla.my_spring.configurations.interfaces.IObjectConfigurator;
-import com.senla.ui.actions.guest.GuestGetById;
 import org.apache.log4j.Logger;
 
-import javax.annotation.PostConstruct;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,20 +33,7 @@ public class ObjectFactory {
     public <T> T createObject(Class<T> implClass) {
         T t = create(implClass);
         configure(t);
-        invokeInit(implClass, t);
         return t;
-    }
-
-    private <T> void invokeInit(Class<T> implClass, T t) {
-        for (Method method : implClass.getMethods()) {
-            if (method.isAnnotationPresent(PostConstruct.class)) {
-                try {
-                    method.invoke(t);
-                } catch (IllegalAccessException | InvocationTargetException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
     }
 
     private <T> void configure(T initialized) {
@@ -58,7 +43,9 @@ public class ObjectFactory {
     private <T> T create(Class<T> implClass) {
         T t = null;
         try {
-            t = implClass.getDeclaredConstructor().newInstance();
+            Constructor<T> constructor = (Constructor<T>) implClass.getDeclaredConstructor();
+            constructor.setAccessible(true);
+            t = constructor.newInstance();
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             LOGGER.warn(e.getMessage(), e);
             System.err.println("Something went wrong with creating an object from a class!");

@@ -10,10 +10,13 @@ public class MenuController {
 
     private static final Logger LOGGER = Logger.getLogger(MenuController.class.getName());
 
-    @Autowired
     private Builder builder;
-    @Autowired
     private Navigator navigator;
+
+    public MenuController(Builder builder, Navigator navigator) {
+        this.builder = builder;
+        this.navigator = navigator;
+    }
 
 
     public void run() {

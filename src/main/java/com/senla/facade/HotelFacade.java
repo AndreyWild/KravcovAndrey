@@ -2,6 +2,7 @@ package com.senla.facade;
 
 import com.senla.api.service.IPriceService;
 import com.senla.model.*;
+import com.senla.my_spring.annotations.Autowired;
 import com.senla.properties.HotelProperties;
 import com.senla.properties.IHotelProperties;
 import com.senla.service.GuestService;
@@ -15,31 +16,18 @@ import java.util.List;
 
 public class HotelFacade {
 
+    @Autowired
     private GuestService guestService;
+    @Autowired
     private RoomService roomService;
+    @Autowired
     private MaintenanceService maintenanceService;
+    @Autowired
     private MultipleEntitiesService multipleEntitiesService;
+    @Autowired
     private IHotelProperties properties;
 
-    private void init() {
-        guestService = GuestService.getInstance();
-        roomService = RoomService.getInstance();
-        maintenanceService = MaintenanceService.getInstance();
-        multipleEntitiesService = MultipleEntitiesService.getInstance();
-        properties = new HotelProperties();
-    }
-
     private HotelFacade() {
-    }
-
-    public static HotelFacade instance;
-
-    public static HotelFacade getInstance() {
-        if (instance == null) {
-            instance = new HotelFacade();
-            instance.init();
-        }
-        return instance;
     }
 
     //-------------------- GuestService methods --------------------
