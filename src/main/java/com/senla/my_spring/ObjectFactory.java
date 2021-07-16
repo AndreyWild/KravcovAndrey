@@ -47,9 +47,7 @@ public class ObjectFactory {
             constructor.setAccessible(true);
             t = constructor.newInstance();
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-            LOGGER.warn(e.getMessage(), e);
-            System.err.println("Something went wrong with creating an object from a class!");
-            e.printStackTrace();
+            LOGGER.warn(e.getMessage("Something went wrong with creating an object from a class!"), e);
         }
         return t;
     }
