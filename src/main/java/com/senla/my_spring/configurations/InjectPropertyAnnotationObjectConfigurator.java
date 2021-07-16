@@ -2,6 +2,7 @@ package com.senla.my_spring.configurations;
 
 import com.senla.my_spring.annotations.InjectProperty;
 import com.senla.my_spring.configurations.interfaces.IObjectConfigurator;
+import org.apache.log4j.Logger;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -14,7 +15,9 @@ import static java.util.stream.Collectors.toMap;
 
 public class InjectPropertyAnnotationObjectConfigurator implements IObjectConfigurator {
 
-    Map<String, String> propertiesMap; // Map содержит значения из файла application.properties
+    private static final Logger LOGGER = Logger.getLogger(InjectPropertyAnnotationObjectConfigurator.class.getName());
+
+    Map<String, String> propertiesMap;
 
     public InjectPropertyAnnotationObjectConfigurator() {
         String path = ClassLoader.getSystemClassLoader().getResource("application.properties").getPath();
@@ -22,8 +25,8 @@ public class InjectPropertyAnnotationObjectConfigurator implements IObjectConfig
         try {
             lines = new BufferedReader(new FileReader(path)).lines();
         } catch (FileNotFoundException e) {
+            LOGGER.warn(e.getMessage(), e);
             System.err.println("File not found!");
-            e.printStackTrace();
         }
         propertiesMap = lines.map(line -> line.split("=")).collect(toMap(arr -> arr[0], arr -> arr[1]));
     }
@@ -44,8 +47,8 @@ public class InjectPropertyAnnotationObjectConfigurator implements IObjectConfig
                 try {
                     field.set(t, value);
                 } catch (IllegalAccessException e) {
+                    LOGGER.warn(e.getMessage(), e);
                     System.err.println("Access to the field is closed!");
-                    e.printStackTrace();
                 }
             }
         }

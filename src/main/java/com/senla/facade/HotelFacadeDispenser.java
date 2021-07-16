@@ -9,7 +9,6 @@ public class HotelFacadeDispenser {
 
     public static HotelFacade getHotelFacade(){
         ApplicationContext context = Application.run("com.senla");
-        facade = context.getObject(HotelFacade.class);
-        return facade;
+        return facade = context.getObject(HotelFacade.class);
     }
 }
