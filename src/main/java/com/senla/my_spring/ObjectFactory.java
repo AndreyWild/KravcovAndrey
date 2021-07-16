@@ -23,9 +23,7 @@ public class ObjectFactory {
             try {
                 configurators.add(aClass.getDeclaredConstructor().newInstance());
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-                LOGGER.warn(e.getMessage(), e);
-                System.out.println("Something with constructor access!");
-                e.printStackTrace();
+                LOGGER.warn(e.getMessage("Something with constructor access!"), e);
             }
         }
     }
