@@ -2,10 +2,13 @@ package com.senla.my_spring.configurations;
 
 import com.senla.my_spring.annotations.Autowired;
 import com.senla.my_spring.configurations.interfaces.IObjectConfigurator;
+import org.apache.log4j.Logger;
 
 import java.lang.reflect.Field;
 
 public class AutowiredAnnotationObjectConfigurator implements IObjectConfigurator {
+
+    private static final Logger LOGGER = Logger.getLogger(AutowiredAnnotationObjectConfigurator.class.getName());
     @Override
     public void configure(Object t, ApplicationContext context) {
         for (Field field : t.getClass().getDeclaredFields()) {
@@ -15,8 +18,8 @@ public class AutowiredAnnotationObjectConfigurator implements IObjectConfigurato
                 try {
                     field.set(t, object);
                 } catch (IllegalAccessException e) {
+                    LOGGER.warn(e.getMessage(), e);
                     System.err.println("Access to the field is closed!");
-                    e.printStackTrace();
                 }
             }
         }
