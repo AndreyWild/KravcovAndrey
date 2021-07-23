@@ -5,6 +5,7 @@ import com.senla.api.service.IRoomService;
 import com.senla.model.*;
 import com.senla.util.DatePeriodGenerator;
 import com.senla.util.InitializerDAO;
+import com.senla.util.serialization.ISerializer;
 import com.senla.util.serialization.Serializer;
 import org.apache.log4j.Logger;
 
@@ -23,7 +24,7 @@ public class RoomService implements IRoomService {
 
     private final IRoomDao roomDao = InitializerDAO.ROOM_DAO;
     private final GuestService guestService = GuestService.getInstance();
-    private final Serializer serializer = new Serializer();
+    private final ISerializer serializer = new Serializer();
     private final File file = new File("src/main/java/com/senla/util/serialization/fies/rooms.json");
 
     private RoomService() {

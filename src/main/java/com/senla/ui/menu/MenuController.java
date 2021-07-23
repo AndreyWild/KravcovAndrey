@@ -1,6 +1,6 @@
 package com.senla.ui.menu;
 
-import com.senla.ui.actions.room.ThreeLastGuestsAction;
+import com.senla.my_spring.annotations.Autowired;
 import org.apache.log4j.Logger;
 
 import java.util.InputMismatchException;
@@ -10,13 +10,11 @@ public class MenuController {
 
     private static final Logger LOGGER = Logger.getLogger(MenuController.class.getName());
 
+    @Autowired
     private Builder builder;
+    @Autowired
     private Navigator navigator;
 
-    public MenuController(Builder builder, Navigator navigator) {
-        this.builder = builder;
-        this.navigator = navigator;
-    }
 
     public void run() {
         builder.buildMenu();
