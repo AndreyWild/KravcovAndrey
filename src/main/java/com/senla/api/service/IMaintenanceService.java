@@ -7,15 +7,15 @@ import java.util.List;
 
 public interface IMaintenanceService {
 
-    Maintenance addMaintenance(String name, Double price);
-
-    List<Maintenance> getAll();
-
-    Maintenance getMaintenanceById(Long maintenanceId);
-
-    List<Maintenance> getAll(Comparator<Maintenance> comp);
-
-    void setList(List<Maintenance> maintenances);
-
-    void saveToFile();
+//    Maintenance addMaintenance(String name, Double price);
+//
+//    List<Maintenance> getAll();
+//
+//    Maintenance getMaintenanceById(Long maintenanceId);
+//
+//    List<Maintenance> getAll(Comparator<Maintenance> comp);
+//
+//    void setList(List<Maintenance> maintenances);
+//
+//    void saveToFile();
 }

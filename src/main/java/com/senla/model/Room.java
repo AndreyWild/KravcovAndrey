@@ -1,21 +1,18 @@
 package com.senla.model;
 
-import com.senla.api.service.IPriceService;
+import com.senla.model.enums.RoomStars;
+import com.senla.model.enums.RoomStatus;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
-public class Room extends AEntity implements IPriceService {
+public class Room extends AEntity /*implements IPriceService*/ {
 
     private Integer number;
     private Integer capacity;
     private RoomStatus status = RoomStatus.OPEN;
     private Double price;
-    private Integer numberOfStars;
-    private List<Guest> guests;
-    private List<Guest> guestHistory;
-    private List<LocalDate> busyDates;
+    private RoomStars stars = RoomStars.ONE;
+    private List<Order> orders;
 
     public Room() {
     }
@@ -26,17 +23,15 @@ public class Room extends AEntity implements IPriceService {
         this.capacity = room.getCapacity();
         this.status = room.getStatus();
         this.price = room.getPrice();
-        this.numberOfStars = room.getNumberOfStars();
-        this.guests = room.getGuests();
-        this.guestHistory = room.getGuestHistory();
-        this.busyDates = room.getBusyDates();
+        this.stars = room.getStars();
+        this.orders = room.getOrders();
     }
 
-    public Room(Integer number, Integer capacity, Double price, Integer numberOfStars) {
+    public Room(Integer number, Integer capacity, Double price, RoomStars stars) {
         this.number = number;
         this.capacity = capacity;
         this.price = price;
-        this.numberOfStars = numberOfStars;
+        this.stars = stars;
     }
 
     public Integer getNumber() {
@@ -63,63 +58,46 @@ public class Room extends AEntity implements IPriceService {
         this.status = status;
     }
 
+    //    @Override
     public Double getPrice() {
         return price;
     }
 
+    //    @Override
     public void setPrice(Double price) {
         this.price = price;
     }
 
-    public Integer getNumberOfStars() {
-        return numberOfStars;
+    public RoomStars getStars() {
+        return stars;
     }
 
-    public void setNumberOfStars(Integer numberOfStars) {
-        this.numberOfStars = numberOfStars;
+    public void setStars(RoomStars stars) {
+        this.stars = stars;
     }
 
-    public List<Guest> getGuests() {
-        if (guests == null) {
-            guests = new ArrayList<>();
-        }
-        return guests;
+    public List<Order> getOrders() {
+        return orders;
     }
 
-    public void setGuests(List<Guest> guests) {
-        this.guests = guests;
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 
-    public List<LocalDate> getBusyDates() {
-        if (busyDates == null) {
-            busyDates = new ArrayList<>();
-        }
-        return busyDates;
-    }
-
-    public void setBusyDates(List<LocalDate> busyDates) {
-        this.busyDates = busyDates;
-    }
-
-    public List<Guest> getGuestHistory() {
-        if (guestHistory == null) {
-            guestHistory = new ArrayList<>();
-        }
-        return guestHistory;
-    }
-
-    public void setGuestHistory(List<Guest> guestHistory) {
-        this.guestHistory = guestHistory;
+    private Guest getGuest() {
+        return orders.stream().reduce((first, second) -> second).get().getGuest();
     }
 
     @Override
     public String toString() {
-        return "\t" + getId()
-                + ". Room-" + number
-                + ", capacity(" + capacity
-                + "), status(" + status
-                + "), price-" + price
-                + "$, " + numberOfStars + " star(s)"
-                + " guests:\n" + (guests == null ? "empty" : guests.isEmpty() ? "empty" : ("\t" + guests));
+        return
+                (getId() == null ? "" : getId() + ". ") +
+                "Room-" + number +
+                ", capacity(" + capacity +
+                "), status(" + status +
+                "), price-" + price +
+                "$, stars(" + stars +
+                "), orders=" + orders;
     }
 }
+
