@@ -30,7 +30,5 @@ public interface IGuestService {
 
     Guest update(Guest entity);
 
-    void setList(List<Guest> guests);
-
     void saveToFile();
 }

@@ -18,6 +18,13 @@ public class Order extends AEntity{
     public Order() {
     }
 
+    public Order(Guest guest, Room room, LocalDate checkIn, LocalDate checkOut) {
+        this.guest = guest;
+        this.room = room;
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
+    }
+
     public Order(Guest guest, Room room) {
         this.guest = guest;
         this.room = room;
@@ -91,7 +98,7 @@ public class Order extends AEntity{
     public String toString() {
         return "Order{" +
                 "id=" + id +
-                ", guest=" + guest +
+                ", guest - " + guest +
                 ", room=" + room +
                 ", checkIn=" + checkIn +
                 ", checkOut=" + checkOut +

@@ -39,7 +39,6 @@ public class Maintenance extends AEntity implements IPriceService {
         this.price = price;
     }
 
-
     @Override
     public String toString() {
         return (getId() == null ? "" : getId() + ". ") + name + " - " + price + "$";

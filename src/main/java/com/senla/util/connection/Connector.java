@@ -18,17 +18,18 @@ public class Connector {
     private static final String LOGIN = CONNECTION_PROPERTIES.getLogin();
     private static final String PASS = CONNECTION_PROPERTIES.getPassword();
     private static final String DRIVER = CONNECTION_PROPERTIES.getDriver();
+
     private static Connector instance;
     private Connection connection;
 
     private Connector() {
-        connect();
+        init();
     }
 
     public Connection getConnection() {
         try {
             if (connection == null || connection.isClosed()) {
-                connect();
+                init();
             }
             return connection;
         } catch (SQLException e) {
@@ -40,11 +41,12 @@ public class Connector {
     public static Connector getInstance() {
         if (instance == null) {
             instance = new Connector();
+            instance.init();
         }
         return instance;
     }
 
-    private void connect() {
+    private void init() {
         try {
             Class.forName(DRIVER);
             connection = DriverManager.getConnection(URL, LOGIN, PASS);

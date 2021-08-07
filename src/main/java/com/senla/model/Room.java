@@ -60,12 +60,12 @@ public class Room extends AEntity implements IPriceService {
         this.status = status;
     }
 
-    //    @Override
+        @Override
     public Double getPrice() {
         return price;
     }
 
-    //    @Override
+        @Override
     public void setPrice(Double price) {
         this.price = price;
     }
@@ -98,6 +98,6 @@ public class Room extends AEntity implements IPriceService {
                         ", capacity(" + capacity +
                         "), status(" + status +
                         "), price-" + price +
-                        "$, stars(" + stars;
+                        "$, stars(" + stars + ")";
     }
 }

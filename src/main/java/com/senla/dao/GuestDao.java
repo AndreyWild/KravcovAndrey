@@ -2,26 +2,53 @@ package com.senla.dao;
 
 import com.senla.api.dao.IGuestDao;
 import com.senla.model.Guest;
+import com.senla.util.connection.constants.GuestConst;
+
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class GuestDao extends AbstractDao<Guest> implements IGuestDao {
 
+    // INSERT INTO hotel.guest (name, age) VALUES (?, ?);
+    private static final String INSERT_QUERY = "INSERT INTO "
+            + GuestConst.TABLE + " ("
+            + GuestConst.NAME + ", "
+            + GuestConst.AGE + ") VALUES (?, ?);";
+
+    // UPDATE hotel.guest SET id=?, name=?, age=? WHERE id=?;
+    private static final String UPDATE_QUERY = "UPDATE "
+            + GuestConst.TABLE + " SET "
+            + GuestConst.ID + "=?, "
+            + GuestConst.NAME + "=?, "
+            + GuestConst.AGE + "=? WHERE "
+            + GuestConst.ID + "=?;";
+
     @Override
-    public Guest getById(Long id){
-        return new Guest(super.getById(id));
+    protected String getInsertQuery() {
+        return INSERT_QUERY;
     }
 
     @Override
-    public Guest update(Guest entity) {
-//        Guest guest = super.getById(entity.getId());
-//        guest.setName(entity.getName());
-//        guest.setAge(entity.getAge());
-//        guest.setRoom(entity.getRoom());
-//        guest.setMaintenances(entity.getMaintenances());
-//        guest.setIn(entity.getIn());
-//        guest.setOut(entity.getOut());
-//        guest.setGuestStatus(entity.getGuestStatus());
-//        return guest;
-        //TODO rewrite!!!
-        return null;
+    protected void prepareStatementForCreate(PreparedStatement statement, Guest entity) throws SQLException {
+        statement.setString(1, entity.getName());
+        statement.setInt(2, entity.getAge());
+    }
+
+    @Override
+    protected String getTableName() {
+        return GuestConst.TABLE;
+    }
+
+    @Override
+    protected String getUpdateQuery() {
+        return UPDATE_QUERY;
+    }
+
+    @Override
+    protected void prepareStatementForUpdate(PreparedStatement statement, Guest entity) throws SQLException {
+        statement.setLong(1, entity.getId());
+        statement.setString(2, entity.getName());
+        statement.setInt(3, entity.getAge());
+        statement.setLong(4, entity.getId());
     }
 }

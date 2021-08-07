@@ -22,7 +22,7 @@ public class MaintenanceService implements IMaintenanceService {
     private final File file = new File("src/main/java/com/senla/util/serialization/fies/maintenances.json");
 
     protected MaintenanceService() {
-        maintenanceDao.setList(serializer.getFromJsonFile(file, Maintenance.class));
+        //maintenanceDao.setList(serializer.getFromJsonFile(file, Maintenance.class));
     }
 
     private static MaintenanceService instance;
@@ -66,11 +66,6 @@ public class MaintenanceService implements IMaintenanceService {
     @Override
     public List<Maintenance> getAll(Comparator<Maintenance> comp) {
         return maintenanceDao.getAll().stream().sorted(comp).collect(Collectors.toList());
-    }
-
-    @Override
-    public void setList(List<Maintenance> maintenances) {
-        maintenanceDao.setList(maintenances);
     }
 
     @Override

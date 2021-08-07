@@ -2,70 +2,106 @@ package com.senla.dao;
 
 import com.senla.api.dao.IGenericDao;
 import com.senla.model.AEntity;
-import com.senla.model.Guest;
-import com.senla.model.Maintenance;
-import com.senla.model.Room;
-import com.senla.util.id_generator.api.IGuestIdGenerator;
-import com.senla.util.id_generator.api.IMaintenanceIdGenerator;
-import com.senla.util.id_generator.api.IRoomIdGenerator;
-import com.senla.util.id_generator.IdGenerator;
-import com.senla.util.exceptions.EntityNotFoundException;
+import com.senla.util.connection.Connector;
+import com.senla.util.connection.EntityMapper;
+import com.senla.util.connection.ListEntityMapper;
+import com.senla.util.exceptions.DaoException;
 import org.apache.log4j.Logger;
 
-import java.util.ArrayList;
+import java.sql.*;
 import java.util.List;
 
 public abstract class AbstractDao<T extends AEntity> implements IGenericDao<T> {
 
     private static final Logger LOGGER = Logger.getLogger(AbstractDao.class.getName());
 
-    private IGuestIdGenerator guestIdGenerator = new IdGenerator();
-    private IRoomIdGenerator roomIdGenerator = new IdGenerator();
-    private IMaintenanceIdGenerator maintenanceIdGenerator = new IdGenerator();
-
-    List<T> repository = new ArrayList<>(); // Storage for abstract entity (DB replacement)
+    private final Connector connector = Connector.getInstance();
 
     @Override
-    public void save(T entity) {
-        if (entity instanceof Guest) {
-            entity.setId(guestIdGenerator.generateGuestId());
-        } else if (entity instanceof Room) {
-            entity.setId(roomIdGenerator.generateRoomId());
-        } else if (entity instanceof Maintenance) {
-            entity.setId(maintenanceIdGenerator.generateMaintenanceId());
+    public T save(T entity) {
+        Connection connection = connector.getConnection();
+        String sql = getInsertQuery();
+
+        try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            prepareStatementForCreate(statement, entity);
+            int affected = statement.executeUpdate();
+            if (affected == 1) {
+                ResultSet resultSet = statement.getGeneratedKeys();
+                resultSet.next();
+                entity.setId(resultSet.getLong(1));
+            } else {
+                throw new DaoException("Creation filed!");
+            }
+            return entity;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-        repository.add(entity);
     }
 
     @Override
     public T getById(Long id) {
-        LOGGER.info(String.format("Launch getById(%s)", id));
-        for (T entity : repository) {
-            if (id.equals(entity.getId())) {
-                return entity;
-            }
+        Connection connection = connector.getConnection();
+        //String sql = "SELECT * FROM hotel.guest WHERE id =?";
+        String sql = String.format("SELECT * FROM %s WHERE id =?", getTableName());
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setLong(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+            return (T) EntityMapper.parseResultSet(resultSet, getTableName());
+        } catch (SQLException e) {
+            throw new DaoException(e);
         }
-        LOGGER.warn(String.format("getById(%s) - failed! There is no object with this index!", id));
-        throw new EntityNotFoundException("There is no object with this index!");
     }
 
     @Override
     public List<T> getAll() {
-        return repository;
+        Connection connection = connector.getConnection();
+        String sql = String.format("SELECT * FROM %s;", getTableName());
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            ResultSet resultSet = statement.executeQuery();
+            return (List<T>) ListEntityMapper.parseResultSetToList(resultSet, getTableName());
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
     }
 
     @Override
     public void delete(T entity) {
-        repository.remove(entity);
+        Connection connection = connector.getConnection();
+        String sql = String.format("DELETE * FROM %s WHERE id =?", getTableName());
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setLong(1, entity.getId());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+
     }
 
     @Override
-    public void setList(List<T> repository) {
-        this.repository = repository;
+    public T update(T entity) {
+        Connection connection = connector.getConnection();
+        String sql = getUpdateQuery();
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            prepareStatementForUpdate(statement, entity);
+            statement.executeUpdate();
+            return entity;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-//    @Override
-//    public T update(T entity) {
-//        return null;
-//    }
+    protected abstract String getInsertQuery();
+
+    protected abstract void prepareStatementForCreate(PreparedStatement statement, T entity) throws SQLException;
+
+    protected abstract String getTableName();
+
+    protected abstract String getUpdateQuery();
+
+    protected abstract void prepareStatementForUpdate(PreparedStatement statement, T entity) throws SQLException;
 }

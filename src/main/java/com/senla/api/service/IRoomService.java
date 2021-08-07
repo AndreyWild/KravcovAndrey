@@ -34,8 +34,6 @@ public interface IRoomService {
 
     void showLastGuests(Long roomId, Integer quantity);
 
-    void setList(List<Room> rooms);
-
     void saveToFile();
 
     Room update(Room entity);

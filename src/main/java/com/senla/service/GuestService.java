@@ -26,7 +26,7 @@ public class GuestService implements IGuestService {
     private final Serializer serializer = new Serializer();
 
     private GuestService() {
-        guestDao.setList(serializer.getFromJsonFile(file, Guest.class));
+        //guestDao.setList(serializer.getFromJsonFile(file, Guest.class));
     }
 
     private static GuestService instance;
@@ -149,11 +149,6 @@ public class GuestService implements IGuestService {
     @Override
     public Guest update(Guest entity) {
         return guestDao.update(entity);
-    }
-
-    @Override
-    public void setList(List<Guest> guests){
-        guestDao.setList(guests);
     }
 
     @Override

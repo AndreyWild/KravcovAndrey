@@ -29,7 +29,7 @@ public class RoomService implements IRoomService {
     private final File file = new File("src/main/java/com/senla/util/serialization/fies/rooms.json");
 
     private RoomService() {
-        roomDao.setList(serializer.getFromJsonFile(file, Room.class));
+        //roomDao.setList(serializer.getFromJsonFile(file, Room.class));
     }
 
     private static RoomService instance;
@@ -207,11 +207,6 @@ public class RoomService implements IRoomService {
 //        }
         //TODO rewrite
 
-    }
-
-    @Override
-    public void setList(List<Room> rooms) {
-        roomDao.setList(rooms);
     }
 
     @Override

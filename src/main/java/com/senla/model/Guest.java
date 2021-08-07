@@ -6,7 +6,6 @@ public class Guest extends AEntity {
     private Integer age;
     private Order order;
 
-
     public Guest() {
     }
 
