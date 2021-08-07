@@ -4,10 +4,7 @@ import com.senla.model.*;
 import com.senla.model.enums.OrderStatus;
 import com.senla.model.enums.RoomStars;
 import com.senla.model.enums.RoomStatus;
-import com.senla.util.connection.constants.GuestConst;
-import com.senla.util.connection.constants.MaintenanceConst;
-import com.senla.util.connection.constants.OrderConst;
-import com.senla.util.connection.constants.RoomConst;
+import com.senla.util.connection.constants.*;
 import com.senla.util.exceptions.EntityParsingException;
 
 import java.sql.ResultSet;
@@ -70,6 +67,32 @@ public class EntityMapper {
         order.setCheckIn(LocalDate.parse(resultSet.getString(OrderConst.CHECK_IN)));
         order.setCheckOut(LocalDate.parse(resultSet.getString(OrderConst.CHECK_OUT)));
         order.setStatus(OrderStatus.valueOf(resultSet.getString(OrderConst.STATUS)));
+        return order;
+    }
+
+    public static Order createEagerOrder(ResultSet resultSet) throws SQLException {
+        Order order = null;
+        Guest guest = new Guest();
+        Room room = new Room();
+        Maintenance maintenance = new Maintenance();
+        List<Maintenance> maintenances = new ArrayList<>();
+
+        while (resultSet.next()) {
+            order = createOrder(resultSet);
+            guest = createGuest(resultSet);
+            room = createRoom(resultSet);
+
+            maintenance.setId(resultSet.getLong(OrdMaintConst.ID_MAINTENANCE));
+            maintenance.setName(resultSet.getString("m_name"));
+            maintenance.setPrice(resultSet.getDouble("m_price"));
+            maintenances.add(maintenance);
+        }
+        guest.setOrder(order);
+        room.getOrders().add(order);
+        order.setGuest(guest);
+        order.setRoom(room);
+        order.setMaintenances(maintenances);
+
         return order;
     }
 

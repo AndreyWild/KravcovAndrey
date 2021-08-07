@@ -8,6 +8,7 @@ import com.senla.model.Room;
 import com.senla.model.enums.OrderStatus;
 import com.senla.model.enums.RoomStars;
 import com.senla.model.enums.RoomStatus;
+import com.senla.util.connection.EntityMapper;
 import com.senla.util.connection.constants.*;
 import com.senla.util.exceptions.DaoException;
 
@@ -104,39 +105,10 @@ public class OrderDao extends AbstractDao<Order> implements IOrderDao {
                         " Left outer JOIN " + MaintenanceConst.TABLE + " m ON m.id = om.id_maintenance" +
                         " where o.id = ?")) {
 
-            Guest guest = new Guest();
-            Room room = new Room();
-            Maintenance maintenance = new Maintenance();
-            List<Maintenance> maintenances = new ArrayList<>();
-            order = new Order();
-
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
+            order = EntityMapper.createEagerOrder(resultSet);
 
-            while (resultSet.next()) {
-                order.setId(resultSet.getLong(OrderConst.ID));
-                order.setCheckIn(LocalDate.parse(resultSet.getString(OrderConst.CHECK_IN)));
-                order.setCheckOut(LocalDate.parse(resultSet.getString(OrderConst.CHECK_OUT)));
-                order.setStatus(OrderStatus.valueOf(resultSet.getString(OrderConst.STATUS)));
-                guest.setId(resultSet.getLong(OrderConst.ID_GUEST));
-                guest.setName(resultSet.getString(GuestConst.NAME));
-                guest.setAge(resultSet.getInt(GuestConst.AGE));
-                room.setId(resultSet.getLong(OrderConst.ID_ROOM));
-                room.setNumber(resultSet.getInt(RoomConst.NUMBER));
-                room.setCapacity(resultSet.getInt(RoomConst.CAPACITY));
-                room.setStatus(RoomStatus.valueOf(resultSet.getString(RoomConst.STATUS)));
-                room.setPrice(resultSet.getDouble(RoomConst.PRICE));
-                room.setStars(RoomStars.valueOf(resultSet.getString(RoomConst.STARS)));
-                maintenance.setId(resultSet.getLong(OrdMaintConst.ID_MAINTENANCE));
-                maintenance.setName(resultSet.getString("m_name"));
-                maintenance.setPrice(resultSet.getDouble("m_price"));
-                maintenances.add(maintenance);
-            }
-            guest.setOrder(order);
-            room.getOrders().add(order);
-            order.setGuest(guest);
-            order.setRoom(room);
-            order.setMaintenances(maintenances);
         } catch (SQLException e) {
             throw new DaoException(e);
         }
