@@ -2,8 +2,8 @@ package com.senla.facade;
 
 import com.senla.api.service.IPriceService;
 import com.senla.model.*;
-import com.senla.properties.HotelProperties;
-import com.senla.properties.IHotelProperties;
+import com.senla.properties.hotel.HotelProperties;
+import com.senla.properties.hotel.IHotelProperties;
 import com.senla.service.GuestService;
 import com.senla.service.MaintenanceService;
 import com.senla.service.MultipleEntitiesService;

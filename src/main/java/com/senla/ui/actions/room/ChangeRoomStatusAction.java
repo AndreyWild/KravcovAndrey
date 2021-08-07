@@ -1,8 +1,6 @@
 package com.senla.ui.actions.room;
 
 import com.senla.model.RoomStatus;
-import com.senla.properties.HotelProperties;
-import com.senla.properties.IHotelProperties;
 import com.senla.ui.actions.AAction;
 import com.senla.util.GlobalScanner;
 import com.senla.util.exceptions.EntityNotFoundException;

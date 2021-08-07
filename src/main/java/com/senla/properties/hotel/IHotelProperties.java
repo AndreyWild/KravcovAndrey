@@ -1,4 +1,4 @@
-package com.senla.properties;
+package com.senla.properties.hotel;
 
 public interface IHotelProperties {
 
