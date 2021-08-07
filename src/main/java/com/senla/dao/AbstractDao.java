@@ -15,7 +15,7 @@ public abstract class AbstractDao<T extends AEntity> implements IGenericDao<T> {
 
     private static final Logger LOGGER = Logger.getLogger(AbstractDao.class.getName());
 
-    private final Connector connector = Connector.getInstance();
+    protected final Connector connector = Connector.getInstance();
 
     @Override
     public T save(T entity) {
