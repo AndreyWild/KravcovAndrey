@@ -2,6 +2,7 @@ package com.senla.facade;
 
 import com.senla.api.service.IPriceService;
 import com.senla.model.*;
+import com.senla.model.enums.RoomStatus;
 import com.senla.properties.hotel.HotelProperties;
 import com.senla.properties.hotel.IHotelProperties;
 import com.senla.service.GuestService;

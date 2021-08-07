@@ -1,7 +1,8 @@
 package com.senla.api.service;
 
 import com.senla.model.Room;
-import com.senla.model.RoomStatus;
+import com.senla.model.enums.RoomStatus;
+
 
 import java.time.LocalDate;
 import java.util.Comparator;

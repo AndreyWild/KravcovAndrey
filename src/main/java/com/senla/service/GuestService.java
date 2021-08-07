@@ -71,48 +71,62 @@ public class GuestService implements IGuestService {
 
     @Override
     public List<Guest> getGuestsSortedByDateOut(Comparator<Guest> comp) {
-        return guestDao.getAll()
-                .stream()
-                .filter(guest -> guest.getOut() != null)
-                .sorted(comp)
-                .collect(Collectors.toList());
+//        return guestDao.getAll()
+//                .stream()
+//                .filter(guest -> guest.getOut() != null)
+//                .sorted(comp)
+//                .collect(Collectors.toList());
+
+        //TODO rewrite
+        return null;
 
     }
 
     @Override
     public Double getInvoiceForRoomAndMaintenances(Long guestId) {
-        LOGGER.info(String.format("Launch getInvoiceForRoomAndMaintenances(%s)", guestId));
-        Guest guest = guestDao.getById(guestId);
-        double bill = roomDao.getById(guest.getRoom().getId()).getPrice() +
-                guest.getMaintenances().stream()
-                        //.filter(Objects::nonNull)
-                        .mapToDouble(Maintenance::getPrice)
-                        .sum();
-        return bill;
+//        LOGGER.info(String.format("Launch getInvoiceForRoomAndMaintenances(%s)", guestId));
+//        Guest guest = guestDao.getById(guestId);
+//        double bill = roomDao.getById(guest.getRoom().getId()).getPrice() +
+//                guest.getMaintenances().stream()
+//                        //.filter(Objects::nonNull)
+//                        .mapToDouble(Maintenance::getPrice)
+//                        .sum();
+//        return bill;
+
+        //TODO rewrite
+        return null;
     }
 
     @Override
     public void orderMaintenance(Long guestId, Long maintenanceId) {
-        LOGGER.info(String.format("Launch orderMaintenance", guestId, maintenanceId));
-        Guest guest = guestDao.getById(guestId);
-        guest.getMaintenances().add(maintenanceService.getMaintenanceById(maintenanceId));
-        update(guest);
-//        guestDao.getById(guestId).getMaintenances().add(maintenance);
+//        LOGGER.info(String.format("Launch orderMaintenance", guestId, maintenanceId));
+//        Guest guest = guestDao.getById(guestId);
+//        guest.getMaintenances().add(maintenanceService.getMaintenanceById(maintenanceId));
+//        update(guest);
+////        guestDao.getById(guestId).getMaintenances().add(maintenance);
+
+        //TODO rewrite
+
     }
 
     @Override
     public List<Maintenance> getAllMaintenancesGuest(Long guestId) {
-        LOGGER.info(String.format("Launch getAllMaintenancesGuest(%s)", guestId));
-        return guestDao.getById(guestId).getMaintenances();
+//        LOGGER.info(String.format("Launch getAllMaintenancesGuest(%s)", guestId));
+//        return guestDao.getById(guestId).getMaintenances();
+        //TODO rewrite
+        return null;
     }
 
     @Override
     public List<Maintenance> getAllMaintenancesGuest(Long guestId, Comparator<Maintenance> comp) {
-        LOGGER.info(String.format("Launch getAllMaintenancesGuest(%s)", guestId));
-        return guestDao.getById(guestId).getMaintenances()
-                .stream()
-                .sorted(comp)
-                .collect(Collectors.toList());
+//        LOGGER.info(String.format("Launch getAllMaintenancesGuest(%s)", guestId));
+//        return guestDao.getById(guestId).getMaintenances()
+//                .stream()
+//                .sorted(comp)
+//                .collect(Collectors.toList());
+
+        //TODO rewrite
+        return null;
     }
 
     @Override
@@ -123,10 +137,13 @@ public class GuestService implements IGuestService {
 
     @Override
     public List<Guest> getTotalNumberOfGuests() {
-        return guestDao.getAll()
-                .stream()
-                .filter(guest -> guest.getRoom() != null)
-                .collect(Collectors.toList());
+//        return guestDao.getAll()
+//                .stream()
+//                .filter(guest -> guest.getRoom() != null)
+//                .collect(Collectors.toList());
+
+        //TODO rewrite
+        return null;
     }
 
     @Override
