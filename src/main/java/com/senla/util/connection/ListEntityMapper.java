@@ -1,10 +1,6 @@
 package com.senla.util.connection;
 
 import com.senla.model.*;
-import com.senla.util.connection.constants.GuestConst;
-import com.senla.util.connection.constants.MaintenanceConst;
-import com.senla.util.connection.constants.OrderConst;
-import com.senla.util.connection.constants.RoomConst;
 import com.senla.util.exceptions.EntityParsingException;
 
 import java.sql.ResultSet;
@@ -12,18 +8,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListEntityMapper {
+public class ListEntityMapper implements INamesOfTables {
 
     public static List<? extends AEntity> parseResultSetToList(ResultSet resultSet, String tableName) {
         try {
             switch (tableName) {
-                case GuestConst.TABLE:
+                case GUEST_TABLE:
                     return createListGuest(resultSet);
-                case RoomConst.TABLE:
+                case ROOM_TABLE:
                     return createListRoom(resultSet);
-                case MaintenanceConst.TABLE:
+                case MAINT_TABLE:
                     return createListMaintenance(resultSet);
-                case OrderConst.TABLE:
+                case ORDER_TABLE:
                     return createListOrder(resultSet);
                 default:
                     throw new RuntimeException("Unknown table: " + tableName);

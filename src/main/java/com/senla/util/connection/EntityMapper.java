@@ -4,7 +4,6 @@ import com.senla.model.*;
 import com.senla.model.enums.OrderStatus;
 import com.senla.model.enums.RoomStars;
 import com.senla.model.enums.RoomStatus;
-import com.senla.util.connection.constants.*;
 import com.senla.util.exceptions.EntityParsingException;
 
 import java.sql.ResultSet;
@@ -13,18 +12,18 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EntityMapper {
+public class EntityMapper implements INamesOfTables {
 
     public static AEntity parseResultSet(ResultSet resultSet, String tableName) {
         try {
             switch (tableName) {
-                case GuestConst.TABLE:
+                case GUEST_TABLE:
                     return createGuest(resultSet);
-                case RoomConst.TABLE:
+                case ROOM_TABLE:
                     return createRoom(resultSet);
-                case MaintenanceConst.TABLE:
+                case MAINT_TABLE:
                     return createMaintenance(resultSet);
-                case OrderConst.TABLE:
+                case ORDER_TABLE:
                     return createOrder(resultSet);
                 default:
                     throw new RuntimeException("Unknown table: " + tableName);
@@ -36,37 +35,37 @@ public class EntityMapper {
 
     public static Guest createGuest(ResultSet resultSet) throws SQLException {
         Guest guest = new Guest();
-        guest.setId(resultSet.getLong(GuestConst.ID));
-        guest.setName(resultSet.getString(GuestConst.NAME));
-        guest.setAge(resultSet.getInt(GuestConst.AGE));
+        guest.setId(resultSet.getLong("id"));
+        guest.setName(resultSet.getString("name"));
+        guest.setAge(resultSet.getInt("age"));
         return guest;
     }
 
     public static Room createRoom(ResultSet resultSet) throws SQLException {
         Room room = new Room();
-        room.setId(resultSet.getLong(RoomConst.ID));
-        room.setNumber(resultSet.getInt(RoomConst.NUMBER));
-        room.setCapacity(resultSet.getInt(RoomConst.CAPACITY));
-        room.setStatus(RoomStatus.valueOf(resultSet.getString(RoomConst.STATUS)));
-        room.setPrice(resultSet.getDouble(RoomConst.PRICE));
-        room.setStars(RoomStars.valueOf(resultSet.getString(RoomConst.STARS)));
+        room.setId(resultSet.getLong("id"));
+        room.setNumber(resultSet.getInt("number"));
+        room.setCapacity(resultSet.getInt("capacity"));
+        room.setStatus(RoomStatus.valueOf(resultSet.getString("room_status")));
+        room.setPrice(resultSet.getDouble("price"));
+        room.setStars(RoomStars.valueOf(resultSet.getString("stars")));
         return room;
     }
 
     public static Maintenance createMaintenance(ResultSet resultSet) throws SQLException {
         Maintenance maintenance = new Maintenance();
-        maintenance.setId(resultSet.getLong(MaintenanceConst.ID));
-        maintenance.setName(resultSet.getString(MaintenanceConst.NAME));
-        maintenance.setPrice(resultSet.getDouble(MaintenanceConst.PRICE));
+        maintenance.setId(resultSet.getLong("id"));
+        maintenance.setName(resultSet.getString("name"));
+        maintenance.setPrice(resultSet.getDouble("price"));
         return maintenance;
     }
 
     public static Order createOrder(ResultSet resultSet) throws SQLException {
         Order order = new Order();
-        order.setId(resultSet.getLong(OrderConst.ID));
-        order.setCheckIn(LocalDate.parse(resultSet.getString(OrderConst.CHECK_IN)));
-        order.setCheckOut(LocalDate.parse(resultSet.getString(OrderConst.CHECK_OUT)));
-        order.setStatus(OrderStatus.valueOf(resultSet.getString(OrderConst.STATUS)));
+        order.setId(resultSet.getLong("id"));
+        order.setCheckIn(LocalDate.parse(resultSet.getString("check_in")));
+        order.setCheckOut(LocalDate.parse(resultSet.getString("check_out")));
+        order.setStatus(OrderStatus.valueOf(resultSet.getString("status")));
         return order;
     }
 
@@ -82,7 +81,7 @@ public class EntityMapper {
             guest = createGuest(resultSet);
             room = createRoom(resultSet);
 
-            maintenance.setId(resultSet.getLong(OrdMaintConst.ID_MAINTENANCE));
+            maintenance.setId(resultSet.getLong("id_maintenance"));
             maintenance.setName(resultSet.getString("m_name"));
             maintenance.setPrice(resultSet.getDouble("m_price"));
             maintenances.add(maintenance);

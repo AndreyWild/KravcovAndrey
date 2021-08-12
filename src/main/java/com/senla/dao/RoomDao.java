@@ -2,7 +2,6 @@ package com.senla.dao;
 
 import com.senla.api.dao.IRoomDao;
 import com.senla.model.Room;
-import com.senla.util.connection.constants.RoomConst;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -10,24 +9,25 @@ import java.sql.SQLException;
 public class RoomDao extends AbstractDao<Room> implements IRoomDao {
 
     // INSERT INTO hotel.room (number, capacity, price, stars) VALUES (?, ?, ?, ?);
-    private static final String INSERT_QUERY =
-            "INSERT INTO "
-                    + RoomConst.TABLE + " ("
-                    + RoomConst.NUMBER + ", "
-                    + RoomConst.CAPACITY + ", "
-                    + RoomConst.PRICE + ", "
-                    + RoomConst.STARS + ") VALUES (?, ?, ?, ?);";
+    private static final String INSERT_QUERY = "INSERT INTO hotel.room (number, capacity, price, stars) VALUES (?, ?, ?, ?);";
+//            "INSERT INTO "
+//                    + RoomConst.TABLE + " ("
+//                    + RoomConst.NUMBER + ", "
+//                    + RoomConst.CAPACITY + ", "
+//                    + RoomConst.PRICE + ", "
+//                    + RoomConst.STARS + ") VALUES (?, ?, ?, ?);";
 
     // UPDATE hotel.room SET id=?, number=?, capacity=?, room_status=?, price=?, stars=? WHERE id=?;
-    private static final String UPDATE_QUERY = "UPDATE "
-            + RoomConst.TABLE + " SET "
-            + RoomConst.ID + "=?, "
-            + RoomConst.NUMBER + "=?, "
-            + RoomConst.CAPACITY + "=?, "
-            + RoomConst.STATUS + "=?, "
-            + RoomConst.PRICE + "=?, "
-            + RoomConst.STARS + "=?  WHERE "
-            + RoomConst.ID + "=?;";
+    private static final String UPDATE_QUERY = "UPDATE hotel.room SET id=?, number=?, capacity=?, room_status=?, price=?, stars=? WHERE id=?;";
+//            "UPDATE "
+//            + RoomConst.TABLE + " SET "
+//            + RoomConst.ID + "=?, "
+//            + RoomConst.NUMBER + "=?, "
+//            + RoomConst.CAPACITY + "=?, "
+//            + RoomConst.STATUS + "=?, "
+//            + RoomConst.PRICE + "=?, "
+//            + RoomConst.STARS + "=?  WHERE "
+//            + RoomConst.ID + "=?;";
 
     @Override
     protected String getInsertQuery() {
@@ -40,12 +40,11 @@ public class RoomDao extends AbstractDao<Room> implements IRoomDao {
         statement.setInt(2, entity.getCapacity());
         statement.setDouble(3, entity.getPrice());
         statement.setString(4, String.valueOf(entity.getStars()));
-
     }
 
     @Override
     protected String getTableName() {
-        return RoomConst.TABLE;
+        return ROOM_TABLE;
     }
 
     @Override

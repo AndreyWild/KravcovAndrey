@@ -1,7 +1,7 @@
 package com.senla.util.connection.constants;
 
 public class RoomConst {
-    public static final String TABLE = "hotel.room";
+//    public static final String TABLE = "hotel.room";
 
     public static final String ID = "id";
     public static final String NUMBER = "number";

@@ -2,7 +2,6 @@ package com.senla.dao;
 
 import com.senla.api.dao.IGuestDao;
 import com.senla.model.Guest;
-import com.senla.util.connection.constants.GuestConst;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -10,18 +9,20 @@ import java.sql.SQLException;
 public class GuestDao extends AbstractDao<Guest> implements IGuestDao {
 
     // INSERT INTO hotel.guest (name, age) VALUES (?, ?);
-    private static final String INSERT_QUERY = "INSERT INTO "
-            + GuestConst.TABLE + " ("
-            + GuestConst.NAME + ", "
-            + GuestConst.AGE + ") VALUES (?, ?);";
+    private static final String INSERT_QUERY = "INSERT INTO hotel.guest (name, age) VALUES (?, ?);";
+//            "INSERT INTO "
+//            + GuestConst.TABLE + " ("
+//            + GuestConst.NAME + ", "
+//            + GuestConst.AGE + ") VALUES (?, ?);";
 
     // UPDATE hotel.guest SET id=?, name=?, age=? WHERE id=?;
-    private static final String UPDATE_QUERY = "UPDATE "
-            + GuestConst.TABLE + " SET "
-            + GuestConst.ID + "=?, "
-            + GuestConst.NAME + "=?, "
-            + GuestConst.AGE + "=? WHERE "
-            + GuestConst.ID + "=?;";
+    private static final String UPDATE_QUERY = "UPDATE hotel.guest SET id=?, name=?, age=? WHERE id=?;";
+//            "UPDATE "
+//            + GuestConst.TABLE + " SET "
+//            + GuestConst.ID + "=?, "
+//            + GuestConst.NAME + "=?, "
+//            + GuestConst.AGE + "=? WHERE "
+//            + GuestConst.ID + "=?;";
 
     @Override
     protected String getInsertQuery() {
@@ -36,7 +37,7 @@ public class GuestDao extends AbstractDao<Guest> implements IGuestDao {
 
     @Override
     protected String getTableName() {
-        return GuestConst.TABLE;
+        return GUEST_TABLE;
     }
 
     @Override

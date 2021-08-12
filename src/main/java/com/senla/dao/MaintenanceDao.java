@@ -2,7 +2,6 @@ package com.senla.dao;
 
 import com.senla.api.dao.IMaintenanceDao;
 import com.senla.model.Maintenance;
-import com.senla.util.connection.constants.MaintenanceConst;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -10,19 +9,20 @@ import java.sql.SQLException;
 public class MaintenanceDao extends AbstractDao<Maintenance> implements IMaintenanceDao {
 
     // INSERT INTO hotel.maintenance (name, price) VALUES (?, ?);
-    private static final String INSERT_QUERY =
-            "INSERT INTO "
-                    + MaintenanceConst.TABLE + " ("
-                    + MaintenanceConst.NAME + ", "
-                    + MaintenanceConst.PRICE + ") VALUES (?, ?);";
+    private static final String INSERT_QUERY = "INSERT INTO hotel.maintenance (name, price) VALUES (?, ?);";
+//            "INSERT INTO "
+//                    + MaintenanceConst.TABLE + " ("
+//                    + MaintenanceConst.NAME + ", "
+//                    + MaintenanceConst.PRICE + ") VALUES (?, ?);";
 
     // UPDATE hotel.maintenance SET id=?, name=?, price=? WHERE id=?;
-    private static final String UPDATE_QUERY = "UPDATE "
-            + MaintenanceConst.TABLE + " SET "
-            + MaintenanceConst.ID + "=?, "
-            + MaintenanceConst.NAME + "=?, "
-            + MaintenanceConst.PRICE + "=? WHERE "
-            + MaintenanceConst.ID + "=?;";
+    private static final String UPDATE_QUERY = "UPDATE hotel.maintenance SET id=?, name=?, price=? WHERE id=?;";
+//            "UPDATE "
+//            + MaintenanceConst.TABLE + " SET "
+//            + MaintenanceConst.ID + "=?, "
+//            + MaintenanceConst.NAME + "=?, "
+//            + MaintenanceConst.PRICE + "=? WHERE "
+//            + MaintenanceConst.ID + "=?;";
 
     @Override
     protected String getInsertQuery() {
@@ -37,7 +37,7 @@ public class MaintenanceDao extends AbstractDao<Maintenance> implements IMainten
 
     @Override
     protected String getTableName() {
-        return MaintenanceConst.TABLE;
+        return MAINT_TABLE;
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.senla.util.connection.constants;
 
 public class OrderConst {
-    public static final String TABLE = "hotel.order";
+//    public static final String TABLE = "hotel.order";
 
     public static final String ID = "id";
     public static final String ID_GUEST = "id_guest";

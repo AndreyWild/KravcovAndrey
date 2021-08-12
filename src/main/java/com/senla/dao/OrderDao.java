@@ -1,43 +1,34 @@
 package com.senla.dao;
 
 import com.senla.api.dao.IOrderDao;
-import com.senla.model.Guest;
-import com.senla.model.Maintenance;
 import com.senla.model.Order;
-import com.senla.model.Room;
-import com.senla.model.enums.OrderStatus;
-import com.senla.model.enums.RoomStars;
-import com.senla.model.enums.RoomStatus;
 import com.senla.util.connection.EntityMapper;
-import com.senla.util.connection.constants.*;
 import com.senla.util.exceptions.DaoException;
 
 import java.sql.*;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 public class OrderDao extends AbstractDao<Order> implements IOrderDao {
 
     // INSERT INTO hotel.order (id_guest, id_room, checkIn, checkOut) value(?, ?, ?, ?);
-    private static final String INSERT_QUERY =
-            "INSERT INTO "
-                    + OrderConst.TABLE + " ("
-                    + OrderConst.ID_GUEST + ", "
-                    + OrderConst.ID_ROOM + ", "
-                    + OrderConst.CHECK_IN + ", "
-                    + OrderConst.CHECK_OUT + ") value(?, ?, ?, ?);";
+    private static final String INSERT_QUERY = "INSERT INTO hotel.order (id_guest, id_room, checkIn, checkOut) value(?, ?, ?, ?);";
+//            "INSERT INTO "
+//                    + OrderConst.TABLE + " ("
+//                    + OrderConst.ID_GUEST + ", "
+//                    + OrderConst.ID_ROOM + ", "
+//                    + OrderConst.CHECK_IN + ", "
+//                    + OrderConst.CHECK_OUT + ") value(?, ?, ?, ?);";
 
     // UPDATE hotel.order SET id=?, id_guest=?, id_room=?, check_in=?, check_out=?, status=? WHERE id=?;
-    private static final String UPDATE_QUERY = "UPDATE "
-            + OrderConst.TABLE + " SET "
-            + OrderConst.ID + "=?, "
-            + OrderConst.ID_GUEST + "=?, "
-            + OrderConst.ID_ROOM + "=?, "
-            + OrderConst.CHECK_IN + "=?, "
-            + OrderConst.CHECK_OUT + "=?, "
-            + OrderConst.STATUS + "=?  WHERE "
-            + OrderConst.ID + "=?;";
+    private static final String UPDATE_QUERY = "UPDATE hotel.order SET id=?, id_guest=?, id_room=?, check_in=?, check_out=?, status=? WHERE id=?;";
+//            "UPDATE "
+//            + OrderConst.TABLE + " SET "
+//            + OrderConst.ID + "=?, "
+//            + OrderConst.ID_GUEST + "=?, "
+//            + OrderConst.ID_ROOM + "=?, "
+//            + OrderConst.CHECK_IN + "=?, "
+//            + OrderConst.CHECK_OUT + "=?, "
+//            + OrderConst.STATUS + "=?  WHERE "
+//            + OrderConst.ID + "=?;";
 
     @Override
     public Order update(Order entity) {
@@ -59,7 +50,7 @@ public class OrderDao extends AbstractDao<Order> implements IOrderDao {
 
     @Override
     protected String getTableName() {
-        return OrderConst.TABLE;
+        return ORDER_TABLE;
     }
 
     @Override
@@ -82,28 +73,29 @@ public class OrderDao extends AbstractDao<Order> implements IOrderDao {
         Connection connection = connector.getConnection();
         Order order = null;
 
-//    SELECT o.id, o.id_guest, g.name, g.age, o.id_room, r.number, r.capacity, r.roomStatus, r.price, r.stars,
-//    o.checkIn, o.checkOut, o.status, om.id_maintenance, m.name, m.price
-//        FROM hotel.order o
-//        NATURAL JOIN hotel.guest g
-//        NATURAL JOIN hotel.room r
-//        Left outer JOIN hotel.ord_maint om ON om.id_order = o.id
-//        Left outer JOIN hotel.maintenance m ON m.id = om.id_maintenance
-//        where o.id = ?
-
         try (PreparedStatement preparedStatement = connection.prepareStatement(
-                "SELECT o.id, o.id_guest, " +
-                        "g.name, g.age, o.id_room, " +
-                        "r.number, r.capacity, r.room_status, r.price, r.stars, " +
-                        "o.check_in, o.check_out, o.status, " +
-                        "om.id_maintenance, " +
-                        "m.name 'm_name' , m.price 'm_price'" +
-                        " FROM " + OrderConst.TABLE + " o" +
-                        " NATURAL JOIN " + GuestConst.TABLE + " g" +
-                        " NATURAL JOIN " + RoomConst.TABLE + " r" +
-                        " Left outer JOIN " + OrdMaintConst.TABLE + " om ON om.id_order = o.id" +
-                        " Left outer JOIN " + MaintenanceConst.TABLE + " m ON m.id = om.id_maintenance" +
-                        " where o.id = ?")) {
+                "SELECT o.id, o.id_guest, g.name, g.age, o.id_room, " +
+                        "r.number, r.capacity, r.roomStatus, r.price, r.stars, " +
+                        "o.checkIn, o.checkOut, o.status, om.id_maintenance, m.name, m.price " +
+                        "FROM hotel.order o " +
+                        "NATURAL JOIN hotel.guest g " +
+                        "NATURAL JOIN hotel.room r " +
+                        "LEFT OUTER JOIN hotel.ord_maint om ON om.id_order = o.id " +
+                        "LEFT OUTER JOIN hotel.maintenance m ON m.id = om.id_maintenance " +
+                        "WHERE o.id = ?;"
+        )) {
+//                "SELECT o.id, o.id_guest, " +
+//                        "g.name, g.age, o.id_room, " +
+//                        "r.number, r.capacity, r.room_status, r.price, r.stars, " +
+//                        "o.check_in, o.check_out, o.status, " +
+//                        "om.id_maintenance, " +
+//                        "m.name 'm_name' , m.price 'm_price'" +
+//                        " FROM " + OrderConst.TABLE + " o" +
+//                        " NATURAL JOIN " + GuestConst.TABLE + " g" +
+//                        " NATURAL JOIN " + RoomConst.TABLE + " r" +
+//                        " Left outer JOIN " + OrdMaintConst.TABLE + " om ON om.id_order = o.id" +
+//                        " Left outer JOIN " + MaintenanceConst.TABLE + " m ON m.id = om.id_maintenance" +
+//                        " where o.id = ?"
 
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
