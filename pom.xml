@@ -18,6 +18,41 @@
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
 
+    <build>
+        <plugins>
+            <plugin>
+                <!-- плагин, который поможет нам собрать jar , если groupId = org.apache.maven.plugins - то его можно не указывать -->
+                <artifactId>maven-assembly-plugin</artifactId>
+
+                <configuration>
+                    <archive>
+                        <!-- запускаемый класс -->
+                        <manifest>
+                            <mainClass>com.senla.Hotel</mainClass>
+                        </manifest>
+                    </archive>
+                    <!-- необходимая часть для сборки с зависимостями -->
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <!-- указываем что нужно запустить плагин во время фазы package с целью single -->
+                        <!-- т.е. без автоматической активации пришлось бы после сборки выполнять     mvn assembly:single -->
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+
+            </plugin>
+        </plugins>
+    </build>
+
     <dependencies>
         <!-- https://mvnrepository.com/artifact/log4j/log4j -->
         <dependency>
@@ -61,6 +96,11 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.23</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.8</version>
         </dependency>
     </dependencies>
     
