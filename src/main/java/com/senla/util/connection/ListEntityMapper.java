@@ -8,18 +8,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListEntityMapper implements INamesOfTables {
+public class ListEntityMapper {
 
     public static List<? extends AEntity> parseResultSetToList(ResultSet resultSet, String tableName) {
         try {
             switch (tableName) {
-                case GUEST_TABLE:
+                case "hotel.guest":
                     return createListGuest(resultSet);
-                case ROOM_TABLE:
+                case "hotel.room":
                     return createListRoom(resultSet);
-                case MAINT_TABLE:
+                case "hotel.maintenance":
                     return createListMaintenance(resultSet);
-                case ORDER_TABLE:
+                case "hotel.order":
                     return createListOrder(resultSet);
                 default:
                     throw new RuntimeException("Unknown table: " + tableName);

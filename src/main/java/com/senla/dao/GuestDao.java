@@ -8,21 +8,9 @@ import java.sql.SQLException;
 
 public class GuestDao extends AbstractDao<Guest> implements IGuestDao {
 
-    // INSERT INTO hotel.guest (name, age) VALUES (?, ?);
     private static final String INSERT_QUERY = "INSERT INTO hotel.guest (name, age) VALUES (?, ?);";
-//            "INSERT INTO "
-//            + GuestConst.TABLE + " ("
-//            + GuestConst.NAME + ", "
-//            + GuestConst.AGE + ") VALUES (?, ?);";
 
-    // UPDATE hotel.guest SET id=?, name=?, age=? WHERE id=?;
     private static final String UPDATE_QUERY = "UPDATE hotel.guest SET id=?, name=?, age=? WHERE id=?;";
-//            "UPDATE "
-//            + GuestConst.TABLE + " SET "
-//            + GuestConst.ID + "=?, "
-//            + GuestConst.NAME + "=?, "
-//            + GuestConst.AGE + "=? WHERE "
-//            + GuestConst.ID + "=?;";
 
     @Override
     protected String getInsertQuery() {

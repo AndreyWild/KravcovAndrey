@@ -12,18 +12,18 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EntityMapper implements INamesOfTables {
+public class EntityMapper {
 
     public static AEntity parseResultSet(ResultSet resultSet, String tableName) {
         try {
             switch (tableName) {
-                case GUEST_TABLE:
+                case "hotel.guest":
                     return createGuest(resultSet);
-                case ROOM_TABLE:
+                case "hotel.room":
                     return createRoom(resultSet);
-                case MAINT_TABLE:
+                case "hotel.maintenance":
                     return createMaintenance(resultSet);
-                case ORDER_TABLE:
+                case "hotel.order":
                     return createOrder(resultSet);
                 default:
                     throw new RuntimeException("Unknown table: " + tableName);
@@ -94,5 +94,4 @@ public class EntityMapper implements INamesOfTables {
 
         return order;
     }
-
 }

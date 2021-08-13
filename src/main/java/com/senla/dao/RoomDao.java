@@ -8,26 +8,9 @@ import java.sql.SQLException;
 
 public class RoomDao extends AbstractDao<Room> implements IRoomDao {
 
-    // INSERT INTO hotel.room (number, capacity, price, stars) VALUES (?, ?, ?, ?);
     private static final String INSERT_QUERY = "INSERT INTO hotel.room (number, capacity, price, stars) VALUES (?, ?, ?, ?);";
-//            "INSERT INTO "
-//                    + RoomConst.TABLE + " ("
-//                    + RoomConst.NUMBER + ", "
-//                    + RoomConst.CAPACITY + ", "
-//                    + RoomConst.PRICE + ", "
-//                    + RoomConst.STARS + ") VALUES (?, ?, ?, ?);";
 
-    // UPDATE hotel.room SET id=?, number=?, capacity=?, room_status=?, price=?, stars=? WHERE id=?;
     private static final String UPDATE_QUERY = "UPDATE hotel.room SET id=?, number=?, capacity=?, room_status=?, price=?, stars=? WHERE id=?;";
-//            "UPDATE "
-//            + RoomConst.TABLE + " SET "
-//            + RoomConst.ID + "=?, "
-//            + RoomConst.NUMBER + "=?, "
-//            + RoomConst.CAPACITY + "=?, "
-//            + RoomConst.STATUS + "=?, "
-//            + RoomConst.PRICE + "=?, "
-//            + RoomConst.STARS + "=?  WHERE "
-//            + RoomConst.ID + "=?;";
 
     @Override
     protected String getInsertQuery() {

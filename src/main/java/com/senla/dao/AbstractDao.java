@@ -4,7 +4,6 @@ import com.senla.api.dao.IGenericDao;
 import com.senla.model.AEntity;
 import com.senla.util.connection.Connector;
 import com.senla.util.connection.EntityMapper;
-import com.senla.util.connection.INamesOfTables;
 import com.senla.util.connection.ListEntityMapper;
 import com.senla.util.exceptions.DaoException;
 import org.apache.log4j.Logger;
@@ -12,14 +11,13 @@ import org.apache.log4j.Logger;
 import java.sql.*;
 import java.util.List;
 
-public abstract class AbstractDao<T extends AEntity> implements IGenericDao<T>, INamesOfTables {
+public abstract class AbstractDao<T extends AEntity> implements IGenericDao<T> {
 
-//    protected static final String GUEST_TABLE = "hotel.guest";
-//    protected static final String ROOM_TABLE = "hotel.room";
-//    protected static final String MAINT_TABLE = "hotel.maintenance";
-//    protected static final String ORDER_TABLE = "hotel.order";
-//    protected static final String ORD_MAINT_TABLE = "hotel.ord_maint";
-
+    protected static final String GUEST_TABLE = "hotel.guest";
+    protected static final String ROOM_TABLE = "hotel.room";
+    protected static final String MAINT_TABLE = "hotel.maintenance";
+    protected static final String ORDER_TABLE = "hotel.order";
+    protected static final String ORD_MAINT_TABLE = "hotel.ord_maint";
 
     private static final Logger LOGGER = Logger.getLogger(AbstractDao.class.getName());
 

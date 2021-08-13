@@ -18,47 +18,6 @@
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
-                <configuration>
-                    <source>${jdk.version}</source>
-                    <target>${jdk.version}</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.2.0</version>
-                <configuration>
-                    <goal>jar:inplace</goal>
-                    <archive>
-                        <manifestFile>META-INF/MANIFEST.MF</manifestFile>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <mainClass>com.senla.Hotel</mainClass>
-                        </manifest>
-                    </archive>
-                    <outputDirectory>artifacts</outputDirectory>
-                </configuration>
-            </plugin>
-        </plugins>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <includes>
-                    <include>application.properties</include>
-                    <include>connect.properties</include>
-                    <include>hotel.properties</include>
-                    <include>log4j.properties</include>
-                </includes>
-            </resource>
-        </resources>
-    </build>
-
     <dependencies>
         <!-- https://mvnrepository.com/artifact/log4j/log4j -->
         <dependency>
