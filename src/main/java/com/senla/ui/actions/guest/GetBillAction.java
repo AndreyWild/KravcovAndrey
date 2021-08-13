@@ -21,12 +21,12 @@ public class GetBillAction extends AAction {
                 System.out.println("There is no guest with this index!");
                 return;
             }
-            if (hotelFacade.getGuestById(guestId).getRoom() == null) {
-                System.out.println(hotelFacade.getGuestById(guestId).getName() + " not settled!");
-            } else {
+//            if (hotelFacade.getGuestById(guestId).getRoom() == null) {
+//                System.out.println(hotelFacade.getGuestById(guestId).getName() + " not settled!");
+//            } else {
                 System.out.println(hotelFacade.getGuestById(guestId).getName() + " have to pay " +
                         hotelFacade.getInvoiceForRoomAndMaintenances(guestId) + "$");
-            }
+//            }
         } catch (EntityNotFoundException ex) {
             LOGGER.warn(ex.getMessage(), ex);
             System.err.println(ex.getMessage());

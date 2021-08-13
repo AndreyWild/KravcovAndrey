@@ -15,7 +15,5 @@ public interface IMaintenanceService {
 
     List<Maintenance> getAll(Comparator<Maintenance> comp);
 
-    void setList(List<Maintenance> maintenances);
-
     void saveToFile();
 }

@@ -1,4 +1,4 @@
-package com.senla.properties;
+package com.senla.properties.hotel;
 
 import org.apache.log4j.Logger;
 
@@ -12,7 +12,8 @@ public class HotelProperties implements IHotelProperties {
 
     private static final Logger LOGGER = Logger.getLogger(HotelProperties.class.getName());
 
-    private static final File FILE = new File("src/main/java/com/senla/properties/hotel.properties");
+    private static final String PATH = ClassLoader.getSystemClassLoader().getResource("hotel.properties").getPath();
+    private static final File FILE = new File(PATH);
     private static Properties properties = new Properties();
 
     private static Boolean accessToRoomStatus;
